@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <title>Dashboard | VeriTrust</title>
+  <meta name="description" content="Open the VeriTrust workspace overview, resume email investigations, and move between cases, API access, usage, and account settings.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1A1A1A">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/base/veritrust.css">
+  <link rel="stylesheet" href="/assets/css/base/graphite-orange-theme.css">
+  <link rel="stylesheet" href="/assets/css/pages/dashboard-sih.css?v=20260915-sih">
+  <link rel="stylesheet" href="/assets/css/pages/workspace-sih.css?v=20260915-2">
+  <script src="/assets/js/core/config.js"></script>
+  <script src="/assets/js/core/supabase-client.js" defer></script>
+  <script src="/assets/js/core/site.js" defer></script>
+  <script src="/assets/js/pages/dashboard.js?v=20260915-sih" defer></script>
+</head>
+<body class="dashboard-is-loading vt-dashboard-page vt-graphite-theme">
+  <header class="tool-header-shell vt-page-header">
+    <div class="tool-header-inner">
+      <a class="tool-header-brand" href="/" aria-label="VeriTrust home">
+        <img class="tool-header-mark" src="/assets/images/logo.png" alt="">
+        <img class="tool-header-word" src="/assets/images/brand.png" alt="VeriTrust">
+      </a>
+      <nav class="tool-header-links" aria-label="Primary navigation">
+        <a href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
+      </nav>
+      <div class="tool-header-actions"><a class="tool-header-dashboard active" href="/dashboard" aria-current="page">Dashboard</a></div>
+    </div>
+  </header>
+
+  <main class="dashboard-shell workspace-page dashboard-sih-focused">
+    <section class="dashboard-head" aria-labelledby="dashboard-title">
+      <div>
+        <p class="eyebrow">WORKSPACE</p>
+        <h1 id="dashboard-title">Workspace overview</h1>
+        <p class="lead" data-dashboard-status-text>Resume email investigations and manage the review, API, usage, and account areas of your workspace.</p>
+      </div>
+      <div class="dashboard-sih-actions">
+        <a class="btn btn-primary" href="/phishing">New Investigation</a>
+        <a class="btn btn-secondary" href="/gateway-powershell#live-smtp">Live SMTP Demo</a>
+      </div>
+    </section>
+
+    <nav class="workspace-nav" aria-label="Workspace">
+      <a class="active" aria-current="page" href="/dashboard">Overview</a>
+      <a href="/cases">Cases</a>
+      <a href="/api-access">API Access</a>
+      <a href="/billing">Usage &amp; Limits</a>
+      <a href="/account">Account</a>
+    </nav>
+
+    <section class="dashboard-forensic-strip" aria-label="Forensic workflow">
+      <a href="/phishing"><span>01 · Acquire</span><strong>Progressive Evidence Escalation™</strong></a>
+      <a href="/phishing?mode=eml"><span>02 · Trace</span><strong>Trust-Boundary GeoTrace™</strong></a>
+      <a href="/phishing"><span>03 · Correlate</span><strong>MailGraph Campaign Memory™</strong></a>
+      <a href="/verify-evidence"><span>04 · Verify</span><strong>Evidence Passport™</strong></a>
+    </section>
+
+    <section class="dashboard-panel dashboard-sih-recent" aria-labelledby="recent-investigations-title">
+      <div class="panel-title">
+        <div>
+          <h2 id="recent-investigations-title">Recent email investigations</h2>
+          <p>Open saved evidence with its acquisition stage, forensic result, campaign context, and export path intact.</p>
+        </div>
+        <div class="scan-filter-row" data-scan-filters aria-label="Investigation filters"></div>
+      </div>
+      <div data-recent-scans aria-busy="true">
+        <div class="empty-state-table"><strong>Loading investigations…</strong><p>Retrieving saved email-forensic activity.</p></div>
+      </div>
+    </section>
+
+    <p class="dashboard-sih-secondary">Need analyst workflow depth? <a href="/cases">Open Cases</a>. Operational administration stays outside the presentation flow.</p>
+  </main>
+  <footer></footer>
+</body>
+</html>
