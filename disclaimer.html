@@ -30,34 +30,17 @@
 <script src="/assets/js/core/config.js"></script>
 <script defer="" src="/assets/js/core/supabase-client.js"></script>
 <script defer="" src="/assets/js/core/site.js"></script>
-<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui1">
 </head>
 <body class="vt-graphite-theme">
-<header class="tool-header-shell vt-page-header">
-<div class="tool-header-inner">
-<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html">
-<img alt="" class="tool-header-mark" src="/assets/images/logo.png"/>
-<img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/>
-</a>
-<nav aria-label="Primary" class="tool-header-links">
-<a href="index.html">Home</a>
-<a href="phishing.html">Investigate</a>
-<a href="developers.html">Developers</a>
-<a href="docs.html">Docs</a>
-<a href="model-performance.html">Model Performance</a>
-</nav>
-<div class="tool-header-actions">
-<a class="tool-header-login" href="auth.html">Log in</a>
-<a class="tool-header-dashboard" href="dashboard.html">Dashboard</a>
-<button aria-expanded="false" aria-label="Open page menu" class="tool-menu-toggle" type="button">
-<svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
-<circle cx="12" cy="5" r="1.8"></circle>
-<circle cx="12" cy="12" r="1.8"></circle>
-<circle cx="12" cy="19" r="1.8"></circle>
-</svg>
-</button>
-</div>
-</div>
+<header class="tool-header-shell vt-page-header vt-site-header">
+  <div class="tool-header-inner">
+    <a href="/" class="tool-header-brand" aria-label="VeriTrust home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust" class="tool-header-word"></a>
+    <nav class="tool-header-links" aria-label="Primary navigation">
+      <a href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
+    </nav>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Investigations</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+  </div>
 </header>
 <main class="container docs-layout">
 <aside class="toc"><a href="#core">Core</a><a href="#limits">Limits</a><a href="#review">Human review</a></aside>
@@ -67,5 +50,6 @@
 <section class="doc-section" id="review"><h2>Human Review</h2><p>Use human review and official verification channels before high-impact, legal, financial, employment, moderation, or security decisions.</p></section>
 </article>
 </main>
+<footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
 </body>
 </html>

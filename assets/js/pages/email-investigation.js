@@ -412,11 +412,17 @@
     };
     const points = geoHops.map((hop) => ({ hop, ...pointFor(hop) }));
     const polyline = points.length > 1 ? `<g class="email-geotrace-path"><polyline points="${points.map((point) => `${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(' ')}"></polyline></g>` : '';
-    const nodes = points.map((point, index) => `<g class="email-geotrace-node ${point.hop.trust_level === 'trusted_receiver' ? 'is-trusted' : 'is-observed'}" transform="translate(${point.x.toFixed(2)} ${point.y.toFixed(2)})"><circle r="8"></circle><text text-anchor="middle" dominant-baseline="central">${Number(point.hop.hop_index ?? index) + 1}</text></g>`).join('');
+    const nodes = points.map((point, index) => {
+      const hopNumber = Number(point.hop.hop_index ?? index) + 1;
+      const location = [point.hop.city, point.hop.region, point.hop.country].filter(Boolean).join(', ') || 'Approximate infrastructure location unavailable';
+      const network = [point.hop.host, point.hop.ip_address, point.hop.asn ? `AS${String(point.hop.asn).replace(/^AS/iu, '')}` : '', point.hop.asn_org].filter(Boolean).join(' · ') || 'Mail infrastructure hop';
+      const trust = point.hop.trust_level === 'trusted_receiver' ? 'Trusted receiver observation' : 'Observed relay claim';
+      return `<g class="email-geotrace-node ${point.hop.trust_level === 'trusted_receiver' ? 'is-trusted' : 'is-observed'}" transform="translate(${point.x.toFixed(2)} ${point.y.toFixed(2)})"><title>${escapeHtml(`Hop ${hopNumber}: ${network} · ${location} · ${trust}`)}</title><circle r="8"></circle><text text-anchor="middle" dominant-baseline="central">${hopNumber}</text></g>`;
+    }).join('');
     const grid = [0.25, 0.5, 0.75].map((ratio) => `<line x1="${(width * ratio).toFixed(1)}" x2="${(width * ratio).toFixed(1)}" y1="0" y2="${height}"></line>`).join('')
       + [1 / 3, 2 / 3].map((ratio) => `<line x1="0" x2="${width}" y1="${(height * ratio).toFixed(1)}" y2="${(height * ratio).toFixed(1)}"></line>`).join('');
     const map = points.length
-      ? `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Infrastructure coordinate trace"><g class="email-geotrace-grid">${grid}</g>${polyline}${nodes}</svg>`
+      ? `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Approximate mail infrastructure map with numbered relay hops"><g class="email-geotrace-grid">${grid}</g>${polyline}${nodes}</svg>`
       : '<p>No public relay returned usable latitude/longitude enrichment. Relay provenance is still listed below.</p>';
     const hopRows = allHops.length ? allHops.map((hop, index) => {
       const location = [hop.city, hop.region, hop.country].filter(Boolean).join(', ') || 'Location unavailable';
@@ -432,7 +438,7 @@
         <div class="email-usp-panel-state"><span>Trust state</span><strong>${escapeHtml(stateLabel)}</strong></div>
       </header>
       <div class="email-trust-banner" data-state="${escapeHtml(String(infrastructureSummary.state || 'UNAVAILABLE').toLowerCase())}"><strong>${escapeHtml(stateLabel)}</strong><span>${escapeHtml(infrastructureSummary.wording || 'Mail infrastructure context only; no physical-person attribution.')}</span></div>
-      <div class="email-section-heading"><h4>Infrastructure coordinate trace</h4></div><div class="email-geotrace-map">${map}</div>
+      <div class="email-section-heading"><h4>Approximate infrastructure map</h4><p>Coordinates describe mail infrastructure only; they do not identify a sender or attacker.</p></div><div class="email-geotrace-map">${map}</div>
       <div class="email-geotrace-legend"><span data-trust="trusted">Trusted receiver observation</span><span data-trust="observed">Observed relay claim</span></div>
       <div class="email-section-heading"><h4>Mail infrastructure path</h4></div>
       <div class="email-hop-list">${hopRows}</div>
@@ -512,7 +518,7 @@
       : campaignMemory.state === 'UNAVAILABLE' ? 'Unavailable' : 'No strong match';
     const passportState = passport?.passport_id ? 'Signed' : 'Unavailable';
 
-    return `<section class="email-usp-workspace" aria-labelledby="uspWorkspaceTitle">
+    return `<section class="email-usp-workspace" aria-label="Forensic capability views">
       <div class="email-usp-tabs" role="tablist" aria-label="VeriTrust forensic capabilities">
         <button class="email-usp-tab" id="uspTabProgressive" type="button" role="tab" aria-selected="true" aria-controls="uspPanelProgressive" data-usp-tab="progressive">
           <span class="email-usp-tab-index">01</span><span><strong>Evidence strength</strong><small>Progressive Evidence Escalation™</small></span><em>${escapeHtml(evidenceStageName(evidence.input_mode))} · ${escapeHtml(titleCase(completeness.level || 'limited'))}</em>

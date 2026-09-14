@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-label="Simplified world map">
+  <rect width="720" height="250" fill="#262626"/>
+  <g fill="#2d3333" stroke="#465151" stroke-width="1" opacity="0.92">
+    <path d="M30 48 L58 28 L96 20 L132 26 L153 42 L180 47 L201 69 L185 91 L162 96 L145 116 L119 113 L101 94 L82 94 L69 78 L46 72 Z"/>
+    <path d="M157 104 L178 108 L195 126 L199 151 L187 176 L174 205 L159 222 L146 205 L145 178 L133 153 L139 128 Z"/>
+    <path d="M292 46 L312 36 L339 39 L351 50 L338 60 L319 61 L304 55 Z"/>
+    <path d="M304 67 L337 60 L364 67 L382 89 L380 116 L367 144 L350 174 L331 184 L313 165 L300 137 L288 112 L289 86 Z"/>
+    <path d="M349 45 L386 32 L433 29 L475 37 L515 32 L563 43 L604 58 L623 78 L610 94 L574 94 L548 107 L514 100 L492 86 L463 93 L435 83 L409 91 L386 76 L361 72 Z"/>
+    <path d="M575 164 L603 156 L628 165 L641 186 L629 205 L599 211 L574 196 Z"/>
+    <path d="M250 18 L273 8 L298 14 L304 29 L287 39 L261 34 Z"/>
+    <path d="M0 231 L84 226 L169 232 L260 226 L351 232 L447 226 L542 232 L632 226 L720 231 L720 250 L0 250 Z" opacity="0.58"/>
+  </g>
+  <g fill="#667272" font-family="IBM Plex Mono, monospace" font-size="9" opacity="0.85">
+    <text x="90" y="63">N. AMERICA</text><text x="151" y="153">S. AMERICA</text>
+    <text x="315" y="58">EUROPE</text><text x="324" y="122">AFRICA</text>
+    <text x="471" y="64">ASIA</text><text x="582" y="188">AUSTRALIA</text>
+  </g>
+</svg>

@@ -12,15 +12,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/base/veritrust.css">
-  <link rel="stylesheet" href="/assets/css/base/glass-system.css">
-  <script src="/assets/js/core/config.js"></script>
+<script src="/assets/js/core/config.js"></script>
   <script src="/assets/js/core/supabase-client.js" defer></script>
   <script src="/assets/js/core/site.js" defer></script>
   <style>
     .not-found-shell{min-height:calc(100vh - 9rem);display:grid;place-items:center;padding:clamp(4rem,10vw,8rem) 1.25rem}.not-found-card{width:min(720px,100%);text-align:center}.not-found-code{font:600 clamp(4.5rem,16vw,9rem)/.9 'IBM Plex Mono',monospace;color:var(--accent-main,#01afaf);letter-spacing:-.08em}.not-found-card h1{margin:1.2rem 0 .7rem;font-size:clamp(2rem,5vw,3.4rem)}.not-found-card p{max-width:600px;margin:0 auto 1.5rem;color:var(--text-secondary,#c2c2c2);line-height:1.7}.not-found-actions{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap}
   </style>
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui1">
 </head>
 <body class="vt-tool-page">
+<header class="tool-header-shell vt-page-header vt-site-header">
+  <div class="tool-header-inner">
+    <a href="/" class="tool-header-brand" aria-label="VeriTrust home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust" class="tool-header-word"></a>
+    <nav class="tool-header-links" aria-label="Primary navigation">
+      <a href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
+    </nav>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Investigations</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+  </div>
+</header>
   <main class="not-found-shell">
     <section class="not-found-card" aria-labelledby="not-found-title">
       <div class="not-found-code" aria-hidden="true">404</div>
@@ -29,5 +38,6 @@
       <div class="not-found-actions"><a class="btn btn-primary" href="/phishing">Investigate email</a><a class="btn btn-secondary" href="/">Return home</a><a class="btn btn-secondary" href="/gateway-powershell#live-smtp">Live SMTP demo</a></div>
     </section>
   </main>
+<footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
 </body>
 </html>

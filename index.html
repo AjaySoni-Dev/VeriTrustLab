@@ -57,9 +57,18 @@
   <script src="/assets/js/core/config.js"></script>
   <script defer src="/assets/js/core/supabase-client.js"></script>
   <script defer src="/assets/js/core/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui1">
 </head>
 <body class="vt-graphite-theme vt-home-sih">
-  <header class="tool-header-shell vt-page-header"><div class="tool-header-inner"><a class="tool-header-brand" href="/" aria-label="VeriTrust home"><img class="tool-header-mark" src="/assets/images/logo.png" alt=""><img class="tool-header-word" src="/assets/images/brand.png" alt="VeriTrust"></a><nav class="tool-header-links" aria-label="Primary navigation"><a class="active" href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a></nav><div class="tool-header-actions"><a class="tool-header-login" href="/auth">Log in</a><a class="tool-header-dashboard" href="/dashboard">Investigations</a></div></div></header>
+  <header class="tool-header-shell vt-page-header vt-site-header">
+  <div class="tool-header-inner">
+    <a href="/" class="tool-header-brand" aria-label="VeriTrust home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust" class="tool-header-word"></a>
+    <nav class="tool-header-links" aria-label="Primary navigation">
+      <a href="/" class="active" aria-current="page">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
+    </nav>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Investigations</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+  </div>
+</header>
   <main class="sih-home-shell">
     <section class="sih-hero" aria-labelledby="home-title">
       <div class="sih-hero-copy">

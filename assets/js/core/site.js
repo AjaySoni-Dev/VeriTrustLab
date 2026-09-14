@@ -161,30 +161,6 @@ const VeriTrustLoadingShimmer = (() => {
 window.VeriTrustLoadingShimmer = VeriTrustLoadingShimmer;
 
 const VeriTrustSiteChrome = (() => {
-  const PAGE_CONTEXT = Object.freeze({
-    index: 'Home',
-    auth: 'Account access',
-    deepfake: 'Unavailable module',
-    phishing: 'Email investigation',
-    'phishing-result': 'Investigation result',
-    dashboard: 'Investigations',
-    scans: 'Scan history',
-    cases: 'Case queue',
-    case: 'Case review',
-    'api-access': 'API access',
-    billing: 'Usage & limits',
-    account: 'Account',
-    developers: 'Developer API',
-    'gateway-powershell': 'Live SMTP demo',
-    'verify-evidence': 'Evidence verification',
-    docs: 'Technical reference',
-    'model-performance': 'Model performance',
-    privacy: 'Privacy',
-    terms: 'Terms',
-    security: 'Security',
-    disclaimer: 'Disclaimer',
-  });
-
   const currentPage = () => veritrustPageId(window.location.pathname);
 
   const directChild = (tagName) => [...document.body.children]
@@ -196,26 +172,19 @@ const VeriTrustSiteChrome = (() => {
     header.dataset.siteHeader = 'true';
     header.innerHTML = `
       <div class="tool-header-inner">
-        <div class="tool-header-brand-group">
-          <a href="/" class="tool-header-brand" aria-label="VeriTrust home">
-            <img src="/assets/images/logo.png" alt="" class="tool-header-mark">
-            <img src="/assets/images/brand.png" alt="VeriTrust" class="tool-header-word">
-          </a>
-          <span class="tool-header-context"></span>
-        </div>
+        <a href="/" class="tool-header-brand" aria-label="VeriTrust home">
+          <img src="/assets/images/logo.png" alt="" class="tool-header-mark">
+          <img src="/assets/images/brand.png" alt="VeriTrust" class="tool-header-word">
+        </a>
         <nav class="tool-header-links" aria-label="Primary navigation">
           <a href="/">Home</a>
           <a href="/phishing">Investigate</a>
           <a href="/gateway-powershell#live-smtp">Live SMTP</a>
           <a href="/verify-evidence">Verify Evidence</a>
-          <a href="/cases" class="workspace-menu-link" hidden aria-hidden="true">Cases</a>
-          <a href="/api-access" class="workspace-menu-link" hidden aria-hidden="true">API Keys</a>
-          <a href="/billing" class="workspace-menu-link" hidden aria-hidden="true">Usage</a>
-          <a href="/account" class="workspace-menu-link" hidden aria-hidden="true">Account</a>
         </nav>
         <div class="tool-header-actions">
           <a href="/auth" class="tool-header-login" hidden aria-hidden="true">Log in</a>
-          <a href="/dashboard" class="tool-header-dashboard">Dashboard</a>
+          <a href="/dashboard" class="tool-header-dashboard">Investigations</a>
           <button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
@@ -224,36 +193,22 @@ const VeriTrustSiteChrome = (() => {
         </div>
       </div>
     `;
-    header.querySelector('.tool-header-context').textContent = PAGE_CONTEXT[page] || 'Platform';
     if (['dashboard', 'scans', 'cases', 'case', 'api-access', 'billing', 'account'].includes(page)) {
       header.querySelector('.tool-header-dashboard')?.classList.add('active');
       header.querySelector('.tool-header-dashboard')?.setAttribute('aria-current', 'page');
-    }
-    if (page === 'auth') {
-      const loginAction = header.querySelector('.tool-header-login');
-      if (loginAction) {
-        loginAction.hidden = true;
-        loginAction.setAttribute('aria-hidden', 'true');
-      }
     }
     return header;
   };
 
   const createFooter = () => {
     const footer = document.createElement('footer');
-    if (document.body.matches('.vt-analysis-page, .vt-detection-page')) {
-      footer.className = 'analysis-footer';
-      footer.innerHTML = '<span>VeriTrust · Email threat & forensic intelligence</span><nav aria-label="Legal and trust"><a href="/security">Security</a><a href="/privacy">Privacy</a><a href="/disclaimer">Model limitations</a><a href="/terms">Terms</a></nav>';
-      return footer;
-    }
     footer.className = 'vt-site-footer';
     footer.dataset.siteFooter = 'true';
     footer.innerHTML = `
-      <div class="vt-site-footer-minimal">
-        <nav aria-label="Trust and legal"><a href="/security">Security</a><a href="/privacy">Privacy</a><a href="/disclaimer">Model limitations</a><a href="/terms">Terms</a></nav>
+      <div class="vt-site-footer-bottom">
+        <span>&copy; 2026 VeriTrust.</span>
         <span>Infrastructure location is approximate and does not identify a person.</span>
       </div>
-      <div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust. All rights reserved.</span><span>Evidence integrity does not imply legal admissibility or human attribution.</span></div>
     `;
     return footer;
   };
@@ -326,9 +281,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       ['/gateway-powershell#live-smtp', 'Live SMTP', 'gateway-powershell'],
       ['/verify-evidence', 'Verify Evidence', 'verify-evidence']
     ];
-    const firstWorkspaceLink = nav.querySelector(':scope > .workspace-menu-link');
-
-    nav.querySelectorAll(':scope > a:not(.workspace-menu-link)').forEach((link) => link.remove());
+    nav.querySelectorAll(':scope > a').forEach((link) => link.remove());
     const fragment = document.createDocumentFragment();
     primaryItems.forEach(([href, label, section]) => {
       const link = document.createElement('a');
@@ -340,23 +293,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       fragment.appendChild(link);
     });
-    nav.insertBefore(fragment, firstWorkspaceLink);
-
-    const workspaceSections = {
-      cases: '/cases',
-      case: '/cases',
-      'api-access': '/api-access',
-      billing: '/billing',
-      account: '/account'
-    };
-    nav.querySelectorAll(':scope > .workspace-menu-link').forEach((link) => {
-      link.classList.remove('active');
-      link.removeAttribute('aria-current');
-      if (workspaceSections[currentPage] === link.getAttribute('href')) {
-        link.classList.add('active');
-        link.setAttribute('aria-current', 'page');
-      }
-    });
+    nav.prepend(fragment);
 
     const actions = nav.closest('.tool-header-inner')?.querySelector('.tool-header-actions');
     if (actions && !actions.querySelector('.tool-menu-toggle')) {
@@ -389,7 +326,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const authLinks = document.querySelectorAll('.tool-header-login, .login-link, .nav-actions a[href="/auth"]');
     const dashboardLinks = document.querySelectorAll('.tool-header-dashboard, a[href="/dashboard"]');
     const toolHeaderLinks = document.querySelector('.tool-header-links, #primary-navigation');
-    const workspaceLinks = document.querySelectorAll('.tool-header-links > .workspace-menu-link');
     const isAuthPage = VeriTrustSiteChrome.currentPage() === 'auth';
 
     const closeToolMenu = () => {
@@ -441,15 +377,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
       }
     };
-
-    const setWorkspaceLinksVisible = (visible) => {
-      workspaceLinks.forEach((link) => {
-        link.hidden = !visible;
-        if (visible) link.removeAttribute('aria-hidden');
-        else link.setAttribute('aria-hidden', 'true');
-      });
-    };
-
     const ensureMobileMenuActions = (authState = 'signed-out') => {
       if (!toolHeaderLinks) return null;
 
@@ -469,7 +396,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else if (!hasDashboardNavLink && !dashboardAction) {
         dashboardAction = document.createElement('a');
         dashboardAction.href = '/dashboard';
-        dashboardAction.textContent = 'Dashboard';
+        dashboardAction.textContent = 'Investigations';
         dashboardAction.dataset.mobileDashboardAction = 'true';
         dashboardAction.addEventListener('click', closeToolMenu);
         wrap.appendChild(dashboardAction);
@@ -510,22 +437,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       dashboardLinks.forEach((link) => {
         if (link.classList.contains('tool-header-dashboard')) {
-          link.textContent = 'Dashboard';
+          link.textContent = 'Investigations';
         }
       });
-      setWorkspaceLinksVisible(true);
       ensureMobileMenuActions('authenticated');
     } else if (access.sessionError) {
       document.body.classList.remove('vt-authenticated', 'vt-signed-out');
       document.body.classList.add('vt-session-unavailable');
       authLinks.forEach(hideAuthLink);
-      setWorkspaceLinksVisible(false);
       ensureMobileMenuActions('unavailable');
     } else {
       document.body.classList.remove('vt-authenticated', 'vt-session-unavailable');
       document.body.classList.add('vt-signed-out');
       authLinks.forEach(showAuthLink);
-      setWorkspaceLinksVisible(false);
       ensureMobileMenuActions('signed-out');
     }
   };
