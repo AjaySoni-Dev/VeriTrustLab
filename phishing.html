@@ -40,7 +40,7 @@
 <script defer="" src="/assets/js/pages/email-investigation.js?v=20260915-sih"></script>
 <link href="/assets/css/pages/analysis-workspace.css" rel="stylesheet"/>
 <link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
-<link href="/assets/css/pages/email-investigation-final.css?v=20260915-sih" rel="stylesheet"/>
+<link href="/assets/css/pages/email-investigation-final.css?v=20260915-workspace2" rel="stylesheet"/>
 </head>
 <body class="vt-tool-page vt-graphite-theme vt-email-investigation vt-analysis-page">
 <header class="tool-header-shell vt-page-header">
@@ -69,17 +69,10 @@
 </div>
 </div>
 </header>
-<main class="tool-shell analysis-shell"><section class="analysis-heading"><p class="analysis-section-label">EMAIL FORENSIC INVESTIGATION</p><h1>Email investigation</h1><p>Start with the evidence you have. VeriTrust preserves the difference between pasted content, original message evidence, and facts observed directly at a trusted SMTP boundary.</p><a class="email-stage3-action" href="/gateway-powershell#live-smtp">Need trusted SMTP evidence? Run the live receiver demo →</a></section>
-<p class="email-acquisition-brand"><strong>Progressive Evidence Escalation™</strong><span>Start with the evidence you have. Stronger acquisition unlocks stronger claims without rewriting the earlier stage.</span></p>
-<section class="email-acquisition-overview" aria-label="VeriTrust evidence acquisition levels">
-<div><span>01</span><strong>Pasted text</strong><small>Content, AI &amp; visible links</small></div>
-<i aria-hidden="true">→</i>
-<div><span>02</span><strong>Original .eml</strong><small>Headers, identity, MIME &amp; relays</small></div>
-<i aria-hidden="true">→</i>
-<div><span>03</span><strong>Trusted receiver</strong><small>Direct SMTP facts &amp; trusted boundary</small></div>
-</section>
+<main class="tool-shell analysis-shell"><section class="analysis-heading"><p class="analysis-section-label">EMAIL FORENSIC INVESTIGATION</p><h1>Email investigation</h1><p>Start with the evidence you have. VeriTrust preserves the difference between pasted content, original message evidence, and facts observed directly at a trusted SMTP boundary.</p></section>
 <section aria-labelledby="emailInputTitle" class="analysis-layout">
 <form class="analysis-input email-input-panel" data-email-workbench="" id="phishingForm" novalidate="">
+<div class="email-input-header">
 <div class="panel-title">
 <div>
 <h2 id="emailInputTitle">Check an email</h2>
@@ -89,6 +82,7 @@
 <div aria-label="Email evidence source" class="email-mode-tabs" role="tablist">
 <button aria-controls="emailPanelText" aria-selected="true" class="email-mode-tab is-active" data-email-mode="text" id="emailTabText" role="tab" tabindex="0" type="button">Paste email text</button>
 <button aria-controls="emailPanelEml" aria-selected="false" class="email-mode-tab" data-email-mode="eml" id="emailTabEml" role="tab" tabindex="-1" type="button">Upload original email</button>
+</div>
 </div>
 <section aria-labelledby="emailTabText" class="email-mode-panel" data-email-panel="text" id="emailPanelText" role="tabpanel">
 <div class="field email-subject-field">
@@ -130,6 +124,20 @@
 <p class="analysis-secondary-status" id="activityLog"></p>
 </aside>
 </section>
+<details class="email-evidence-guide">
+<summary>How evidence levels affect an investigation</summary>
+<div class="email-evidence-guide-content">
+<p class="email-acquisition-brand"><strong>Progressive Evidence Escalation™</strong><span>Start with the evidence you have. Stronger acquisition unlocks stronger claims without rewriting the earlier stage.</span></p>
+<section class="email-acquisition-overview" aria-label="VeriTrust evidence acquisition levels">
+<div><span>01</span><strong>Pasted text</strong><small>Content, AI &amp; visible links</small></div>
+<i aria-hidden="true">→</i>
+<div><span>02</span><strong>Original .eml</strong><small>Headers, identity, MIME &amp; relays</small></div>
+<i aria-hidden="true">→</i>
+<div><span>03</span><strong>Trusted receiver</strong><small>Direct SMTP facts &amp; trusted boundary</small></div>
+</section>
+<a class="email-stage3-action" href="/gateway-powershell#live-smtp">Need trusted SMTP evidence? Run the live receiver demo →</a>
+</div>
+</details>
 <section aria-labelledby="emailResultTitle" aria-live="polite" class="email-result-shell analysis-report" hidden="" id="emailInvestigationResult" tabindex="-1">
 <div class="email-result-content" id="phishingResult"></div>
 </section>
