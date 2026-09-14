@@ -1,0 +1,39 @@
+{
+  "mailguard": {
+    "registry_schema": "gateway-model-registry-2",
+    "repository_id": "ealvaradob/bert-finetuned-phishing",
+    "revision_sha": "fa8fb73a007174c410ab7160d4e4c6e6b8d998d4",
+    "qualification_state": "canary",
+    "provider": "hf-inference",
+    "task": "text-classification",
+    "ordered_labels": [
+      "benign",
+      "phishing"
+    ],
+    "label_map": {
+      "benign": "BENIGN",
+      "phishing": "PHISHING"
+    },
+    "thresholds": {
+      "likely_benign_max": 0.2,
+      "likely_phishing_min": 0.7
+    },
+    "score_sum_tolerance": 0.02
+  },
+  "swift": {
+    "registry_schema": "gateway-model-registry-2",
+    "repository_id": "kmack/malicious-url-detection",
+    "revision_sha": "258499831602e1aea6c1f00e8483b820dd14b391",
+    "qualification_state": "canary",
+    "provider": "hf-inference",
+    "task": "text-classification",
+    "ordered_labels": [
+      "BENIGN",
+      "MALWARE"
+    ],
+    "label_map": {
+      "BENIGN": "BENIGN",
+      "MALWARE": "MALICIOUS"
+    }
+  }
+}
