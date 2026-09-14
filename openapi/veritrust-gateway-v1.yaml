@@ -1,0 +1,446 @@
+openapi: 3.1.0
+info:
+  title: VeriTrust Unified Security Gateway API
+  version: 1.1.0
+  description: Policy-driven email, text, URL, and private-media security decisions with durable workers, human review, and signed webhooks.
+servers:
+  - url: https://veritrust.example
+security:
+  - bearerAuth: []
+paths:
+  /api/v1/gateway/email/analyze-text:
+    post:
+      operationId: investigateGatewayEmailText
+      summary: Investigate pasted email text through the Unified Gateway
+      description: Runs the production email specialist synchronously. Header, sender-verification, attachment, and delivery-route checks remain unavailable for pasted text.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/EmailTextInput' }
+      responses:
+        '200':
+          description: Final email evidence and correlated Gateway decision
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EmailInvestigationResponse' }
+        '400': { description: Email text input is invalid }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '413': { description: Subject or message body exceeds its limit }
+  /api/v1/gateway/email/analyze-eml:
+    post:
+      operationId: investigateGatewayRawEml
+      summary: Upload and investigate an original .eml file through the Unified Gateway
+      description: Accepts the exact RFC 822 bytes and runs bounded parsing, sender verification, identity comparison, link extraction, attachment inventory, and delivery-route analysis. Historical SPF requires trusted live receiver facts.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - in: header
+          name: X-Retention-Policy
+          required: false
+          schema: { type: string, enum: [ephemeral_24h, temporary_file], default: ephemeral_24h }
+      requestBody:
+        required: true
+        content:
+          message/rfc822:
+            schema:
+              type: string
+              contentMediaType: message/rfc822
+              maxLength: 10485760
+      responses:
+        '200':
+          description: Final email evidence and correlated Gateway decision
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EmailInvestigationResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '413': { description: The .eml file exceeds 10 MiB or a bounded parser limit }
+        '415': { description: Content-Type must be message/rfc822 }
+  /api/v1/gateway/email/evidence/{scan_id}:
+    get:
+      operationId: getGatewayEmailEvidence
+      summary: Retrieve normalized email evidence for a Gateway report
+      parameters:
+        - $ref: '#/components/parameters/ScanId'
+      responses:
+        '200': { description: Tenant-scoped email evidence and Gateway decision history }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { description: Email evidence was not found }
+  /api/v1/gateway/scans:
+    get:
+      operationId: listGatewayScans
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+      responses:
+        '200':
+          description: Recent tenant-scoped scans
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ScanListResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      operationId: submitGatewayScan
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - in: header
+          name: Prefer
+          schema: { type: string, enum: [respond-async] }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ScanSubmission' }
+      responses:
+        '200':
+          description: Fast-path final decision
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ScanResponse' }
+        '202':
+          description: Scan accepted with work pending
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ScanResponse' }
+        '409': { description: Idempotency key was reused with different canonical content }
+        '429': { description: Tenant gateway quota exceeded }
+  /api/v1/gateway/scans/{scan_id}:
+    get:
+      operationId: getGatewayScan
+      parameters:
+        - $ref: '#/components/parameters/ScanId'
+      responses:
+        '200':
+          description: Tenant-scoped scan and evidence
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ScanResponse' }
+        '404': { description: Scan not found in the authenticated organization }
+  /api/v1/gateway/scans/{scan_id}/cancel:
+    post:
+      operationId: cancelGatewayScan
+      parameters:
+        - $ref: '#/components/parameters/ScanId'
+      responses:
+        '200': { description: Idempotent cancellation state }
+        '404': { description: Scan not found in the authenticated organization }
+  /api/v1/gateway/reports/{scan_id}:
+    get:
+      operationId: getGatewayReport
+      parameters:
+        - $ref: '#/components/parameters/ScanId'
+      responses:
+        '200': { description: Unified audit report with normalized evidence }
+  /api/v1/gateway/uploads:
+    post:
+      operationId: createGatewayUpload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UploadRequest' }
+      responses:
+        '201':
+          description: Short-lived signed URL for the private gateway bucket
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UploadResponse' }
+        '413': { description: Media exceeds its kind-specific size limit }
+        '415': { description: Media MIME type is unsupported }
+  /api/v1/gateway/uploads/{upload_id}/complete:
+    post:
+      operationId: completeGatewayUpload
+      parameters:
+        - $ref: '#/components/parameters/UploadId'
+      responses:
+        '200': { description: Storage metadata validated and upload marked ready }
+        '409': { description: Stored size or upload lifecycle state does not match }
+  /api/v1/gateway/policies:
+    get:
+      operationId: listGatewayPolicies
+      responses:
+        '200': { description: Tenant policy identities and immutable versions }
+    post:
+      operationId: createGatewayPolicy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PolicyCreateRequest' }
+      responses:
+        '201': { description: Validated policy version created and optionally activated }
+  /api/v1/gateway/policies/{version_id}/activate:
+    post:
+      operationId: activateGatewayPolicyVersion
+      parameters:
+        - $ref: '#/components/parameters/VersionId'
+      responses:
+        '200': { description: Policy version activated with an audit record }
+  /api/v1/gateway/webhooks:
+    get:
+      operationId: listGatewayWebhooks
+      responses:
+        '200': { description: Tenant webhook endpoints without signing secrets }
+    post:
+      operationId: createGatewayWebhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/WebhookCreateRequest' }
+      responses:
+        '201': { description: Endpoint created; signing secret is returned exactly once }
+  /api/v1/gateway/webhooks/{endpoint_id}/disable:
+    post:
+      operationId: disableGatewayWebhook
+      parameters:
+        - $ref: '#/components/parameters/EndpointId'
+      responses:
+        '200': { description: Endpoint disabled and active secret revoked }
+  /api/v1/gateway/webhooks/{endpoint_id}/test:
+    post:
+      operationId: testGatewayWebhook
+      parameters:
+        - $ref: '#/components/parameters/EndpointId'
+      responses:
+        '200': { description: Signed test event attempted without redirects }
+  /api/v1/gateway/reviews:
+    get:
+      operationId: listGatewayReviewCases
+      responses:
+        '200': { description: Recent tenant-scoped human review cases }
+  /api/v1/gateway/reviews/{review_id}/resolve:
+    post:
+      operationId: resolveGatewayReviewCase
+      parameters:
+        - $ref: '#/components/parameters/ReviewId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReviewResolution' }
+      responses:
+        '200': { description: Immutable override decision published and review resolved }
+  /api/v1/gateway/operations:
+    get:
+      operationId: getGatewayOperations
+      responses:
+        '200': { description: Schema health and the latest 500 tenant jobs }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Supabase access token or a scoped VeriTrust API key.
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: Idempotency-Key
+      required: true
+      schema: { type: string, minLength: 1, maxLength: 200 }
+    ScanId:
+      in: path
+      name: scan_id
+      required: true
+      schema: { type: string, format: uuid }
+    UploadId:
+      in: path
+      name: upload_id
+      required: true
+      schema: { type: string, format: uuid }
+    VersionId:
+      in: path
+      name: version_id
+      required: true
+      schema: { type: string, format: uuid }
+    EndpointId:
+      in: path
+      name: endpoint_id
+      required: true
+      schema: { type: string, format: uuid }
+    ReviewId:
+      in: path
+      name: review_id
+      required: true
+      schema: { type: string, format: uuid }
+  responses:
+    Unauthorized: { description: Authentication is missing or invalid }
+    Forbidden: { description: Tenant, scope, integration, or feature authorization denied }
+  schemas:
+    EmailTextInput:
+      type: object
+      additionalProperties: false
+      anyOf:
+        - required: [subject]
+        - required: [body]
+      properties:
+        subject: { type: string, maxLength: 998 }
+        body: { type: string, maxLength: 12000 }
+        channel: { type: string, enum: [email, sms], default: email }
+        locale_hint: { type: [string, 'null'], maxLength: 32 }
+        retention_policy: { type: string, enum: [none, metadata_only, temporary_file, retained_file], default: metadata_only }
+        org_id: { type: [string, 'null'], format: uuid }
+        integration_id: { type: [string, 'null'], format: uuid }
+    EmailInvestigationResponse:
+      type: object
+      required: [ok, scan_id, status, gateway_decision, evidence]
+      properties:
+        ok: { type: boolean, const: true }
+        request_id: { type: [string, 'null'] }
+        scan_id: { type: string, format: uuid }
+        status: { type: string, const: completed }
+        gateway_decision:
+          type: object
+          required: [risk, severity, verdict, recommendation, degraded, reason_codes, correlation_version]
+          properties:
+            risk: { type: number, minimum: 0, maximum: 1 }
+            severity: { type: string, enum: [low, medium, high, critical] }
+            verdict: { type: string }
+            recommendation: { type: string, enum: [allow, warn, manual_review, quarantine, block, hold] }
+            degraded: { type: boolean }
+            reason_codes: { type: array, items: { type: string } }
+            correlation_version: { type: string }
+        evidence:
+          type: object
+          required: [schema_version, input_mode, state, capabilities, observations, limitations]
+          properties:
+            schema_version: { type: string }
+            input_mode: { type: string, enum: [plain_text, raw_eml, trusted_receiver_event] }
+            state: { type: string, enum: [LIKELY_BENIGN, LIKELY_PHISHING, UNCERTAIN, UNSUPPORTED, FAILED] }
+            capabilities: { type: object, additionalProperties: { type: boolean } }
+            observations: { type: array, items: { type: object } }
+            model_evidence: { type: array, items: { type: object } }
+            relationships: { type: array, items: { type: object } }
+            infrastructure: { type: array, items: { type: object } }
+            children: { type: array, items: { type: object } }
+            limitations: { type: array, items: { type: string } }
+    ScanSubmission:
+      type: object
+      additionalProperties: false
+      required: [content]
+      properties:
+        source:
+          type: object
+          additionalProperties: false
+          properties:
+            integration_id: { type: [string, 'null'], format: uuid }
+            external_event_id: { type: [string, 'null'], maxLength: 255 }
+            kind: { type: string, maxLength: 64, default: api }
+        content:
+          type: object
+          additionalProperties: false
+          properties:
+            text: { type: [string, 'null'], maxLength: 12000 }
+            urls:
+              type: array
+              maxItems: 20
+              items: { type: string, format: uri, pattern: '^https?://' }
+            media:
+              type: array
+              maxItems: 10
+              description: References previously completed private signed uploads.
+              items:
+                type: object
+                additionalProperties: false
+                required: [upload_id, kind]
+                properties:
+                  upload_id: { type: string, format: uuid }
+                  kind: { type: string, enum: [image, audio, video] }
+        policy_id: { type: [string, 'null'], format: uuid }
+        callback:
+          type: [object, 'null']
+          additionalProperties: false
+          properties:
+            webhook_endpoint_id: { type: [string, 'null'], format: uuid }
+        processing_mode: { type: string, enum: [synchronous, asynchronous, hybrid], default: hybrid }
+        metadata: { type: object, maxProperties: 100 }
+    UploadRequest:
+      type: object
+      additionalProperties: false
+      required: [kind, mime_type, size_bytes]
+      properties:
+        kind: { type: string, enum: [image, audio, video] }
+        mime_type: { type: string, maxLength: 160 }
+        size_bytes: { type: integer, minimum: 1, maximum: 104857600 }
+    UploadResponse:
+      type: object
+      required: [ok, upload_id, bucket, path, expires_at, signed_upload]
+      properties:
+        ok: { type: boolean, const: true }
+        upload_id: { type: string, format: uuid }
+        bucket: { type: string, const: gateway-uploads }
+        path: { type: string }
+        expires_at: { type: string, format: date-time }
+        signed_upload:
+          type: object
+          required: [url]
+          properties:
+            url: { type: string }
+            token: { type: [string, 'null'] }
+    PolicyCreateRequest:
+      type: object
+      required: [name, policy_document]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 120 }
+        description: { type: string, maxLength: 500 }
+        policy_document: { type: object }
+        activate: { type: boolean, default: true }
+    WebhookCreateRequest:
+      type: object
+      required: [url]
+      properties:
+        name: { type: string, maxLength: 120 }
+        url: { type: string, format: uri, pattern: '^https://' }
+        integration_id: { type: [string, 'null'], format: uuid }
+        event_types:
+          type: array
+          minItems: 1
+          items: { type: string }
+    ReviewResolution:
+      type: object
+      required: [recommendation]
+      properties:
+        recommendation: { type: string, enum: [allow, warn, manual_review, quarantine, block, hold] }
+        note: { type: string, maxLength: 2000 }
+    Decision:
+      type: [object, 'null']
+      properties:
+        id: { type: string, format: uuid }
+        kind: { type: string, enum: [preliminary, final, override] }
+        risk: { type: number, minimum: 0, maximum: 1 }
+        verdict: { type: string, enum: [low, medium, high, critical, unknown] }
+        recommendation: { type: string, enum: [allow, warn, manual_review, quarantine, block, hold] }
+        degraded: { type: boolean }
+        reason_codes: { type: array, items: { type: string } }
+    ScanResponse:
+      type: object
+      required: [ok, scan_id, status, schema_version]
+      properties:
+        ok: { type: boolean, const: true }
+        replayed: { type: boolean }
+        schema_version: { type: string, const: '1.0' }
+        scan_id: { type: string, format: uuid }
+        display_id: { type: string }
+        request_id: { type: string }
+        trace_id: { type: string }
+        status: { type: string }
+        degraded: { type: boolean }
+        decision: { $ref: '#/components/schemas/Decision' }
+        artifacts: { type: array, items: { type: object } }
+        evidence: { type: array, items: { type: object } }
+        status_url: { type: string }
+        report_url: { type: string }
+    ScanListResponse:
+      type: object
+      required: [ok, scans]
+      properties:
+        ok: { type: boolean, const: true }
+        request_id: { type: string }
+        schema_version: { type: string, const: '1.0' }
+        scans: { type: array, items: { type: object } }

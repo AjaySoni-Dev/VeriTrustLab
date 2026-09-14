@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<title>Cases | VeriTrust</title>
+<meta content="Review VeriTrust investigation cases, model evidence, and analyst decisions in one workspace queue." name="description"/>
+<meta content="noindex, nofollow" name="robots"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<link href="/assets/css/pages/case-workflow.css" rel="stylesheet"/>
+<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<script defer="" src="/assets/js/pages/cases.js"></script>
+</head>
+<body class="dashboard-is-loading vt-dashboard-page vt-graphite-theme">
+<header class="tool-header-shell vt-page-header"><div class="tool-header-inner">
+<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html"><img alt="" class="tool-header-mark" src="/assets/images/logo.png"/><img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/></a>
+<nav aria-label="Primary" class="tool-header-links"><a href="index.html">Home</a><a href="detection.html">Investigate</a><a href="developers.html">Developers</a><a href="docs.html">Docs</a><a href="model-performance.html">Model Performance</a><a class="workspace-menu-link" href="dashboard.html">Workspace overview</a><a class="workspace-menu-link active" href="cases.html">Cases</a><a class="workspace-menu-link" href="api-access.html">API access</a><a class="workspace-menu-link" href="billing.html">Usage &amp; limits</a><a class="workspace-menu-link" href="account.html">Account</a></nav>
+<div class="tool-header-actions"><a class="tool-header-login" href="auth.html">Log in</a><a class="tool-header-dashboard active" href="dashboard.html">Dashboard</a><button aria-expanded="false" aria-label="Open page menu" class="tool-menu-toggle" type="button"><svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22"><circle cx="12" cy="5" r="1.8"></circle><circle cx="12" cy="12" r="1.8"></circle><circle cx="12" cy="19" r="1.8"></circle></svg></button></div>
+</div></header>
+<main class="dashboard-shell workspace-page" data-cases-list="">
+<section class="dashboard-head"><div><p class="eyebrow">Workspace / Cases</p><h1>Investigation case queue.</h1><p class="lead" data-case-status="">Every detection is organized with its evidence, machine assessment, and human decision in one review record.</p></div><a class="btn btn-primary" href="detection.html">New Scan</a></section>
+<nav aria-label="Workspace" class="workspace-nav"><a href="dashboard.html">Overview</a><a aria-current="page" class="active" href="cases.html">Cases</a><a href="api-access.html">API access</a><a href="billing.html">Usage &amp; limits</a><a href="account.html">Account</a></nav>
+<section aria-label="Case summary" class="case-summary-grid">
+<article><span>Open queue</span><strong data-case-count-open="">0</strong></article>
+<article><span>In review</span><strong data-case-count-review="">0</strong></article>
+<article><span>Decided</span><strong data-case-count-decided="">0</strong></article>
+<article><span>High / critical</span><strong data-case-count-high="">0</strong></article>
+</section>
+<section class="dashboard-grid"><article class="dashboard-panel dashboard-wide">
+<div class="panel-title"><div><h2>Review queue</h2><p>Filter cases by workflow state, priority, or assignment. Open a case to inspect evidence and record a bounded analyst decision.</p></div></div>
+<form class="case-filters" data-case-filters="">
+<label>Status<select name="status"><option value="">All statuses</option><option value="open">Open</option><option value="in_review">In review</option><option value="decided">Decided</option><option value="closed">Closed</option></select></label>
+<label>Priority<select name="priority"><option value="">All priorities</option><option value="urgent">Urgent</option><option value="high">High</option><option value="normal">Normal</option><option value="low">Low</option></select></label>
+<label>Assignment<select name="assigned"><option value="">Everyone</option><option value="me">Assigned to me</option><option value="unassigned">Unassigned</option></select></label>
+<button class="btn btn-secondary" type="submit">Apply filters</button>
+</form>
+<div aria-live="polite" data-case-list=""><div class="empty-state-table"><strong>Loading cases</strong><p>Building the investigation queue.</p></div></div>
+</article></section>
+</main>
+<footer class="legal-footer"><a href="privacy.html">Privacy</a><span aria-hidden="true">·</span><a href="terms.html">Terms</a><span aria-hidden="true">·</span><a href="security.html">Security</a><span aria-hidden="true">·</span><a href="docs.html">Docs</a></footer>
+</body>
+</html>

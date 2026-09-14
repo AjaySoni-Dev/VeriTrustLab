@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/favicon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Documentation | VeriTrust</title>
+<meta content="Guide to VeriTrust image, phishing-message and URL review workflows, result interpretation, saved web scans, privacy limits and report exports." name="description"/>
+<link href="https://www.veritrustlab.in/docs" rel="canonical"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="VeriTrust" property="og:site_name"/>
+<meta content="Documentation | VeriTrust" property="og:title"/>
+<meta content="Guide to VeriTrust image, phishing-message and URL review workflows, result interpretation, saved web scans, privacy limits and report exports." property="og:description"/>
+<meta content="https://www.veritrustlab.in/docs" property="og:url"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="Documentation | VeriTrust" name="twitter:title"/>
+<meta content="Guide to VeriTrust image, phishing-message and URL review workflows, result interpretation, saved web scans, privacy limits and report exports." name="twitter:description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+</head>
+<body class="vt-graphite-theme">
+<header class="tool-header-shell vt-page-header">
+<div class="tool-header-inner">
+<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html">
+<img alt="" class="tool-header-mark" src="/assets/images/logo.png"/>
+<img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/>
+</a>
+<nav aria-label="Primary" class="tool-header-links">
+<a href="index.html">Home</a>
+<a href="detection.html">Investigate</a>
+<a href="developers.html">Developers</a>
+<a class="active" href="docs.html">Docs</a>
+<a href="model-performance.html">Model Performance</a>
+</nav>
+<div class="tool-header-actions">
+<a class="tool-header-login" href="auth.html">Log in</a>
+<a class="tool-header-dashboard" href="dashboard.html">Dashboard</a>
+<button aria-expanded="false" aria-label="Open page menu" class="tool-menu-toggle" type="button">
+<svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+<circle cx="12" cy="5" r="1.8"></circle>
+<circle cx="12" cy="12" r="1.8"></circle>
+<circle cx="12" cy="19" r="1.8"></circle>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<main class="container docs-layout">
+<aside class="toc">
+<a href="#overview">Overview</a>
+<a href="#use-cases">Use Cases</a>
+<a href="#message-checks">Message Checks</a>
+<a href="#link-checks">Link Checks</a>
+<a href="#web-cli">Web CLI</a>
+<a href="#privacy">Privacy</a>
+<a href="#security">Security</a>
+<a href="#results">Results</a>
+<a href="#reports">Reports</a>
+</aside>
+<article class="doc-content">
+<section class="doc-section" id="overview">
+<p class="eyebrow">VeriTrust provides evidence-aware email investigation, URL intelligence, and a correlation Gateway. The email workflow distinguishes pasted text, raw .eml evidence, and trusted receiver evidence so unavailable forensic signals are not presented as verified facts.</p>
+<h1>VeriTrust email investigation guide.</h1>
+<p>VeriTrust investigates suspicious email content and raw email evidence, verifies available sender-authentication signals, compares sender identities, evaluates embedded URLs, traces observable delivery infrastructure, and correlates the available evidence under policy. Results preserve explicit limitations instead of turning missing checks into a safe result.</p>
+<p>Use each result as decision support. It can prioritize a manual review, but it cannot establish authenticity, malicious intent, legal responsibility, or safety.</p>
+</section>
+<section class="doc-section" id="use-cases">
+<h2>Core Investigation Workflows</h2>
+<ul><li>Investigate suspicious emails before employees click links, reply, send money, or disclose credentials.</li><li>Use original .eml evidence when sender authentication, attachment metadata, and delivery-route context matter.</li><li>Correlate message, URL, identity, and infrastructure evidence for a repeatable analyst review.</li><li>Preserve report IDs, limitations, evidence completeness, and technical provenance for case notes and escalation.</li></ul>
+</section>
+<section class="doc-section" data-module="phishing" id="message-checks">
+<h2>Email Threat &amp; Forensic Investigation</h2>
+<p>Email Investigation accepts pasted message content or original email evidence. It combines MailGuard model evidence, deterministic social-engineering indicators, available authentication verification, sender-identity relationships, extracted URLs, attachment metadata, and observable relay infrastructure.</p>
+<ul>
+<li>Include sender text, link text, and call-to-action wording when available.</li>
+<li>Avoid submitting passwords, one-time codes, payment details, or private customer records.</li>
+<li>Treat urgent payment requests, credential prompts, and unusual login links as higher priority for manual review.</li>
+<li>Use the result to decide whether to block, escalate, educate the user, or request more information.</li>
+</ul>
+</section>
+<section class="doc-section" data-module="link" id="link-checks">
+<h2>Link Intelligence</h2>
+<p>Link Intelligence sends the normalized URL string to the available classifier and combines that output with deterministic URL-pattern checks. The current version does not fetch webpages, resolve shortened links, or follow redirects.</p>
+<ul>
+<li>Submit only <code>http://</code> or <code>https://</code> URLs.</li>
+<li>If a message contains multiple URLs, VeriTrust analyzes the first URL and returns the extracted URL list.</li>
+<li>Indicators include shorteners, IP-address URLs, punycode patterns, suspicious TLDs, missing HTTPS, login/KYC/payment terms, credential terms, brand impersonation patterns, redirect parameters, embedded URLs, and random-looking tokens.</li>
+<li>Use official websites, verified apps, or direct support channels to confirm suspicious links.</li>
+</ul>
+</section>
+<section class="doc-section" id="web-cli">
+<h2>Web CLI</h2>
+<p>The authenticated VeriTrust Web CLI provides an allowlisted browser shell for email, link, and correlation workflows. It is a convenience interface, not an operating-system shell.</p>
+<ul>
+<li>Use <code>scan gateway</code> with <code>--text</code>, repeatable <code>--url</code> flags, and an optional attachment to use the evidence-correlation Gateway.</li>
+<li>Add <code>--json</code> for structured output, <code>--no-wait</code> for asynchronous gateway submission, and use <code>gateway get &lt;scan-id&gt;</code> to retrieve it later.</li>
+<li>Use <code>status</code>, <code>models</code>, and <code>history --limit 10</code> to inspect the active workspace and supported engines.</li>
+</ul>
+<p>The Web CLI is not an operating-system shell. It does not evaluate scripts or arbitrary commands, and local files can be selected only through the browser's protected file picker.</p>
+</section>
+<section class="doc-section" id="privacy">
+<h2>Privacy</h2>
+<p>Submitted message text, raw email evidence, and URLs are processed only by the configured services required for the selected investigation. Infrastructure enrichment may use an external geolocation provider for public mail-server IPs. Submit only content you are authorized to process.</p>
+<ul>
+<li>Submit only the email, URL, or evidence required for the investigation.</li>
+<li>Remove passwords, access codes, customer identifiers, and financial details before review.</li>
+<li>Web scan metadata, results, model runs, and limited text previews can be stored in the active Supabase workspace.</li>
+<li>Follow your organization's retention, consent, and incident-response policies.</li>
+</ul>
+</section>
+<section class="doc-section" id="security">
+<h2>Security</h2>
+<p>VeriTrust should be used as part of a broader security process that includes access control, user education, escalation paths, and audit-friendly workflows.</p>
+<ul>
+<li>Use strong account credentials and avoid shared logins.</li>
+<li>Escalate high-risk results to your security or trust-and-safety owner.</li>
+<li>Do not rely on a single score for account bans, employee discipline, or legal decisions.</li>
+<li>Review suspicious content in a safe environment and avoid opening unknown links directly.</li>
+</ul>
+</section>
+<section class="doc-section" id="account-flow">
+<h2>Account Flow</h2>
+<p>Documentation, developer guidance, model notes, and legal pages are public. Supabase Auth protects scan execution, the Web CLI, the Evidence Correlation Gateway interface, and every workspace page. A default workspace is created or repaired for an authenticated user when the production schema and service role are configured.</p>
+<ul>
+<li>Use the Auth page for email/password sign-in, account creation, email confirmation, and password recovery.</li>
+<li>Use the Dashboard pages for workspace usage, saved scans, API keys, usage limits, and profile settings.</li>
+<li>Completed web checks are recorded against the active workspace when persistence succeeds.</li>
+<li>Evidence Correlation Gateway scans submitted through the GUI, Web CLI, Windows PowerShell, or an API integration are stored in the gateway audit tables and included in Dashboard scan history for the API key's organization.</li>
+<li>Direct model-specific API v1 calls record usage but do not create legacy dashboard scan-history records.</li>
+</ul>
+</section>
+<section class="doc-section" id="results">
+<h2>Understanding Results</h2>
+<p>VeriTrust separates specialist model output, deterministic rule evidence, correlated risk, and forensic evidence coverage. These concepts must not be interpreted as the same number.</p>
+<ul>
+<li><strong>Verdict:</strong> The most likely classification for the submitted content.</li>
+<li><strong>Confidence:</strong> How strongly the model score supports the verdict. Strong confidence is not proof.</li>
+<li><strong>Confidence band:</strong> Weak, Moderate, or Strong, based on the reported confidence score.</li>
+<li><strong>Risk:</strong> Low, Medium, High, or Critical, used for triage and escalation priority.</li>
+<li><strong>Indicators:</strong> Rule-based or model-reported signals that explain why content may need attention.</li>
+</ul>
+<p>Phishing checks combine model score with deterministic indicators such as urgency, credential requests, OTP or password language, payment wording, account blocking pressure, short links, suspicious domains, attachments, sender identity, and contact methods.</p>
+<p>Link Intelligence checks combine URL classifier output with deterministic URL indicators. It does not claim domain age, live reputation, blocklist status, or confirmed maliciousness.</p>
+<p>Fallback behavior differs by check. Email and link result metadata identifies fallback use, unavailable models, and degraded evidence so provider failures are not silently converted into safe outcomes.</p>
+<p>False positives and false negatives are possible. When a result is unclear, collect more context, compare against trusted sources, and route the case to a human reviewer.</p>
+<p><a href="model-performance.html">View model performance notes</a> for the current no-benchmark status and the evidence required before a performance claim.</p>
+</section>
+<section class="doc-section" id="reports">
+<h2>Reports and Exports</h2>
+<p>Successful web checks expose report JSON containing the available scan ID, scan type, date, model metadata, summary, scores, evidence or indicators, extracted entities or URL details when applicable, and a disclaimer.</p>
+<ul>
+<li>Download JSON reports for audit trails or internal case notes.</li>
+<li>Use Print / Save as PDF for lightweight PDF exports from the browser.</li>
+<li>Copy the result summary when you need a short escalation note.</li>
+<li>Saved dashboard scans can be viewed, downloaded, and printed from scan history.</li>
+</ul>
+<p>Reports are AI-assisted assessments. They should support review workflows, not replace manual verification for high-impact decisions.</p>
+</section>
+</article>
+</main>
+<footer class="legal-footer">
+<a href="privacy.html">Privacy</a><span aria-hidden="true">·</span><a href="terms.html">Terms</a><span aria-hidden="true">·</span><a href="security.html">Security</a><span aria-hidden="true">·</span><a href="disclaimer.html">Disclaimer</a><span aria-hidden="true">·</span><a href="docs.html">Docs</a><span aria-hidden="true">·</span><a href="developers.html">Developers</a><span aria-hidden="true">·</span><a href="model-performance.html">Model Performance</a>
+</footer>
+</body>
+</html>

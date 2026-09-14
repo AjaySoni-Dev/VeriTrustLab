@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#1A1A1A" name="theme-color"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>PowerShell Gateway Guide | VeriTrust</title>
+<meta content="Use VeriTrust from Windows PowerShell for live SMTP enforcement, persistent sender and receiver consoles, raw .eml forensics, URL intelligence, evidence correlation, and report retrieval." name="description"/>
+<link href="https://www.veritrustlab.in/gateway-powershell" rel="canonical"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="VeriTrust" property="og:site_name"/>
+<meta content="PowerShell Gateway Guide | VeriTrust" property="og:title"/>
+<meta content="Run the persistent VeriTrust SMTP sender/receiver CLI or use PowerShell for raw .eml forensics, URL intelligence, evidence correlation, and report retrieval." property="og:description"/>
+<meta content="https://www.veritrustlab.in/gateway-powershell" property="og:url"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="PowerShell Gateway Guide | VeriTrust" name="twitter:title"/>
+<meta content="Persistent live SMTP enforcement plus raw .eml forensics and evidence correlation from Windows PowerShell." name="twitter:description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/pages/gateway-powershell.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<script defer="" src="/assets/js/pages/gateway-powershell.js"></script>
+<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+</head>
+<body class="vt-guide-page vt-graphite-theme">
+<header class="tool-header-shell vt-page-header">
+<div class="tool-header-inner">
+<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html">
+<img alt="" class="tool-header-mark" src="/assets/images/logo.png"/>
+<img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/>
+</a>
+<nav aria-label="Primary" class="tool-header-links">
+<a href="index.html">Home</a>
+<a href="gateway.html">Gateway</a>
+<a class="active" href="developers.html">Developers</a>
+<a href="docs.html">Docs</a>
+<a href="model-performance.html">Model Performance</a>
+</nav>
+<div class="tool-header-actions">
+<a class="tool-header-login" href="auth.html">Log in</a>
+<a class="tool-header-dashboard" href="dashboard.html">Dashboard</a>
+<button aria-expanded="false" aria-label="Open page menu" class="tool-menu-toggle" type="button">
+<svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+<circle cx="12" cy="5" r="1.8"></circle>
+<circle cx="12" cy="12" r="1.8"></circle>
+<circle cx="12" cy="19" r="1.8"></circle>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<main class="ps-guide-shell">
+<section aria-labelledby="guide-title" class="ps-hero">
+<div class="ps-hero-copy">
+<div class="ps-kicker"><span></span> PowerShell Gateway &amp; SMTP Enforcement</div>
+<h1 id="guide-title">Run VeriTrust from Windows PowerShell.</h1>
+<p>Use the persistent sender/receiver console to enforce VeriTrust inline between two laptops, or submit email text, raw .eml evidence, URLs, and reports through the API workflow. The live CLI installs its local prerequisites automatically.</p>
+<div class="ps-hero-actions">
+<a class="btn btn-primary" href="#live-smtp">Open live SMTP setup</a>
+<a class="btn btn-secondary" href="/assets/downloads/VeriTrust-Lab-Persistent-CLI.zip" download>Download CLI package</a>
+<a class="btn btn-secondary" href="api-access.html">Create an API key</a>
+</div>
+</div>
+<div aria-label="Example terminal result" class="ps-terminal-card">
+<div class="ps-terminal-top"><span></span><span></span><span></span><b>Windows PowerShell</b></div>
+<div class="ps-terminal-body ps-terminal-body-live">
+<div class="ps-terminal-brandline"><img alt="" src="/assets/images/veritrust-live-cli-logo.png"/><strong>VeriTrust Lab</strong><span>SMTP Enforcement CLI 2.0.1</span></div>
+<p><i>&gt;</i> /send email.eml</p>
+<p class="ps-terminal-muted">[ANALYZE] Raw EML uploaded; waiting for policy decision...</p>
+<p class="ps-terminal-success">[ALLOWED] 250 2.0.0 Message accepted after VeriTrust inspection</p>
+<p><i>&gt;</i> /send phishing.eml</p>
+<p class="ps-terminal-danger">[BLOCKED] 550 5.7.1 Message rejected by VeriTrust policy</p>
+<p class="ps-terminal-muted">Session remains active. Type the next .eml filename.</p>
+<p><i>&gt;</i> <span class="ps-caret">_</span></p>
+</div>
+</div>
+</section>
+<section aria-label="Integration flow" class="ps-flow">
+<div><span>01</span><strong>Create key</strong><small>Organization-scoped access</small></div>
+<b aria-hidden="true">→</b>
+<div><span>02</span><strong>Submit</strong><small>Email text, .eml, URL, or media</small></div>
+<b aria-hidden="true">→</b>
+<div><span>03</span><strong>Wait</strong><small>Fast path or worker</small></div>
+<b aria-hidden="true">→</b>
+<div><span>04</span><strong>Decide</strong><small>Verdict and evidence</small></div>
+</section>
+<div class="ps-guide-layout">
+<nav aria-label="PowerShell guide sections" class="ps-guide-nav">
+<a aria-label="Before you start" href="#before-you-start">Start</a>
+<a aria-label="Live SMTP enforcement" href="#live-smtp">Live SMTP</a>
+<a aria-label="Secure setup" href="#setup">API setup</a>
+<a aria-label="Email forensic investigation" href="#phishing">Email forensics</a>
+<a aria-label="Link-only detection" href="#link">Link</a>
+<a aria-label="Combined scan" href="#combined">Combined</a>
+<a aria-label="Reports and scan history" href="#reports">Reports</a>
+<a aria-label="Read the result" href="#results">Results</a>
+<a href="#troubleshooting">Troubleshoot</a>
+<a href="#security">Security</a>
+</nav>
+<article class="ps-guide-content">
+<section class="ps-guide-section" id="before-you-start">
+<div class="ps-section-heading">
+<span class="ps-step-number">01</span>
+<div><p class="eyebrow">Prerequisites</p><h2>Before you start</h2></div>
+</div>
+<p class="ps-lead">Use Windows PowerShell 5.1 or PowerShell 7 on your own computer. You need a VeriTrust API key created inside the organization that will own the scans.</p>
+<div class="ps-prerequisite-grid">
+<article><span class="ps-icon">K</span><h3>Organization API key</h3><p>Create a fresh key from API Access. New keys include gateway scan, read, and cancel permissions.</p><a href="api-access.html">Open API Access →</a></article>
+<article><span class="ps-icon">P</span><h3>PowerShell</h3><p>Open a normal PowerShell window. Administrator mode is not required.</p></article>
+<article><span class="ps-icon">S</span><h3>Safe test content</h3><p>Use content and files you are authorized to process. Start with a controlled test case.</p></article>
+</div>
+<div class="ps-callout ps-callout-warning"><strong>Keep the key private.</strong><span>Never place the real key inside a command, screenshot, chat, repository, or shared document. The secure prompt below keeps it out of command history.</span></div>
+</section>
+<section class="ps-guide-section ps-live-smtp-section" id="live-smtp">
+<div class="ps-section-heading">
+<span class="ps-step-number">LIVE</span>
+<div><p class="eyebrow">Persistent sender + receiver console</p><h2>Inline SMTP enforcement between two laptops</h2></div>
+</div>
+<p class="ps-lead">The live CLI keeps VeriTrust in the mail path: sender PowerShell → authenticated SMTP gateway → trusted-receiver analysis → policy decision → receiver. A passed message is relayed and saved; hold/manual-review returns SMTP 451; quarantine/block returns SMTP 550 with no downstream delivery.</p>
+
+<div class="ps-live-download">
+<div class="ps-live-download-brand">
+<img alt="VeriTrust Lab mark" src="/assets/images/veritrust-live-cli-logo.png"/>
+<div>
+<span>VeriTrust Lab</span>
+<strong>Persistent PowerShell SMTP CLI</strong>
+<small>Version 2.0.1 · Windows PowerShell 5.1+ · persistent multi-message sessions</small>
+</div>
+</div>
+<div class="ps-live-download-actions">
+<a class="btn btn-primary" download href="/assets/downloads/VeriTrust-Lab-Persistent-CLI.zip">Download complete package</a>
+<a class="btn btn-secondary" download href="/assets/powershell/VeriTrust-Receiver-CLI.ps1">Receiver script</a>
+<a class="btn btn-secondary" download href="/assets/powershell/VeriTrust-Sender-CLI.ps1">Sender script</a>
+</div>
+</div>
+<div class="ps-callout ps-callout-success"><strong>Fastest start</strong><span>Download the complete package, extract it, then run <code>Run-VeriTrust-Receiver.cmd</code> on the receiver and <code>Run-VeriTrust-Sender.cmd</code> on the sender. The package also includes <code>Validate-VeriTrust-CLI.cmd</code> for a local Windows PowerShell parser check before launch. Tailscale and the receiver's portable Node.js/runtime dependencies are handled automatically when missing.</span></div>
+
+<div class="ps-live-topology" aria-label="Live SMTP topology">
+<article><span>01</span><strong>Sender laptop</strong><p>Run the persistent sender console, pair once, then type <code>email.eml</code>, <code>/send another.eml</code>, or an absolute path repeatedly.</p></article>
+<div aria-hidden="true">→</div>
+<article class="is-core"><span>02</span><strong>VeriTrust SMTP Gateway</strong><p>Authenticates the sender, captures trusted SMTP facts, submits the exact RFC822 message to VeriTrust, and applies the Gateway recommendation.</p></article>
+<div aria-hidden="true">→</div>
+<article><span>03</span><strong>Receiver console</strong><p>Only approved mail reaches the local receiver. Accepted <code>.eml</code> files are saved in the folder where the receiver console was started.</p></article>
+</div>
+
+<div class="ps-callout ps-callout-info"><strong>What installs automatically?</strong><span>The scripts detect Tailscale and install it when missing, connect the device, configure the receiver firewall boundary, and download a portable Node.js 24 runtime on the receiver when required. The SMTP gateway runtime is downloaded automatically. No global Node installation or manual repository extraction is required.</span></div>
+
+<div class="ps-live-requirements">
+<article><span>Windows</span><strong>PowerShell 5.1 or newer</strong><p>Run the receiver from a Windows account that can approve administrator elevation. The sender self-elevates only when Tailscale installation or service startup requires it.</p></article>
+<article><span>Tailnet</span><strong>Both devices must be reachable</strong><p>The easiest demo setup is the same Tailscale account on both laptops. Different accounts also work when both are invited/shared into a tailnet that permits the connection.</p></article>
+<article><span>VeriTrust</span><strong>Receiver-only trust credentials</strong><p>The receiver needs a scoped Gateway API key plus the server-configured <code>VERITRUST_EMAIL_RECEIVER_SECRET</code>. The sender never receives either secret.</p></article>
+</div>
+
+<div class="ps-callout ps-callout-warning"><strong>Server owner setup — once</strong><span>Configure <code>VERITRUST_EMAIL_RECEIVER_SECRET</code> on the deployed VeriTrust API and set <code>VERITRUST_TRUSTED_AUTHSERV_IDS=veritrust-smtp-gateway</code>, then redeploy. Use the same receiver-secret value when the receiver CLI asks for it. Create a Gateway API key from <a href="api-access.html">API Access</a>. Do not share these receiver credentials with the sender.</span></div>
+
+<div class="ps-code-card ps-code-card-compact">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Generate a receiver secret when you do not already have one</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$Bytes = New-Object byte[] 48
+$Rng = [Security.Cryptography.RandomNumberGenerator]::Create()
+$Rng.GetBytes($Bytes)
+$ReceiverSecret = [Convert]::ToBase64String($Bytes)
+$Rng.Dispose()
+$ReceiverSecret</code></pre>
+</div>
+<p class="ps-footnote">Store the generated value as <code>VERITRUST_EMAIL_RECEIVER_SECRET</code> in the deployed VeriTrust environment. If an existing receiver secret is already configured and known, keep using that value instead of rotating it unnecessarily.</p>
+
+<div class="ps-code-card">
+<div class="ps-code-head"><div><span>Receiver laptop</span><strong>Download and launch the persistent receiver console</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$Receiver = Join-Path $PWD "VeriTrust-Receiver-CLI.ps1"
+Invoke-WebRequest `
+    -Uri "https://www.veritrustlab.in/assets/powershell/VeriTrust-Receiver-CLI.ps1" `
+    -OutFile $Receiver `
+    -UseBasicParsing `
+    -ErrorAction Stop
+
+Set-ExecutionPolicy Bypass -Scope Process -Force
+&amp; $Receiver</code></pre>
+</div>
+<div class="ps-callout ps-callout-success"><strong>Receiver result</strong><span>Keep the receiver console open. It prints a one-line <code>VTCLI2|...</code> pairing code and copies it to the clipboard. Give only that pairing code to the sender. Approved messages appear live and are saved into the receiver console's starting directory.</span></div>
+
+<div class="ps-code-card">
+<div class="ps-code-head"><div><span>Sender laptop</span><strong>Download and launch the persistent sender console</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$Sender = Join-Path $PWD "VeriTrust-Sender-CLI.ps1"
+Invoke-WebRequest `
+    -Uri "https://www.veritrustlab.in/assets/powershell/VeriTrust-Sender-CLI.ps1" `
+    -OutFile $Sender `
+    -UseBasicParsing `
+    -ErrorAction Stop
+
+Set-ExecutionPolicy Bypass -Scope Process -Force
+&amp; $Sender</code></pre>
+</div>
+
+<div class="ps-code-card ps-code-card-compact">
+<div class="ps-code-head"><div><span>Persistent sender prompt</span><strong>Pair once, then send as many EML files as needed</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>pair&gt; VTCLI2|100.x.x.x|2525|veritrust-sender|...|lab.local
+
+&gt; email.eml
+&gt; /send phishing-test.eml
+&gt; /send C:\MailTests\invoice.eml
+&gt; /history
+&gt; /status
+&gt; /check
+&gt; /help
+&gt; /quit</code></pre>
+</div>
+
+<div class="ps-live-command-grid">
+<article><strong>Sender commands</strong><code>/send &lt;file.eml&gt;</code><code>/files</code><code>/status</code><code>/check</code><code>/pair</code><code>/pwd</code><code>/cd &lt;path&gt;</code><code>/last</code><code>/history</code><code>/clear</code><code>/help</code><code>/quit</code></article>
+<article><strong>Receiver commands</strong><code>/status</code><code>/pair</code><code>/files</code><code>/view last</code><code>/view &lt;file.eml&gt;</code><code>/path</code><code>/reset-credentials</code><code>/clear</code><code>/help</code><code>/quit</code></article>
+</div>
+
+<div class="ps-callout ps-callout-info"><strong>Same-laptop test</strong><span>You can run the receiver in one PowerShell window and the sender in another on the same Windows laptop. When the pairing code contains the same Tailscale IP as the sender, the CLI automatically routes the SMTP connection through <code>127.0.0.1</code> while preserving the complete VeriTrust analysis path.</span></div>
+
+<div class="ps-live-decision-grid">
+<article class="is-allow"><span>250</span><strong>Allow / Warn</strong><p>Message passed VeriTrust and was relayed to the receiver.</p></article>
+<article class="is-defer"><span>451</span><strong>Hold / Manual review</strong><p>Temporary rejection. The receiver does not receive the message.</p></article>
+<article class="is-block"><span>550</span><strong>Quarantine / Block</strong><p>Permanent policy rejection. The receiver does not receive the message.</p></article>
+</div>
+</section>
+<section class="ps-guide-section" id="setup">
+<div class="ps-section-heading">
+<span class="ps-step-number">02</span>
+<div><p class="eyebrow">Run once per session</p><h2>Secure setup and authentication</h2></div>
+</div>
+<p class="ps-lead">Copy this complete block into PowerShell. When prompted, paste the API key and press Enter. The key appears only as asterisks.</p>
+<div class="ps-code-card">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Secure session setup</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+$BaseUrl = "https://www.veritrustlab.in"
+$SecureApiKey = Read-Host "Paste your VeriTrust API key" -AsSecureString
+$ApiKey = (New-Object System.Net.NetworkCredential("", $SecureApiKey)).Password
+
+if ($ApiKey -notmatch '^vtg_(live|test)_[A-Za-z0-9_-]{20,}$') {
+    throw "The entered value is not a valid VeriTrust API key."
+}
+
+$AuthHeaders = @{ Authorization = "Bearer $ApiKey" }
+$Authentication = Invoke-RestMethod `
+    -Method Get `
+    -Uri "$BaseUrl/api/v1/gateway/scans?limit=1" `
+    -Headers $AuthHeaders `
+    -ErrorAction Stop
+
+if ($Authentication.ok -ne $true) {
+    throw "VeriTrust authentication failed."
+}
+
+Write-Host "Authenticated with VeriTrust." -ForegroundColor Green</code></pre>
+</div>
+<div class="ps-callout ps-callout-success"><strong>Expected output</strong><span><code>Authenticated with VeriTrust.</code> Keep this PowerShell window open for the examples below.</span></div>
+</section>
+<section class="ps-guide-section" id="phishing">
+<div class="ps-section-heading">
+<span class="ps-step-number">03</span>
+<div><p class="eyebrow">Email investigation workflow</p><h2>Investigate email text or an .eml file</h2></div>
+</div>
+<p class="ps-lead">Load the verified VeriTrust email command once per PowerShell session. It sends pasted text or the exact bytes of an original email through the Evidence Correlation Gateway and returns a clear result, risk score, recommended action, and report ID.</p>
+<div class="ps-callout ps-callout-info"><strong>Which input should I use?</strong><span>Text is fastest and checks wording plus links. An <code>.eml</code> file also preserves sender verification, sender consistency, attachment details, and the recorded delivery route.</span></div>
+<div class="ps-code-card">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Load and verify the email investigation command</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$CommandUrl = "$BaseUrl/assets/powershell/VeriTrust.EmailInvestigation.ps1"
+$CommandPath = Join-Path ([IO.Path]::GetTempPath()) "VeriTrust.EmailInvestigation.ps1"
+
+Invoke-WebRequest `
+    -Uri $CommandUrl `
+    -OutFile $CommandPath `
+    -UseBasicParsing `
+    -ErrorAction Stop
+
+. $CommandPath
+Get-Command Invoke-VeriTrustEmailInvestigation -ErrorAction Stop</code></pre>
+</div>
+<div class="ps-callout ps-callout-success"><strong>Expected output</strong><span>PowerShell displays <code>Invoke-VeriTrustEmailInvestigation</code> with command type <code>Function</code>. You can also <a download="" href="/assets/powershell/VeriTrust.EmailInvestigation.ps1">download the command script</a>, review it, and dot-source it locally. The command returns a concise report object; complete evidence remains available through <code>.TechnicalReport</code>. Requests use UTF-8, require an HTTPS origin, and time out after 90 seconds. Set <code>-TimeoutSec</code> to change that limit. When retrying the same submission, reuse an explicit <code>-IdempotencyKey</code> to avoid creating another investigation.</span></div>
+<div class="ps-code-card ps-code-card-compact">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Option A: investigate pasted email text</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>if (-not (Get-Command Invoke-VeriTrustEmailInvestigation -ErrorAction SilentlyContinue)) {
+    $CommandPath = Join-Path ([IO.Path]::GetTempPath()) "VeriTrust.EmailInvestigation.ps1"
+    Invoke-WebRequest -Uri "$BaseUrl/assets/powershell/VeriTrust.EmailInvestigation.ps1" -OutFile $CommandPath -UseBasicParsing -ErrorAction Stop
+    . $CommandPath
+}
+
+$EmailText = @"
+URGENT: Your Microsoft 365 account will be suspended today.
+Confirm your password immediately using the verification link.
+"@
+
+$EmailResult = Invoke-VeriTrustEmailInvestigation `
+    -Subject "Action required" `
+    -Body $EmailText
+
+$EmailResult | Select-Object `
+    Result, RiskPercent, RecommendedAction, MissingChecks, ReportId |
+    Format-List</code></pre>
+</div>
+<div class="ps-code-card ps-code-card-compact">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Option B: upload an original .eml file</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>if (-not (Get-Command Invoke-VeriTrustEmailInvestigation -ErrorAction SilentlyContinue)) {
+    $CommandPath = Join-Path ([IO.Path]::GetTempPath()) "VeriTrust.EmailInvestigation.ps1"
+    Invoke-WebRequest -Uri "$BaseUrl/assets/powershell/VeriTrust.EmailInvestigation.ps1" -OutFile $CommandPath -UseBasicParsing -ErrorAction Stop
+    . $CommandPath
+}
+
+$EmailResult = Invoke-VeriTrustEmailInvestigation -EmlPath "C:\SecurityTests\suspicious-email.eml"
+
+$EmailResult | Select-Object `
+    Result, RiskPercent, RecommendedAction, InputType, MissingChecks, ReportId |
+    Format-List
+
+# Show the complete forensic evidence when needed:
+$EmailResult.TechnicalReport.evidence | ConvertTo-Json -Depth 30</code></pre>
+</div>
+<div class="ps-callout ps-callout-success"><strong>Same evidence, any interface.</strong><span>Both commands use the production email investigation service behind VeriTrust. The report ID can be opened in the Gateway and appears in the organization case history.</span></div>
+</section>
+<section class="ps-guide-section" id="link">
+<div class="ps-section-heading">
+<span class="ps-step-number">04</span>
+<div><p class="eyebrow">Focused detection</p><h2>Link only</h2></div>
+</div>
+<p class="ps-lead">Use this when the input is an HTTP or HTTPS URL without accompanying message text. Replace the example URL with the URL you are authorized to assess.</p>
+<div class="ps-code-card">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Submit, wait, and show link result</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$UrlToCheck = "https://example.com/account-verification"
+$IdempotencyKey = [Guid]::NewGuid().ToString()
+$Headers = @{
+    Authorization     = "Bearer $ApiKey"
+    "Idempotency-Key" = $IdempotencyKey
+}
+
+$Payload = @{
+    source = @{
+        kind              = "powershell"
+        external_event_id = "link-$([Guid]::NewGuid())"
+    }
+    content = @{
+        text  = $null
+        urls  = @($UrlToCheck)
+        media = @()
+    }
+    processing_mode = "synchronous"
+    metadata = @{
+        client             = "windows-powershell"
+        context_categories = @("web-link")
+    }
+}
+
+$Submission = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$BaseUrl/api/v1/gateway/scans" `
+    -Headers $Headers `
+    -ContentType "application/json" `
+    -Body ($Payload | ConvertTo-Json -Depth 20 -Compress) `
+    -ErrorAction Stop
+
+$ScanId = $Submission.scan_id
+do {
+    $Result = Invoke-RestMethod `
+        -Method Get `
+        -Uri "$BaseUrl/api/v1/gateway/scans/$ScanId" `
+        -Headers $AuthHeaders `
+        -ErrorAction Stop
+
+    Write-Host "Status: $($Result.status)"
+    if (@("completed", "failed", "cancelled") -notcontains $Result.status) {
+        Start-Sleep -Seconds 3
+    }
+} while (@("completed", "failed", "cancelled") -notcontains $Result.status)
+
+$Result.decision | Format-List
+$Result.evidence |
+    Select-Object model, status, score, verdict, confidence, reason_codes |
+    Format-List</code></pre>
+</div>
+<div class="ps-callout"><strong>Test responsibly</strong><span><code>example.com</code> is intentionally non-malicious. A verification-looking path can still trigger a suspicious lexical signal, which is useful for testing but is not proof that a website is malicious.</span></div>
+</section>
+<section class="ps-guide-section ps-featured-section" id="combined">
+<div class="ps-section-heading">
+<span class="ps-step-number">05</span>
+<div><p class="eyebrow">Recommended gateway flow</p><h2>Combined phishing and link scan</h2></div>
+</div>
+<p class="ps-lead">Use this for a suspicious email containing one or more links. The gateway runs applicable models separately, correlates their evidence, then returns one policy-backed recommendation.</p>
+<div class="ps-code-card">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Submit and correlate message plus URL</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$MessageText = @"
+Your account has been locked because of suspicious activity.
+Verify your identity immediately using the supplied link.
+"@
+
+$UrlsToCheck = @("https://example.com/security-verification")
+$IdempotencyKey = [Guid]::NewGuid().ToString()
+$Headers = @{
+    Authorization     = "Bearer $ApiKey"
+    "Idempotency-Key" = $IdempotencyKey
+}
+
+$Payload = @{
+    source = @{
+        kind              = "powershell"
+        external_event_id = "combined-$([Guid]::NewGuid())"
+    }
+    content = @{
+        text  = $MessageText
+        urls  = $UrlsToCheck
+        media = @()
+    }
+    processing_mode = "hybrid"
+    metadata = @{
+        client             = "windows-powershell"
+        context_categories = @("email", "credential")
+    }
+}
+
+$Submission = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$BaseUrl/api/v1/gateway/scans" `
+    -Headers $Headers `
+    -ContentType "application/json" `
+    -Body ($Payload | ConvertTo-Json -Depth 20 -Compress) `
+    -ErrorAction Stop
+
+$ScanId = $Submission.scan_id
+do {
+    $Result = Invoke-RestMethod `
+        -Method Get `
+        -Uri "$BaseUrl/api/v1/gateway/scans/$ScanId" `
+        -Headers $AuthHeaders `
+        -ErrorAction Stop
+
+    $Verdict = if ($Result.decision) { $Result.decision.verdict } else { "pending" }
+    Write-Host "Status: $($Result.status) | Verdict: $Verdict"
+
+    if (@("completed", "failed", "cancelled") -notcontains $Result.status) {
+        Start-Sleep -Seconds 3
+    }
+} while (@("completed", "failed", "cancelled") -notcontains $Result.status)
+
+Write-Host "Recommendation: $($Result.decision.recommendation)"
+Write-Host "Risk: $([Math]::Round(([double]$Result.decision.risk * 100), 2))%"
+$Result.decision | Format-List
+$Result.evidence |
+    Select-Object model, model_key, score, verdict, confidence, reason_codes |
+    Format-List</code></pre>
+</div>
+</section>
+<section class="ps-guide-section" id="reports">
+<div class="ps-section-heading">
+<span class="ps-step-number">08</span>
+<div><p class="eyebrow">Audit output</p><h2>Fetch reports and scan history</h2></div>
+</div>
+<p class="ps-lead">Every example above leaves the completed identifier in <code>$ScanId</code>. Use it to retrieve the unified report and save a JSON copy to the Desktop.</p>
+<div class="ps-code-card">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Fetch and save the current report</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$ReportResponse = Invoke-RestMethod `
+    -Method Get `
+    -Uri "$BaseUrl/api/v1/gateway/reports/$ScanId" `
+    -Headers $AuthHeaders `
+    -ErrorAction Stop
+
+$ReportPath = Join-Path `
+    ([Environment]::GetFolderPath("Desktop")) `
+    "veritrust-report-$ScanId.json"
+
+$ReportResponse |
+    ConvertTo-Json -Depth 50 |
+    Set-Content -LiteralPath $ReportPath -Encoding UTF8
+
+Write-Host "Report saved to $ReportPath" -ForegroundColor Green
+$ReportResponse.report.decision | Format-List</code></pre>
+</div>
+<div class="ps-code-card ps-code-card-compact">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>List the 20 most recent scans</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$History = Invoke-RestMethod `
+    -Method Get `
+    -Uri "$BaseUrl/api/v1/gateway/scans?limit=20" `
+    -Headers $AuthHeaders `
+    -ErrorAction Stop
+
+$History.scans |
+    Select-Object display_id, source, status, processing_mode, degraded, created_at |
+    Format-Table -AutoSize</code></pre>
+</div>
+<div class="ps-callout ps-callout-success"><strong>Case persistence</strong><span>Every gateway scan is stored against the organization that owns the API key. After the request is accepted, it appears in <a href="cases.html">Dashboard &gt; Cases</a> with normalized evidence and decision history, including scans submitted from Windows PowerShell. Refresh the case to load the latest status and final decision.</span></div>
+</section>
+<section class="ps-guide-section" id="results">
+<div class="ps-section-heading">
+<span class="ps-step-number">09</span>
+<div><p class="eyebrow">Interpretation</p><h2>Understand the response</h2></div>
+</div>
+<div class="ps-response-grid">
+<article><span>Decision</span><h3>One policy outcome</h3><p><code>risk</code>, <code>verdict</code>, and <code>recommendation</code> summarize the correlated result across applicable artifacts.</p></article>
+<article><span>Evidence</span><h3>Per-model findings</h3><p>Each entry identifies its model, score, verdict, confidence, reason codes, and recorded model version.</p></article>
+<article><span>Status</span><h3>Processing lifecycle</h3><p><code>completed</code> is final. Image scans can move through accepted, processing, and partially completed states first.</p></article>
+<article><span>Review</span><h3>Human checkpoint</h3><p>Manual review means the case should be examined with source context before a consequential action.</p></article>
+</div>
+<div aria-label="Gateway verdict scale" class="ps-verdict-scale">
+<div class="is-low"><span>Low</span><small>0–44%</small></div>
+<div class="is-medium"><span>Medium</span><small>45–74%</small></div>
+<div class="is-high"><span>High</span><small>75–89%</small></div>
+<div class="is-critical"><span>Critical</span><small>90–100%</small></div>
+</div>
+<div class="ps-callout ps-callout-warning"><strong>Interface distinction</strong><span>The generic Gateway API remains advisory unless a downstream integration applies its recommendation. The live SMTP CLI above is that enforcement integration: it maps the Gateway recommendation to relay, SMTP 451 defer, or SMTP 550 reject.</span></div>
+</section>
+<section class="ps-guide-section" id="troubleshooting">
+<div class="ps-section-heading">
+<span class="ps-step-number">10</span>
+<div><p class="eyebrow">Recovery</p><h2>Common errors</h2></div>
+</div>
+<div class="ps-accordion-list">
+<details open=""><summary><span>TAIL</span> Tailscale reports “no matching peer”</summary><p>The sender cannot see the receiver in its tailnet. For the simplest demo, log both laptops into the same Tailscale account. With different accounts, invite/share the receiver into a tailnet whose policy permits the sender. Then run <code>tailscale status</code> and confirm the receiver appears before retrying <code>/check</code>.</p></details>
+<details><summary><span>2525</span> Receiver SMTP endpoint is unreachable</summary><p>Keep the receiver CLI running. It automatically disables Tailscale shields-up and recreates the Windows Firewall rule for TCP 2525 from Tailscale peers. If reachability still fails, verify the tailnet access policy allows the sender to reach the receiver and use <code>/check</code> again.</p></details>
+<details><summary><span>TRUST</span> Trusted receiver authentication fails</summary><p>The value entered on the receiver must exactly match the deployed <code>VERITRUST_EMAIL_RECEIVER_SECRET</code>, and <code>VERITRUST_TRUSTED_AUTHSERV_IDS</code> must include <code>veritrust-smtp-gateway</code>. Redeploy after changing server-side environment values.</p></details>
+<details><summary><span>CLI</span> PowerShell parser or local script problem</summary><p>Download the current CLI package above and use the included validated 2.0.1 scripts. The package includes a Windows PowerShell parser validator. Do not reuse older generated scripts from previous tests.</p></details>
+<details open=""><summary><span>CMD</span> Invoke-VeriTrustEmailInvestigation is not recognized</summary><p>The command script has not been loaded in this PowerShell session. Run the “Load and verify” block above, then confirm that <code>Get-Command Invoke-VeriTrustEmailInvestigation</code> returns a Function. The text and .eml examples now load it automatically when it is missing.</p></details>
+<details><summary><span>401</span> This endpoint requires a valid Bearer token</summary><p>The key is missing, invalid, expired, or revoked. Create a new organization API key and rerun the secure setup block. Do not type the key inside the <code>Read-Host</code> prompt label.</p></details>
+<details><summary><span>403</span> API key has no gateway permissions</summary><p>Create a new key after gateway access is enabled. It must include <code>gateway:scan</code>, <code>gateway:read</code>, and <code>gateway:cancel</code>.</p></details>
+<details><summary><span>409</span> Idempotency conflict</summary><p>Reuse an idempotency key only when retrying the exact same request body. Generate a new GUID when the content changes.</p></details>
+<details><summary><span>415</span> Unsupported image type</summary><p>Use JPG, JPEG, PNG, WEBP, or BMP. The declared MIME type must match the stored file.</p></details>
+<details><summary><span>429</span> Gateway quota exceeded</summary><p>The API key or organization has reached its current plan limit. Review usage and plan information in the dashboard.</p></details>
+</div>
+</section>
+<section class="ps-guide-section" id="security">
+<div class="ps-section-heading">
+<span class="ps-step-number">11</span>
+<div><p class="eyebrow">Operational safety</p><h2>Finish securely</h2></div>
+</div>
+<div class="ps-security-grid">
+<div><strong>Never print the key</strong><p>Avoid commands such as <code>Write-Host $ApiKey</code> and never include the value in screenshots.</p></div>
+<div><strong>Use one key per integration</strong><p>Separate keys make rotation, revocation, scopes, and usage attribution manageable.</p></div>
+<div><strong>Preserve request IDs</strong><p>Store the scan, request, trace, and external event identifiers with your incident record.</p></div>
+<div><strong>Clear the session</strong><p>Remove the decrypted key from variables when the session is finished.</p></div>
+</div>
+<div class="ps-code-card ps-code-card-compact">
+<div class="ps-code-head"><div><span>PowerShell</span><strong>Clear credentials from the current session</strong></div><button data-copy-code="" type="button">Copy block</button></div>
+<pre><code>$ApiKey = $null
+$SecureApiKey = $null
+$AuthHeaders = $null
+[System.GC]::Collect()
+Write-Host "VeriTrust session cleared." -ForegroundColor Green</code></pre>
+</div>
+</section>
+</article>
+</div>
+</main>
+<div aria-live="polite" class="ps-copy-status" id="ps-copy-status" role="status"></div>
+<footer class="legal-footer">
+<a href="gateway.html">Gateway</a><span aria-hidden="true">·</span>
+<a href="#live-smtp">Live SMTP</a><span aria-hidden="true">·</span>
+<a href="developers.html">Developers</a><span aria-hidden="true">·</span>
+<a href="docs.html">Docs</a><span aria-hidden="true">·</span>
+<a href="security.html">Security</a><span aria-hidden="true">·</span>
+<a href="privacy.html">Privacy</a>
+</footer>
+</body>
+</html>

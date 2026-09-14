@@ -1,0 +1,42 @@
+[
+  {
+    "name": "unicode_nested_array",
+    "input": {
+      "z": 1,
+      "a": "é",
+      "nested": {
+        "β": true,
+        "A": null
+      },
+      "arr": [
+        3,
+        0,
+        -1.25,
+        "line\nbreak"
+      ]
+    },
+    "canonical": "{\"a\":\"é\",\"arr\":[3,0,-1.25,\"line\\nbreak\"],\"nested\":{\"A\":null,\"β\":true},\"z\":1}"
+  },
+  {
+    "name": "utf16_key_order",
+    "input": {
+      "😀": "emoji",
+      "a": 2,
+      "A": 1,
+      "aa": 3,
+      "á": "accent"
+    },
+    "canonical": "{\"A\":1,\"a\":2,\"aa\":3,\"á\":\"accent\",\"😀\":\"emoji\"}"
+  },
+  {
+    "name": "json_primitives",
+    "input": {
+      "bool": false,
+      "empty": "",
+      "nil": null,
+      "num": 1.5,
+      "zero": 0
+    },
+    "canonical": "{\"bool\":false,\"empty\":\"\",\"nil\":null,\"num\":1.5,\"zero\":0}"
+  }
+]

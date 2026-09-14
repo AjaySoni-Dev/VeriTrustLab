@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html aria-busy="true" class="vt-auth-checking" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/favicon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Email Threat &amp; Forensic Investigation | VeriTrust</title>
+<meta content="Investigate suspicious email content or raw .eml evidence with MailGuard, authentication forensics, identity relationships, URL intelligence, relay infrastructure, and explicit limitations." name="description"/>
+<link href="https://www.veritrustlab.in/phishing" rel="canonical"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="VeriTrust" property="og:site_name"/>
+<meta content="AI Email Threat &amp; Forensic Intelligence | VeriTrust" property="og:title"/>
+<meta content="Investigate suspicious email and raw EML evidence with AI-assisted threat detection, geolocation, and forensic intelligence." property="og:description"/>
+<meta content="https://www.veritrustlab.in/phishing" property="og:url"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="AI Email Threat &amp; Forensic Intelligence | VeriTrust" name="twitter:title"/>
+<meta content="Investigate suspicious email with AI-assisted threat detection, geolocation, and forensic intelligence." name="twitter:description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/tool-pages.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<link href="/assets/css/pages/email-investigation.css?v=20260911-compact-report" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<script defer="" src="/assets/js/core/reporting.js"></script>
+<script defer="" src="/assets/js/core/result-dialog.js"></script>
+<script defer="" src="/assets/js/core/email-report-pdf.js?v=20260911-viewer2"></script>
+<script defer="" src="/assets/js/core/analysis-result.js"></script>
+<script defer="" src="/assets/js/core/analysis-progress.js"></script>
+<script defer="" src="/assets/js/pages/email-investigation.js?v=20260911-compact-report"></script>
+<link href="/assets/css/pages/analysis-workspace.css" rel="stylesheet"/>
+<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+<link href="/assets/css/pages/email-investigation-final.css?v=20260911-final2" rel="stylesheet"/>
+</head>
+<body class="vt-tool-page vt-graphite-theme vt-email-investigation vt-analysis-page">
+<header class="tool-header-shell vt-page-header">
+<div class="tool-header-inner">
+<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html">
+<img alt="" class="tool-header-mark" src="/assets/images/logo.png"/>
+<img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/>
+</a>
+<nav aria-label="Primary" class="tool-header-links">
+<a href="index.html">Home</a>
+<a class="active" href="detection.html">Investigate</a>
+<a href="developers.html">Developers</a>
+<a href="docs.html">Docs</a>
+<a href="model-performance.html">Model Performance</a><span aria-hidden="true">·</span><a href="verify-evidence.html">Verify Evidence</a>
+</nav>
+<div class="tool-header-actions">
+<a class="tool-header-login" href="auth.html">Log in</a>
+<a class="tool-header-dashboard" href="dashboard.html">Dashboard</a>
+<button aria-expanded="false" aria-label="Open page menu" class="tool-menu-toggle" type="button">
+<svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+<circle cx="12" cy="5" r="1.8"></circle>
+<circle cx="12" cy="12" r="1.8"></circle>
+<circle cx="12" cy="19" r="1.8"></circle>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<main class="tool-shell analysis-shell"><nav aria-label="Detection modules" class="analysis-module-nav"><a aria-current="page" href="/phishing">Email investigation</a><a href="/link-check">URL intelligence</a></nav>
+<section class="analysis-heading"><p class="analysis-section-label">EMAIL THREAT INTELLIGENCE</p><h1>Email investigation</h1><p>Analyze suspicious email content or upload the original message for deeper forensic evidence.</p></section>
+<section class="email-acquisition-overview" aria-label="VeriTrust evidence acquisition levels">
+<div><span>01</span><strong>Pasted text</strong><small>Content, AI &amp; visible links</small></div>
+<i aria-hidden="true">→</i>
+<div><span>02</span><strong>Original .eml</strong><small>Headers, identity, MIME &amp; relays</small></div>
+<i aria-hidden="true">→</i>
+<div><span>03</span><strong>Trusted receiver</strong><small>Direct SMTP facts &amp; trusted boundary</small></div>
+</section>
+<section aria-labelledby="emailInputTitle" class="analysis-layout">
+<form class="analysis-input email-input-panel" data-email-workbench="" id="phishingForm" novalidate="">
+<div class="panel-title">
+<div>
+<h2 id="emailInputTitle">Check an email</h2>
+<p>Use the original email file when you need sender and delivery evidence.</p>
+</div>
+</div>
+<div aria-label="Email evidence source" class="email-mode-tabs" role="tablist">
+<button aria-controls="emailPanelText" aria-selected="true" class="email-mode-tab is-active" data-email-mode="text" id="emailTabText" role="tab" tabindex="0" type="button">Paste email text</button>
+<button aria-controls="emailPanelEml" aria-selected="false" class="email-mode-tab" data-email-mode="eml" id="emailTabEml" role="tab" tabindex="-1" type="button">Upload original email</button>
+</div>
+<section aria-labelledby="emailTabText" class="email-mode-panel" data-email-panel="text" id="emailPanelText" role="tabpanel">
+<div class="field email-subject-field">
+<label for="emailSubject">Email subject <span>optional</span></label>
+<input autocomplete="off" class="input" id="emailSubject" maxlength="998" placeholder="Add the subject, if available" type="text"/>
+</div>
+<div class="field">
+<label for="phishingText">Email message</label>
+<textarea aria-describedby="emailTextHelp emailInputError" class="textarea tool-textarea" id="phishingText" maxlength="12000" placeholder="Paste the email message here..."></textarea>
+<div class="email-field-meta"><span id="emailTextHelp">This checks the wording and any links. Upload the original email to verify sender details and attachments.</span><output for="phishingText" id="emailCharacterCount">0 / 12,000</output></div>
+</div>
+</section>
+<section aria-labelledby="emailTabEml" class="email-mode-panel" data-email-panel="eml" hidden="" id="emailPanelEml" role="tabpanel">
+<div class="email-mode-intro"><span data-email-help="An .eml file preserves the message, sender information, delivery path, and attachment details exactly as the mail application received them." data-email-term=".eml file">Why use an .eml file?</span><small>It gives VeriTrust the strongest available email evidence.</small></div>
+<label class="email-dropzone" for="emailEmlFile">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M7 3.75h7l3 3V20.25H7zM14 3.75v3h3M9.5 11.25h5M9.5 14.5h5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg>
+<span><strong>Choose the original email file</strong><small id="emailFileLabel">.eml file, maximum 10 MB</small></span>
+<span class="email-dropzone-action">Choose file</span>
+</label>
+<input accept=".eml,message/rfc822" aria-describedby="emailEmlHelp emailInputError" class="email-file-input" id="emailEmlFile" type="file"/>
+<p class="email-retention-note" id="emailEmlHelp"><strong data-email-help="The uploaded file is kept in private storage for no more than 24 hours and is never opened or executed like an application." data-email-term="Temporary storage">Private and temporary:</strong> the original file is kept for no more than 24 hours and is analyzed without opening its attachments.</p>
+</section>
+<p class="email-form-error" hidden="" id="emailInputError" role="alert" tabindex="-1"></p>
+<div class="email-submit-row">
+<p><strong>Stay cautious.</strong> No automated result can guarantee that an email is safe.</p>
+<button class="btn btn-primary" id="phishingSubmit" type="submit">Check email</button>
+</div>
+</form>
+<aside aria-label="Analysis activity" class="analysis-activity">
+<div class="analysis-idle" id="analysisIdle"><span class="analysis-section-label">YOUR ANALYSIS</span><h2>Ready when you are</h2><p>Submit your input to follow processing here. Your report appears below when the server returns a result.</p></div>
+<section class="analysis-progress" hidden="" id="analysisProgress">
+<div class="analysis-progress-heading"><span aria-hidden="true" class="analysis-status-dot"></span><h2 id="analysisProgressTitle">Analysis in progress</h2><span class="analysis-progress-count" hidden id="analysisProgressCompleted">+0 completed</span></div>
+<div class="analysis-progress-current" aria-live="polite" aria-atomic="true">
+<span id="analysisProgressStage">Preparing</span>
+<p id="analysisProgressMessage" role="status">Checking input and workspace access.</p>
+</div>
+<details class="analysis-progress-history"><summary id="analysisProgressHistorySummary">Activity history</summary><ol id="analysisProgressEvents"></ol></details>
+</section>
+<p class="analysis-secondary-status" id="activityLog"></p>
+</aside>
+</section>
+<section aria-labelledby="emailResultTitle" aria-live="polite" class="email-result-shell analysis-report" hidden="" id="emailInvestigationResult" tabindex="-1">
+<div class="email-result-content" id="phishingResult"></div>
+</section>
+</main>
+<div class="email-help-tooltip" hidden="" id="emailHelpTooltip" role="tooltip"></div>
+<footer class="legal-footer">
+<a href="privacy.html">Privacy</a><span aria-hidden="true">·</span><a href="terms.html">Terms</a><span aria-hidden="true">·</span><a href="security.html">Security</a><span aria-hidden="true">·</span><a href="disclaimer.html">Disclaimer</a><span aria-hidden="true">·</span><a href="docs.html">Docs</a><span aria-hidden="true">·</span><a href="developers.html">Developers</a><span aria-hidden="true">·</span><a href="model-performance.html">Model Performance</a><span aria-hidden="true">·</span><a href="verify-evidence.html">Verify Evidence</a>
+</footer>
+</body>
+</html>
