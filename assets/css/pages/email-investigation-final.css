@@ -1,0 +1,605 @@
+/* --------------------------------------------------------------------------
+   SIH final investigation workspace — compact decision surface, 2026-09-11
+   -------------------------------------------------------------------------- */
+.vt-email-investigation.vt-analysis-page .analysis-shell {
+  width: min(1480px, calc(100% - 48px));
+  padding-top: calc(var(--header-height) + 18px);
+  padding-bottom: 24px;
+}
+
+.vt-email-investigation .analysis-module-nav {
+  margin-bottom: 18px;
+}
+
+.vt-email-investigation .analysis-heading {
+  margin-bottom: 16px;
+}
+
+.vt-email-investigation .analysis-heading .analysis-section-label {
+  margin-bottom: 7px;
+}
+
+body.vt-tool-page.vt-email-investigation .analysis-heading h1 {
+  font-size: clamp(28px, 3vw, 38px);
+}
+
+.vt-email-investigation .analysis-heading > p:last-child {
+  margin-top: 7px;
+  font-size: 14px;
+}
+
+.vt-email-investigation .email-acquisition-overview {
+  gap: 8px;
+  margin-bottom: 14px;
+  border-radius: 13px;
+  padding: 9px 12px;
+}
+
+.vt-email-investigation .email-acquisition-overview span {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+}
+
+.vt-email-investigation .analysis-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(310px, 360px);
+  gap: 20px;
+}
+
+body.vt-tool-page.vt-email-investigation .analysis-input {
+  padding: 20px 22px;
+}
+
+.vt-email-investigation .panel-title {
+  margin-bottom: 8px;
+}
+
+.vt-email-investigation .email-mode-tabs {
+  margin-bottom: 10px;
+}
+
+.vt-email-investigation .email-mode-tab {
+  min-height: 40px;
+}
+
+.vt-email-investigation .email-mode-panel {
+  min-height: 238px;
+}
+
+.vt-email-investigation .field {
+  margin-bottom: 12px;
+  gap: 6px;
+}
+
+.vt-email-investigation .email-subject-field {
+  margin-bottom: 10px;
+}
+
+.vt-email-investigation .tool-textarea,
+body.vt-tool-page.vt-email-investigation .textarea {
+  min-height: 142px;
+  max-height: 190px;
+  resize: none;
+}
+
+.vt-email-investigation .email-field-meta {
+  margin-top: 5px;
+  font-size: 10.5px;
+}
+
+.vt-email-investigation .email-dropzone {
+  min-height: 142px;
+  padding: 18px;
+}
+
+.vt-email-investigation .email-retention-note {
+  margin-top: 7px;
+  font-size: 11px;
+}
+
+.vt-email-investigation .email-submit-row {
+  margin-top: 8px;
+  padding-top: 9px;
+}
+
+.vt-email-investigation .analysis-activity {
+  min-height: 100%;
+  padding: 20px;
+  border: 1px solid var(--analysis-border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--analysis-panel) 84%, transparent);
+}
+
+.vt-email-investigation .analysis-idle .analysis-section-label {
+  margin-bottom: 8px;
+}
+
+.vt-email-investigation .analysis-idle > p {
+  margin-top: 8px;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* Progress stays a fixed-height status surface. Completed stages collapse into
+   the +N badge; history is opt-in and bounded when expanded. */
+.vt-email-investigation .analysis-progress-heading {
+  min-width: 0;
+}
+
+.vt-email-investigation .analysis-progress-heading h2 {
+  min-width: 0;
+  flex: 1;
+}
+
+.vt-email-investigation .analysis-progress-count {
+  flex: 0 0 auto;
+  border: 1px solid var(--analysis-border);
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: rgba(1, 175, 175, 0.08);
+  color: var(--analysis-accent);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.vt-email-investigation .analysis-progress-current {
+  min-height: 104px;
+  display: grid;
+  align-content: center;
+  gap: 7px;
+  margin-top: 14px;
+  border: 1px solid var(--analysis-border);
+  border-radius: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.vt-email-investigation .analysis-progress-current > span {
+  color: var(--analysis-accent);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.vt-email-investigation #analysisProgressMessage {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.vt-email-investigation .analysis-progress-history {
+  margin-top: 11px;
+  border-top: 1px solid var(--analysis-border);
+}
+
+.vt-email-investigation .analysis-progress-history > summary {
+  padding: 10px 0 0 !important;
+  border: 0 !important;
+}
+
+.vt-email-investigation .analysis-progress-history[open] #analysisProgressEvents {
+  max-height: 164px;
+  overflow: auto;
+  padding-right: 5px;
+}
+
+.vt-email-investigation #analysisProgressEvents li {
+  margin: 9px 0;
+  padding-left: 11px;
+}
+
+.vt-email-investigation #analysisProgressEvents li p {
+  font-size: 10.5px;
+}
+
+/* Compact result: the browser is a decision surface, the PDF is the complete
+   forensic report. */
+.vt-email-investigation .analysis-report {
+  margin-top: 8px;
+  padding: 18px;
+}
+
+.vt-email-investigation .email-result-content {
+  gap: 12px;
+}
+
+.vt-email-investigation .email-result-hero--compact {
+  grid-template-columns: minmax(0, 1.5fr) minmax(310px, .72fr);
+  gap: 18px;
+  align-items: stretch;
+  padding: 20px 22px;
+}
+
+.vt-email-investigation .email-result-primary {
+  min-width: 0;
+  align-self: center;
+}
+
+.vt-email-investigation .email-result-primary > p:not(.email-result-kicker) {
+  max-width: 78ch;
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.vt-email-investigation .email-result-hero--compact h2 {
+  font-size: clamp(23px, 2.6vw, 31px);
+}
+
+.vt-email-investigation .email-result-actions {
+  margin-top: 12px;
+}
+
+.vt-email-investigation .email-result-actions .btn {
+  min-height: 40px;
+  padding: 9px 14px;
+  font-size: 12px;
+}
+
+.vt-email-investigation .email-result-decision {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(118px, .7fr) minmax(0, 1.3fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 13px;
+  background: var(--border);
+}
+
+.vt-email-investigation .email-risk-score,
+.vt-email-investigation .email-next-action {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  padding: 15px;
+  background: #090b0f;
+}
+
+.vt-email-investigation .email-risk-score > span,
+.vt-email-investigation .email-next-action > span {
+  color: var(--soft);
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.vt-email-investigation .email-risk-score > strong {
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.vt-email-investigation .email-next-action > strong {
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.vt-email-investigation .email-risk-score small,
+.vt-email-investigation .email-next-action small {
+  color: var(--soft);
+  font-size: 9.5px;
+  line-height: 1.4;
+}
+
+.vt-email-investigation .email-result-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.vt-email-investigation .email-result-metrics article {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, .018);
+}
+
+.vt-email-investigation .email-result-metrics span {
+  color: var(--soft);
+  font-size: 9px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.vt-email-investigation .email-result-metrics strong {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.vt-email-investigation .email-result-metrics small {
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.35;
+}
+
+.vt-email-investigation .email-usp-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.vt-email-investigation .email-usp-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 9px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 11px;
+  background: #101216;
+}
+
+.vt-email-investigation .email-usp-icon {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--analysis-accent) 45%, var(--border));
+  border-radius: 8px;
+  color: var(--analysis-accent);
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.vt-email-investigation .email-usp-card > div:last-child {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+}
+
+.vt-email-investigation .email-usp-card span:not(.email-usp-complete) {
+  color: var(--analysis-accent);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .025em;
+}
+
+.vt-email-investigation .email-usp-card strong {
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.vt-email-investigation .email-usp-card small {
+  min-height: 27px;
+  color: var(--soft);
+  font-size: 9.5px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.vt-email-investigation .email-usp-link,
+.vt-email-investigation button.email-usp-link {
+  justify-self: start;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--analysis-accent) 50%, transparent);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.vt-email-investigation .email-usp-complete {
+  color: var(--soft);
+  font-size: 9.5px;
+}
+
+.vt-email-investigation .email-essential-signals {
+  display: grid;
+  grid-template-columns: minmax(170px, .5fr) minmax(0, 1.5fr);
+  gap: 10px 18px;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 11px 13px;
+  background: rgba(255, 255, 255, .012);
+}
+
+.vt-email-investigation .email-essential-signals .email-result-kicker {
+  margin-bottom: 3px;
+}
+
+.vt-email-investigation .email-essential-signals h3 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.vt-email-investigation .email-essential-signals > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--soft);
+  font-size: 9.5px;
+  line-height: 1.45;
+}
+
+.vt-email-investigation .email-signal-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.vt-email-investigation .email-signal-chips > span {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: #0c0e12;
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.3;
+}
+
+.vt-email-investigation .email-signal-chips > span[data-tone="danger"] {
+  border-color: rgba(251, 113, 133, .32);
+  color: #fecdd3;
+}
+
+.vt-email-investigation .email-signal-chips > span[data-tone="attention"] {
+  border-color: rgba(251, 191, 36, .28);
+  color: #fde68a;
+}
+
+/* Desktop workbench is intentionally viewport-fit. On smaller/shorter displays
+   scrolling remains enabled so accessibility is never sacrificed. */
+@media (min-width: 1000px) and (min-height: 700px) {
+  body.vt-email-investigation {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .vt-email-investigation .analysis-shell {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .vt-email-investigation .legal-footer {
+    display: none;
+  }
+
+  body.vt-email-investigation.vt-email-has-result .analysis-heading,
+  body.vt-email-investigation.vt-email-has-result .email-acquisition-overview,
+  body.vt-email-investigation.vt-email-has-result .analysis-layout {
+    display: none;
+  }
+
+  body.vt-email-investigation.vt-email-has-result .analysis-module-nav {
+    margin-bottom: 12px;
+  }
+
+  body.vt-email-investigation.vt-email-has-result .analysis-report {
+    max-height: calc(100vh - var(--header-height) - 92px);
+    overflow: hidden;
+  }
+}
+
+
+/* Dense presentation mode keeps the complete input workbench inside common
+   1366×768 / 1440×800 projector viewports without hiding controls. */
+@media (min-width: 1000px) and (min-height: 700px) and (max-height: 820px) {
+  .vt-email-investigation.vt-analysis-page .analysis-shell {
+    padding-top: calc(var(--header-height) + 10px);
+    padding-bottom: 10px;
+  }
+
+  .vt-email-investigation .analysis-module-nav { margin-bottom: 10px; }
+  .vt-email-investigation .analysis-module-nav a { padding-block: 9px; }
+  .vt-email-investigation .analysis-heading { margin-bottom: 9px; }
+  .vt-email-investigation .analysis-heading .analysis-section-label { margin-bottom: 3px; }
+  body.vt-tool-page.vt-email-investigation .analysis-heading h1 { font-size: 29px; }
+  .vt-email-investigation .analysis-heading > p:last-child { margin-top: 3px; font-size: 12px; line-height: 1.4; }
+
+  .vt-email-investigation .email-acquisition-overview {
+    margin-bottom: 8px;
+    padding: 6px 10px;
+  }
+  .vt-email-investigation .email-acquisition-overview span { width: 24px; height: 24px; }
+  .vt-email-investigation .email-acquisition-overview strong { font-size: 11px; }
+  .vt-email-investigation .email-acquisition-overview small { font-size: 9px; }
+
+  .vt-email-investigation .analysis-layout { gap: 14px; }
+  body.vt-tool-page.vt-email-investigation .analysis-input { padding: 14px 16px; }
+  .vt-email-investigation .panel-title { margin-bottom: 5px; }
+  .vt-email-investigation .panel-title h2 { font-size: 16px; }
+  .vt-email-investigation .panel-title p { font-size: 10px; line-height: 1.4; }
+  .vt-email-investigation .email-mode-tabs { margin-bottom: 6px; }
+  .vt-email-investigation .email-mode-tab { min-height: 34px; padding-block: 7px; }
+  .vt-email-investigation .email-mode-panel { min-height: 196px; }
+  .vt-email-investigation .field { margin-bottom: 7px; gap: 4px; }
+  body.vt-tool-page.vt-email-investigation .field label { font-size: 11px; }
+  body.vt-tool-page.vt-email-investigation :is(.input, .textarea) { padding: 8px 11px; font-size: 12px; line-height: 1.35; }
+  .vt-email-investigation .tool-textarea,
+  body.vt-tool-page.vt-email-investigation .textarea { min-height: 108px; max-height: 122px; }
+  .vt-email-investigation .email-field-meta { margin-top: 3px; font-size: 9px; }
+  .vt-email-investigation .email-dropzone { min-height: 118px; padding: 12px; }
+  .vt-email-investigation .email-retention-note { margin-top: 4px; font-size: 9.5px; }
+  .vt-email-investigation .email-submit-row { margin-top: 4px; padding-top: 5px; }
+  .vt-email-investigation .email-submit-row p { font-size: 9px; line-height: 1.35; }
+  .vt-email-investigation .email-submit-row .btn { min-height: 36px; padding: 7px 13px; font-size: 11px; }
+  .vt-email-investigation .analysis-activity { padding: 15px; }
+  .vt-email-investigation .analysis-progress-current { min-height: 86px; margin-top: 9px; padding: 12px; }
+  .vt-email-investigation .analysis-progress-history { margin-top: 7px; }
+
+  body.vt-email-investigation.vt-email-has-result .analysis-report {
+    max-height: calc(100vh - var(--header-height) - 72px);
+    padding: 13px;
+  }
+  .vt-email-investigation .email-result-content { gap: 8px; }
+  .vt-email-investigation .email-result-hero--compact { padding: 14px 16px; gap: 12px; }
+  .vt-email-investigation .email-result-primary > p:not(.email-result-kicker) { font-size: 10.5px; line-height: 1.4; }
+  .vt-email-investigation .email-result-actions { margin-top: 8px; }
+  .vt-email-investigation .email-result-actions .btn { min-height: 34px; padding: 7px 11px; font-size: 10px; }
+  .vt-email-investigation .email-result-metrics article { padding: 8px 10px; }
+  .vt-email-investigation .email-usp-card { padding: 8px; gap: 7px; }
+  .vt-email-investigation .email-usp-card small { min-height: 0; }
+  .vt-email-investigation .email-essential-signals { padding: 8px 10px; gap: 7px 12px; }
+}
+
+@media (max-width: 1180px) {
+  .vt-email-investigation .email-usp-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vt-email-investigation .email-result-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .vt-email-investigation.vt-analysis-page .analysis-shell {
+    width: min(100% - 24px, 1120px);
+    height: auto;
+    overflow: visible;
+  }
+
+  .vt-email-investigation .analysis-activity {
+    min-height: auto;
+  }
+
+  .vt-email-investigation .email-result-hero--compact,
+  .vt-email-investigation .email-essential-signals {
+    grid-template-columns: 1fr;
+  }
+
+  .vt-email-investigation .email-result-decision {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vt-email-investigation .email-signal-chips {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 620px) {
+  .vt-email-investigation .email-usp-summary,
+  .vt-email-investigation .email-result-metrics,
+  .vt-email-investigation .email-result-decision {
+    grid-template-columns: 1fr;
+  }
+
+  .vt-email-investigation .email-result-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .vt-email-investigation .email-result-actions .btn {
+    width: 100%;
+  }
+}

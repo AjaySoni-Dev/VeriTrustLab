@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/favicon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Model Performance | VeriTrust</title>
+<meta content="Current VeriTrust evaluation status, scoring limitations, and the benchmark evidence that has not yet been published." name="description"/>
+<link href="https://www.veritrustlab.in/model-performance" rel="canonical"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="VeriTrust" property="og:site_name"/>
+<meta content="Model Performance | VeriTrust" property="og:title"/>
+<meta content="Current VeriTrust evaluation status, scoring limitations, and the benchmark evidence that has not yet been published." property="og:description"/>
+<meta content="https://www.veritrustlab.in/model-performance" property="og:url"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="Model Performance | VeriTrust" name="twitter:title"/>
+<meta content="Current VeriTrust evaluation status, scoring limitations, and the benchmark evidence that has not yet been published." name="twitter:description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<script defer="" src="/assets/js/pages/model-performance.js"></script>
+<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+</head>
+<body class="vt-graphite-theme">
+<header class="tool-header-shell vt-page-header">
+<div class="tool-header-inner">
+<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html">
+<img alt="" class="tool-header-mark" src="/assets/images/logo.png"/>
+<img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/>
+</a>
+<nav aria-label="Primary" class="tool-header-links">
+<a href="index.html">Home</a>
+<a href="detection.html">Investigate</a>
+<a href="developers.html">Developers</a>
+<a href="docs.html">Docs</a>
+<a class="active" href="model-performance.html">Model Performance</a>
+</nav>
+<div class="tool-header-actions">
+<a class="tool-header-login" href="auth.html">Log in</a>
+<a class="tool-header-dashboard" href="dashboard.html">Dashboard</a>
+<button aria-expanded="false" aria-label="Open page menu" class="tool-menu-toggle" type="button">
+<svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+<circle cx="12" cy="5" r="1.8"></circle>
+<circle cx="12" cy="12" r="1.8"></circle>
+<circle cx="12" cy="19" r="1.8"></circle>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<main class="container docs-layout">
+<aside class="toc">
+<a href="#overview">Overview</a>
+
+<a href="#phishing">Phishing</a>
+<a href="#link">Link Intelligence</a>
+<a href="#metrics">Required Metrics</a>
+<a href="#datasets">Dataset Notes</a>
+<a href="#limitations">Limitations</a>
+</aside>
+<article class="doc-content">
+<section class="doc-section" id="overview">
+<p class="eyebrow">VeriTrust does not publish an accuracy, precision, recall, or F1 claim until a controlled, reproducible benchmark is completed. Runtime risk scores are investigation signals, not measured product accuracy.</p>
+<h1>No VeriTrust benchmark is currently published.</h1>
+<p>The repository does not contain a controlled labeled evaluation, confusion matrix, or verified accuracy, precision, recall, or F1 result. Accordingly, the site makes no numerical performance claim.</p>
+<p>Current scan output is an AI-assisted triage signal. A provider model's confidence value is not a VeriTrust accuracy measurement and is not legal, forensic, cybersecurity, or final proof.</p>
+<div aria-busy="true" aria-live="polite" class="model-governance-summary" data-model-governance=""><strong>Checking the model-card registry</strong><p>Published evidence will appear only after an evaluated model card has been approved.</p></div>
+</section>
+<section class="doc-section" id="published-cards">
+<h2>Published model cards</h2>
+<div class="model-card-grid" data-model-cards=""><div class="model-card-empty"><strong>Loading governance records</strong><p>No metric is displayed until its supporting model card is published.</p></div></div>
+</section>
+
+<section class="doc-section" data-module="phishing" id="phishing">
+<h2>MailGuard email-threat evaluation</h2>
+<p>The current message paths are VeriTrust MailGuard, a hosted text classifier, and VeriTrust Cortex, a hosted instruction model. The displayed phishing score combines model output with deterministic indicators, so it is not a raw model benchmark.</p>
+<ul>
+<li>A valid evaluation would report email, SMS, URL, and short-message subsets separately.</li>
+<li>It would assess model-only predictions separately from the combined rule score.</li>
+<li>Any benchmark must state that a low-risk result does not prove a message is safe.</li>
+</ul>
+</section>
+<section class="doc-section" data-module="link" id="link">
+<h2>Swift URL-intelligence evaluation</h2>
+<p>The available link path uses a server-configured VeriTrust Swift classifier plus deterministic URL-string indicators. If hosted inference fails, the route returns a disclosed local URL-pattern fallback. It does not fetch pages, resolve redirects, query WHOIS, or use live reputation feeds.</p>
+<ul>
+<li>No VeriTrust link-classification benchmark is currently published.</li>
+<li>Classifier output and deterministic URL indicators would need separate evaluation.</li>
+<li>Fallback frequency and URL-pattern-only outcomes must be measured separately from hosted-classifier results.</li>
+</ul>
+</section>
+<section class="doc-section" id="metrics">
+<h2>Metrics required before a performance claim</h2>
+<ul>
+<li>Accuracy, precision, recall, and F1 score on documented labeled test sets.</li>
+<li>False positive and false negative rates by scan type.</li>
+<li>Confusion matrices for each evaluated model and dataset split.</li>
+<li>Latency and fallback frequency under production-like conditions.</li>
+</ul>
+</section>
+<section class="doc-section" id="datasets">
+<h2>Dataset notes</h2>
+<p>Any future benchmark would need to identify its dataset source, labeling process, sampling approach, train/test separation, known bias, exclusions, preprocessing, and evaluation date. Without those details, a headline accuracy figure would not be reliable.</p>
+</section>
+<section class="doc-section" id="limitations">
+<h2>Limitations</h2>
+<ul>
+<li>False positives can incorrectly flag benign content as suspicious.</li>
+<li>False negatives can miss risky content, especially when attackers change wording, domains, or visual generation methods.</li>
+<li>Model fallback can change score distributions because a different model handled the request.</li>
+<li>High-impact cases should include manual review and trusted source verification.</li>
+</ul>
+</section>
+</article>
+</main>
+<footer class="legal-footer">
+<a href="privacy.html">Privacy</a><span aria-hidden="true">·</span><a href="terms.html">Terms</a><span aria-hidden="true">·</span><a href="security.html">Security</a><span aria-hidden="true">·</span><a href="disclaimer.html">Disclaimer</a><span aria-hidden="true">·</span><a href="docs.html">Docs</a><span aria-hidden="true">·</span><a href="developers.html">Developers</a><span aria-hidden="true">·</span><a href="model-performance.html">Model Performance</a>
+</footer>
+</body>
+</html>

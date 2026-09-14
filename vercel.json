@@ -1,0 +1,376 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "functions": {
+    "api/detection.js": {
+      "maxDuration": 60
+    },
+    "api/gateway.js": {
+      "maxDuration": 60
+    },
+    "api/v1.js": {
+      "maxDuration": 60
+    },
+    "api/account.js": {
+      "maxDuration": 60
+    },
+    "api/billing.js": {
+      "maxDuration": 60
+    },
+    "api/system.js": {
+      "maxDuration": 60
+    }
+  },
+  "redirects": [
+    {
+      "source": "/scans",
+      "destination": "/cases",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/favicon(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/apple-touch-icon.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/:module(phishing|link-check|gateway|gateway-powershell|verify-evidence)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/:module(phishing|link-check|gateway|gateway-powershell|verify-evidence).html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/config/modules.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'sha256-wczZ3q1V++z9fMI0lTtJu87UY/39DA8gzGUR/Lh3Ed8='; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.supabase.co; media-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Origin-Agent-Cluster",
+          "value": "?1"
+        },
+        {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/lib/(.*)",
+      "destination": "/api/system?route=not-found"
+    },
+    {
+      "source": "/docs/(.*)",
+      "destination": "/api/system?route=not-found"
+    },
+    {
+      "source": "/scripts/(.*)",
+      "destination": "/api/system?route=not-found"
+    },
+    {
+      "source": "/test/(.*)",
+      "destination": "/api/system?route=not-found"
+    },
+    {
+      "source": "/worker/(.*)",
+      "destination": "/api/system?route=not-found"
+    },
+    {
+      "source": "/legacy-php/(.*)",
+      "destination": "/api/system?route=not-found"
+    },
+    {
+      "source": "/api/_(.*)",
+      "destination": "/api/system?route=not-found"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/system?route=sitemap"
+    },
+    {
+      "source": "/api/gateway-worker",
+      "destination": "/api/gateway?resource=worker"
+    },
+    {
+      "source": "/api/phishing",
+      "destination": "/api/detection?route=phishing"
+    },
+    {
+      "source": "/api/link-check",
+      "destination": "/api/detection?route=link-check"
+    },
+    {
+      "source": "/api/session",
+      "destination": "/api/account?route=session"
+    },
+    {
+      "source": "/api/scans",
+      "destination": "/api/account?route=scans"
+    },
+    {
+      "source": "/api/cases",
+      "destination": "/api/account?route=cases"
+    },
+    {
+      "source": "/api/dashboard",
+      "destination": "/api/account?route=dashboard"
+    },
+    {
+      "source": "/api/api-keys",
+      "destination": "/api/account?route=api-keys"
+    },
+    {
+      "source": "/api/auth-session",
+      "destination": "/api/account?route=auth-session"
+    },
+    {
+      "source": "/api/profile",
+      "destination": "/api/account?route=profile"
+    },
+    {
+      "source": "/api/privacy",
+      "destination": "/api/account?route=privacy"
+    },
+    {
+      "source": "/api/jobs",
+      "destination": "/api/account?route=jobs"
+    },
+    {
+      "source": "/api/model-cards",
+      "destination": "/api/system?route=model-cards"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/system?route=health"
+    },
+    {
+      "source": "/api/client-config",
+      "destination": "/api/system?route=client-config"
+    },
+    {
+      "source": "/api/v2/phishing/analyze-text",
+      "destination": "/api/gateway?resource=email-text"
+    },
+    {
+      "source": "/api/v2/phishing/analyze-eml",
+      "destination": "/api/gateway?resource=email-eml"
+    },
+    {
+      "source": "/api/v2/phishing/evidence/:id",
+      "destination": "/api/gateway?resource=email-evidence&id=:id"
+    },
+    {
+      "source": "/api/v2/phishing/export/:id",
+      "destination": "/api/gateway?resource=email-export&id=:id&format=json"
+    },
+    {
+      "source": "/api/v2/phishing/export/:id/:format",
+      "destination": "/api/gateway?resource=email-export&id=:id&format=:format"
+    },
+    {
+      "source": "/api/v2/phishing/verify-evidence",
+      "destination": "/api/gateway?resource=email-passport-verify"
+    },
+    {
+      "source": "/internal/v2/phishing/receiver-eml",
+      "destination": "/api/gateway?resource=email-receiver-eml"
+    },
+    {
+      "source": "/internal/v2/phishing/receiver-event",
+      "destination": "/api/gateway?resource=email-receiver"
+    },
+    {
+      "source": "/api/v1/gateway/email/analyze-text",
+      "destination": "/api/gateway?resource=email-text"
+    },
+    {
+      "source": "/api/v1/gateway/email/analyze-eml",
+      "destination": "/api/gateway?resource=email-eml"
+    },
+    {
+      "source": "/api/v1/gateway/email/evidence/:id",
+      "destination": "/api/gateway?resource=email-evidence&id=:id"
+    },
+    {
+      "source": "/api/v1/gateway/email/export/:id",
+      "destination": "/api/gateway?resource=email-export&id=:id&format=json"
+    },
+    {
+      "source": "/api/v1/gateway/email/export/:id/:format",
+      "destination": "/api/gateway?resource=email-export&id=:id&format=:format"
+    },
+    {
+      "source": "/api/v1/gateway/policies/:id/activate",
+      "destination": "/api/gateway?resource=policies&id=:id&action=activate"
+    },
+    {
+      "source": "/api/v1/gateway/policies",
+      "destination": "/api/gateway?resource=policies"
+    },
+    {
+      "source": "/api/v1/gateway/webhooks/:id/disable",
+      "destination": "/api/gateway?resource=webhooks&id=:id&action=disable"
+    },
+    {
+      "source": "/api/v1/gateway/webhooks/:id/test",
+      "destination": "/api/gateway?resource=webhooks&id=:id&action=test"
+    },
+    {
+      "source": "/api/v1/gateway/webhooks",
+      "destination": "/api/gateway?resource=webhooks"
+    },
+    {
+      "source": "/api/v1/gateway/reviews/:id/resolve",
+      "destination": "/api/gateway?resource=reviews&id=:id&action=resolve"
+    },
+    {
+      "source": "/api/v1/gateway/reviews",
+      "destination": "/api/gateway?resource=reviews"
+    },
+    {
+      "source": "/api/v1/gateway/operations",
+      "destination": "/api/gateway?resource=operations"
+    },
+    {
+      "source": "/api/v1/gateway/uploads/:id/complete",
+      "destination": "/api/gateway?resource=uploads&id=:id&action=complete"
+    },
+    {
+      "source": "/api/v1/gateway/uploads",
+      "destination": "/api/gateway?resource=uploads"
+    },
+    {
+      "source": "/api/v1/gateway/scans/:id/cancel",
+      "destination": "/api/gateway?resource=scans&id=:id&action=cancel"
+    },
+    {
+      "source": "/api/v1/gateway/scans/:id",
+      "destination": "/api/gateway?resource=scans&id=:id"
+    },
+    {
+      "source": "/api/v1/gateway/scans",
+      "destination": "/api/gateway?resource=scans"
+    },
+    {
+      "source": "/api/v1/gateway/reports/:id",
+      "destination": "/api/gateway?resource=reports&id=:id"
+    },
+    {
+      "source": "/api/v1/phishing",
+      "destination": "/api/v1?route=phishing"
+    },
+    {
+      "source": "/api/v1/link-check",
+      "destination": "/api/v1?route=link-check"
+    },
+    {
+      "source": "/api/v1/usage",
+      "destination": "/api/v1?route=usage"
+    },
+    {
+      "source": "/api/billing/checkout",
+      "destination": "/api/billing?route=checkout"
+    },
+    {
+      "source": "/api/billing/portal",
+      "destination": "/api/billing?route=portal"
+    },
+    {
+      "source": "/api/billing/subscription",
+      "destination": "/api/billing?route=subscription"
+    },
+    {
+      "source": "/api/billing/webhook",
+      "destination": "/api/billing?route=webhook"
+    }
+  ]
+}

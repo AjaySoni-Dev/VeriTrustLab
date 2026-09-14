@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
+    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>VeriTrust MailGraph | Email Threat &amp; Forensic Intelligence</title>
+    <meta name="description" content="Investigate suspicious emails with AI-assisted threat detection, sender authentication, identity relationships, URL intelligence, SMTP infrastructure context, and evidence-aware reporting.">
+    <link rel="canonical" href="https://www.veritrustlab.in/">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="VeriTrust">
+    <meta property="og:title" content="VeriTrust MailGraph | Email Threat &amp; Forensic Intelligence">
+    <meta property="og:description" content="Investigate suspicious emails with threat detection, authentication forensics, sender relationships, URL intelligence, infrastructure context, and evidence-aware reporting.">
+    <meta property="og:url" content="https://www.veritrustlab.in/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="VeriTrust MailGraph | Email Threat &amp; Forensic Intelligence">
+    <meta name="twitter:description" content="Evidence-aware email threat detection, authentication forensics, URL intelligence, and mail-infrastructure context.">
+    <meta name="application-name" content="VeriTrust">
+    <meta name="apple-mobile-web-app-title" content="VeriTrust">
+    <meta name="theme-color" content="#1A1A1A">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.veritrustlab.in/#website",
+            "url": "https://www.veritrustlab.in/",
+            "name": "VeriTrust",
+            "alternateName": "VeriTrust Lab",
+            "publisher": {
+              "@id": "https://www.veritrustlab.in/#organization"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.veritrustlab.in/#organization",
+            "url": "https://www.veritrustlab.in/",
+            "name": "VeriTrust",
+            "alternateName": "VeriTrust Lab",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.veritrustlab.in/assets/images/logo.png",
+              "contentUrl": "https://www.veritrustlab.in/assets/images/logo.png",
+              "width": 192,
+              "height": 192
+            }
+          }
+        ]
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/base/veritrust.css">
+    <script src="/assets/js/core/config.js"></script>
+    <script src="/assets/js/core/supabase-client.js" defer></script>
+    <script src="/assets/js/core/site.js" defer></script>
+    <script src="/assets/js/pages/home.js" defer></script>
+    <style>
+        :root {
+            color-scheme: dark;
+
+            --bg-base: #1A1A1A;
+            --bg-surface: #222222;
+            --bg-surface-hover: #2A2A2A;
+            --bg-surface-light: #262626;
+            --bg-page-gradient: none;
+            --bg-section-tint: #171717;
+            --header-bg: #181818;
+
+            --border-subtle: #363636;
+            --border-hover: #4A4A4A;
+            --border-active: #666666;
+
+            --text-primary: #FAFAFA;
+            --text-secondary: #C2C2C2;
+            --text-tertiary: #929292;
+
+--accent-main: #01AFAF;
+--accent-hover: #01AFAF;
+--accent-button: #01AFAF;
+--accent-button-hover: #01AFAF;
+--accent-glow: rgba(1, 175, 175, 0.15);
+--accent-soft: rgba(1, 175, 175, 0.085);
+--accent-border: rgba(1, 175, 175, 0.30);
+
+            --status-success: #34D399;
+            --status-danger: #F87171;
+            --danger-soft: rgba(248, 113, 113, 0.09);
+
+            --console-grid: #3A3A3A;
+            --console-panel: #272727;
+            --console-fill: #303030;
+            --console-muted: #929292;
+            --console-border: #4A4A4A;
+            --console-text: #FAFAFA;
+
+            /* Typography */
+            --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            
+            /* Fluid Spacing & Layout */
+            --max-width: 1140px;
+            --section-pad-y: clamp(4rem, 8vw, 7rem); /* Fluid vertical padding */
+            --header-height: 4.5rem; /* Slightly increased to comfortably fit the larger logo */
+            
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.28);
+            --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.22);
+            --shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.32);
+            
+            /* Focus remains visible without relying on decorative elevation. */
+--focus-ring: 0 0 0 3px rgba(1, 175, 175, 0.30);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--header-height) + 1.5rem);
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-primary);
+            background-color: var(--bg-base);
+            background-image: var(--bg-page-gradient);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 0.875rem; /* Base 14px */
+            animation: pageFadeIn 140ms ease-out both;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        section,
+        footer,
+        .hero-illustration,
+        .console-header,
+        .cta-container,
+        .social-links a {
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+        }
+
+        ul { list-style: none; }
+        img, svg { max-width: 100%; display: block; }
+
+        button { font: inherit; }
+
+        :where(a, button):focus-visible {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
+
+        ::selection {
+            background: var(--accent-border);
+            color: var(--text-primary);
+        }
+
+        :where(a, button):focus-visible {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        h1 { 
+            font-size: clamp(2.05rem, 5.2vw, 3.55rem); 
+            letter-spacing: -0.04em; 
+        }
+        
+        h2 { 
+            font-size: clamp(1.75rem, 4vw, 2.5rem); 
+            letter-spacing: -0.03em; 
+        }
+        
+        h3 { 
+            font-size: 1.125rem; 
+            letter-spacing: -0.01em; 
+        }
+        
+        h4 { 
+            font-size: 0.9375rem; 
+            font-weight: 500; 
+        }
+
+        p { color: var(--text-secondary); }
+
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto clamp(2.5rem, 5vw, 4rem); /* Fluid margin bottom */
+        }
+        
+        .section-header p {
+            margin-top: 1rem;
+            font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+            font-style: italic;
+        }
+
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 2.5rem;
+            height: 2px;
+            margin: 1rem auto 0;
+            border-radius: 999px;
+            background: var(--accent-main);
+        }
+
+        /* Layout */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 0.75rem;
+            width: 100%;
+        }
+
+        main > section {
+            padding: var(--section-pad-y) 0;
+        }
+
+        /* The shared site footer uses semantic sections for its link groups.
+           Keep landing-page section spacing scoped to main content only. */
+        .vt-site-footer section {
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6875rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.875rem;
+            min-height: 44px;
+            line-height: 1.2;
+            letter-spacing: -0.005em;
+            transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+            cursor: pointer;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            border: 1px solid transparent;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-button);
+            color: #171717;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-button-hover);
+            box-shadow: 0 8px 22px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-surface-light);
+            color: var(--text-primary);
+            border-color: var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+        }
+
+        .btn:disabled,
+        .btn[aria-disabled="true"] {
+            cursor: not-allowed;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--header-bg) !important;
+            border-bottom: 1px solid var(--border-subtle);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            opacity: 1 !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            transition: background-color 0.25s ease, border-color 0.2s ease;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        header.is-scrolled {
+            border-bottom-color: var(--border-hover);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: clamp(1.5rem, 3vw, 3rem);
+            height: 100%;
+            max-width: 1180px;
+        }
+
+        /* Logo Configuration */
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.30rem; /* Spacing between icon and text image */
+            flex: 0 0 auto;
+        }
+
+        .brand-logo-img {
+            height: 32px; /* Increased size for the brand mark */
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .brand-text-img {
+            height: 19.5px; /* Slightly reduced size for the brand name */
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+            display: block;
+            margin-top: 2px; /* Visual alignment correction */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(1.25rem, 2.2vw, 2.25rem);
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.18s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-hover);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-main);
+        }
+
+        .nav-links .tool-header-mobile-actions {
+            display: none;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+
+        .menu-toggle {
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 0;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-toggle:hover {
+            background: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        .menu-toggle svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        .login-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-surface-light);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .login-link:hover {
+            background-color: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        .header-dashboard {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            background-color: var(--bg-surface-light);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .header-dashboard:hover {
+            background-color: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        body.vt-authenticated .login-link {
+            display: none;
+        }
+
+        body.vt-authenticated .header-dashboard {
+            display: inline-flex;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            isolation: isolate;
+            padding-top: calc(var(--header-height) + clamp(4rem, 8vw, 6rem));
+            padding-bottom: clamp(4rem, 8vw, 6rem);
+            border-bottom: none;
+        }
+
+        .hero::before {
+            content: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding-inline: clamp(1rem, 2.5vw, 2rem);
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 1.25rem;
+            font-size: clamp(1.85rem, 4.2vw, 3.1rem);
+            text-wrap: balance;
+        }
+
+        .hero-content h1 .hero-accent {
+            color: var(--accent-main);
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            margin: 0 auto 2.25rem;
+            max-width: 610px;
+            line-height: 1.62;
+        }
+
+        .hero-actions {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.65rem;
+            width: 100%;
+            margin-inline: auto;
+        }
+
+        .hero-actions .btn {
+            min-width: 0;
+            padding-inline: 1rem;
+            font-size: 0.86rem;
+            white-space: nowrap;
+        }
+
+        .hero-actions .btn-core {
+            border-color: var(--accent-border);
+            color: var(--accent-hover);
+        }
+
+        .hero-actions .btn-live-gateway {
+            border-color: rgba(1, 175, 175, 0.55);
+            color: #b8ffff;
+            background: rgba(1, 175, 175, 0.08);
+        }
+
+        .hero-actions .btn-live-gateway:hover {
+            border-color: rgba(85, 223, 230, 0.86);
+            color: #ffffff;
+            background: rgba(1, 175, 175, 0.14);
+        }
+
+        .hero-actions .btn-core:hover {
+            border-color: var(--accent-main);
+            background: var(--accent-soft);
+        }
+
+        /* Hero Illustration - Console Style */
+        .hero-illustration {
+            position: relative;
+            width: 100%;
+            max-width: 540px;
+            margin: 0 auto;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            background: var(--bg-surface);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .console-header {
+            height: 2.5rem;
+            background: var(--bg-surface-light);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .console-header span {
+            font-family: var(--font-mono) !important;
+        }
+
+        .console-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-hover);
+        }
+
+        .console-body {
+            padding: 1.5rem;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16/10;
+            position: relative;
+        }
+
+        .console-body svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* SVG Animations */
+        .anim-pulse { animation: pulse 3s ease-in-out infinite; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Trust Badges Section */
+        .trust-section {
+            padding: 2.5rem 0;
+            background: var(--bg-section-tint);
+            border-block: 1px solid var(--border-subtle);
+        }
+
+        .trust-grid {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1.5rem, 4vw, 4rem);
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .trust-badge svg {
+            width: 16px;
+            height: 16px;
+            color: var(--accent-main);
+        }
+
+        /* Grids */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .solution-grid {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card:hover {
+            background: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        /* Solutions Section */
+        .solution-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            color: var(--accent-main);
+            border: 1px solid var(--accent-border);
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-list {
+            margin-top: auto;
+            padding-top: 1.25rem;
+        }
+
+        .solution-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.625rem;
+            color: var(--text-secondary);
+            font-size: 0.8125rem;
+        }
+
+        .solution-list li svg {
+            width: 14px;
+            height: 14px;
+            color: var(--accent-main);
+            flex-shrink: 0;
+        }
+
+        /* How It Works Section */
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-soft);
+            color: var(--accent-main);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 0.75rem;
+            margin-bottom: 1.25rem;
+            font-family: var(--font-display);
+            border: 1px solid var(--accent-border);
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-soft);
+            color: var(--accent-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+            border: 1px solid var(--accent-border);
+        }
+        
+        .feature-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .feature-content h4 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .feature-content p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--bg-section-tint);
+            padding: clamp(3rem, 6vw, 5rem) 0;
+            border-block: 1px solid var(--border-subtle);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .stat-item p {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* Pricing Section */
+        .pricing-card {
+            padding: 2.5rem 2rem;
+            position: relative;
+        }
+
+        .pricing-card.popular {
+            background: var(--bg-surface-light);
+            border-color: var(--accent-border);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 2rem;
+            background: var(--accent-button);
+            color: #171717;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 600;
+            color: var(--accent-main);
+            font-family: var(--font-display);
+            margin-top: 0.5rem;
+        }
+
+        .price span {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            font-family: var(--font-sans);
+        }
+
+        .pricing-features {
+            margin-bottom: 2rem;
+            margin-top: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features li svg {
+            width: 16px;
+            height: 16px;
+            color: var(--status-success);
+            flex-shrink: 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            border-bottom: none;
+        }
+
+        .cta-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: clamp(3rem, 6vw, 5rem) 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .cta-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-surface);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            margin-top: 1.25rem;
+            margin-bottom: 1.5rem;
+            max-width: 280px;
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-links a {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-surface-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .social-links a:hover {
+            color: var(--text-primary);
+            background: var(--bg-surface-hover);
+            border-color: var(--border-hover);
+        }
+        
+        .social-links svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent-hover);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        /* Scroll Reveal Animation */
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+        }
+
+        .js .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* High-Quality Responsive Design */
+        @media (max-width: 1050px) {
+            body.menu-open {
+                overflow: hidden;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.is-open {
+                position: absolute;
+                top: calc(100% + 1px);
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.25rem;
+                max-height: calc(100vh - var(--header-height));
+                overflow-y: auto;
+                padding: 0.75rem clamp(1rem, 4vw, 2rem) 1rem;
+                background: var(--header-bg);
+                border-bottom: 1px solid var(--border-subtle);
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                animation: menuDrop 0.2s ease-out both;
+            }
+
+            .nav-links.is-open a {
+                padding: 0.75rem;
+                border-radius: var(--radius-sm);
+            }
+
+            .nav-links.is-open a:hover {
+                background: var(--bg-surface-hover);
+            }
+
+            .nav-links.is-open .tool-header-mobile-actions {
+                display: grid;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+                padding-top: 0.75rem;
+                border-top: 1px solid var(--border-subtle);
+            }
+
+            .nav-links.is-open .tool-header-mobile-actions a {
+                display: inline-flex;
+                min-height: 44px;
+                align-items: center;
+                justify-content: center;
+                background: var(--bg-surface-hover);
+                color: var(--text-primary);
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .nav-actions .login-link,
+            .nav-actions .header-dashboard {
+                display: none;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            .hero-content {
+                padding: 0 clamp(0.75rem, 3vw, 1.5rem);
+            }
+            .hero-content p { 
+                margin: 0 auto 2rem; 
+            }
+            .hero-actions { 
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 2.5rem;
+            }
+            .footer-brand {
+                grid-column: span 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Nav */
+            .nav-links, .nav-actions .btn-secondary, .nav-actions .login-link, .nav-actions .header-dashboard {
+                display: none;
+            }
+
+            .hero-actions {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.45rem;
+            }
+
+            .hero-actions .btn {
+                min-width: 0;
+                padding: 0.6rem 0.35rem;
+                font-size: clamp(0.68rem, 2.8vw, 0.78rem);
+                line-height: 1.15;
+                white-space: nowrap;
+            }
+
+            /* Stack Grids */
+            .grid-3, .grid-4, .features-grid, .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            
+            /* Section Adjustments */
+            .section-header p {
+                margin-top: 0.75rem;
+            }
+
+            .popular-badge {
+                left: 1.5rem;
+            }
+
+            /* CTA Stack */
+            .cta-actions {
+                flex-direction: column;
+            }
+            .cta-actions .btn {
+                width: 100%;
+            }
+
+            /* Footer Stack */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .footer-brand {
+                grid-column: auto;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 560px) {
+            :root {
+                --section-pad-y: 4.25rem;
+            }
+
+            .container {
+                padding-inline: 1rem;
+            }
+
+            .brand-logo-img {
+                height: 29px;
+            }
+
+            .brand-text-img {
+                height: 17px;
+                max-width: 138px;
+            }
+
+            .nav-container {
+                gap: 0.75rem;
+            }
+
+            .hero {
+                padding-top: calc(var(--header-height) + 3.25rem);
+            }
+
+            .hero-content h1 {
+                font-size: clamp(2rem, 9.5vw, 2.65rem);
+            }
+
+            .hero-actions {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 0.4rem;
+            }
+
+            .hero-actions .btn {
+                height: 48px;
+                min-height: 48px;
+                padding: 0 0.45rem;
+                font-size: clamp(0.68rem, 3vw, 0.76rem);
+                line-height: 1.2;
+                white-space: nowrap;
+                text-align: center;
+            }
+
+            .console-body {
+                padding: 0.75rem;
+            }
+
+            .trust-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1rem;
+            }
+
+            .trust-badge {
+                align-items: flex-start;
+                font-size: 0.68rem;
+            }
+
+            .card,
+            .pricing-card {
+                padding: 1.35rem;
+            }
+
+            .cta-container {
+                padding-inline: 1.35rem;
+            }
+        }
+
+        .cookie-consent {
+            position: fixed;
+            inset-inline: 0;
+            bottom: 0;
+            z-index: 2100;
+            width: 100%;
+            max-height: 100dvh;
+            margin: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            border: 0;
+            border-top: 1px solid var(--accent-border);
+            border-radius: 18px 18px 0 0;
+            background: rgba(22, 22, 22, 0.98);
+            box-shadow: 0 -18px 60px rgba(0, 0, 0, 0.48);
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 220ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .cookie-consent[hidden] {
+            display: none !important;
+        }
+
+        .cookie-consent.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cookie-consent-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: clamp(24px, 4vw, 52px);
+            align-items: center;
+            width: min(100%, 1280px);
+            margin: 0 auto;
+            padding: 22px clamp(20px, 4vw, 56px) calc(22px + env(safe-area-inset-bottom));
+        }
+
+        .cookie-consent-copy {
+            display: grid;
+            grid-template-columns: minmax(150px, 174px) minmax(0, 1fr);
+            gap: clamp(18px, 2.5vw, 28px);
+            align-items: center;
+        }
+
+        .cookie-consent-mark {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            width: 100%;
+            padding-right: 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.11);
+        }
+
+        .cookie-consent-logo {
+            flex: 0 0 auto;
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .cookie-consent-wordmark {
+            width: 118px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .cookie-consent-label {
+            margin: 0 0 4px;
+            color: var(--accent-main);
+            font: 600 10px var(--font-mono);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .cookie-consent h2 {
+            margin: 0;
+            font-size: clamp(17px, 2vw, 20px);
+            line-height: 1.2;
+        }
+
+        .cookie-consent-description {
+            max-width: 760px;
+            margin: 6px 0 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .cookie-consent-description a {
+            color: var(--text-primary);
+            text-decoration: underline;
+            text-decoration-color: var(--accent-border);
+            text-underline-offset: 3px;
+        }
+
+        .cookie-consent-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .cookie-consent-button {
+            min-height: 46px;
+            padding: 11px 18px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            background: var(--bg-surface-light);
+            color: var(--text-primary);
+            font: 600 13px var(--font-sans);
+            white-space: nowrap;
+            cursor: pointer;
+            transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+        }
+
+
+        .cookie-consent-button:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-surface-hover);
+        }
+
+        .cookie-consent-button:active {
+            transform: translateY(1px);
+        }
+
+        .cookie-consent-button-primary {
+            border-color: var(--accent-main);
+            background: var(--accent-button);
+            color: #17120c;
+        }
+
+        .cookie-consent-button-primary:hover {
+            border-color: var(--accent-hover);
+            background: var(--accent-button-hover);
+        }
+
+        .cookie-consent-button:focus-visible,
+        .cookie-consent-description a:focus-visible {
+            outline: 2px solid var(--accent-hover);
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 760px) {
+            .cookie-consent {
+                bottom: 0;
+                width: 100%;
+                max-height: 100dvh;
+                border-radius: 16px 16px 0 0;
+            }
+
+            .cookie-consent-inner {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 16px;
+                padding: 20px 18px calc(18px + env(safe-area-inset-bottom));
+            }
+
+            .cookie-consent-actions {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                width: 100%;
+            }
+
+            .cookie-consent-button {
+                width: 100%;
+                padding-inline: 10px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .cookie-consent-copy {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 12px;
+            }
+
+            .cookie-consent-mark {
+                width: fit-content;
+                padding: 0;
+                border-right: 0;
+            }
+
+            .cookie-consent-logo {
+                width: 34px;
+                height: 34px;
+            }
+
+            .cookie-consent-wordmark {
+                width: 112px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .cookie-consent-actions {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 8px;
+            }
+        }
+
+        @keyframes menuDrop {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .js .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="/assets/css/base/glass-system.css">
+</head>
+<body>
+
+    <header id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" aria-label="VeriTrust home">
+                <img src="/assets/images/logo.png" alt="VeriTrust Logo" class="brand-logo-img">
+                <img src="/assets/images/brand.png" alt="VeriTrust" class="brand-text-img">
+            </a>
+            <nav class="nav-links" id="primary-navigation" aria-label="Primary navigation">
+                <a href="index.html" class="active" aria-current="page">Home</a>
+                <a href="detection.html">Investigate</a>
+                <a href="gateway.html">Correlation</a>
+                <a href="developers.html">Developers</a>
+                <a href="docs.html">Docs</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="auth.html" class="login-link">Login / Sign Up</a>
+                <a href="dashboard.html" class="header-dashboard">Dashboard</a>
+                <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="primary-navigation" aria-expanded="false" data-menu-managed="inline">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content reveal">
+                    <h1>AI-powered email threat detection, <span class="hero-accent">geolocation &amp; forensic intelligence.</span></h1>
+                    <p>Investigate suspicious messages and raw email evidence with AI risk scoring, authentication analysis, infrastructure context, available geolocation signals, and analyst-ready forensic reporting.</p>
+                    <div class="hero-actions">
+    <a href="phishing.html" class="btn btn-primary">Investigate Suspicious Email</a>
+    <a href="gateway-powershell.html#live-smtp" class="btn btn-secondary btn-live-gateway">Live SMTP Gateway</a>
+    <a href="gateway.html" class="btn btn-secondary">Open Evidence Correlation</a>
+</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-section reveal" style="padding: 2.5rem 0;">
+            <div class="container">
+                <div class="trust-grid">
+                    <div class="trust-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Evidence-aware analysis
+                    </div>
+                    <div class="trust-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Authenticated workspaces
+                    </div>
+                    <div class="trust-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                        Scoped API keys
+                    </div>
+                    <div class="trust-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        Explicit uncertainty states
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>From detection to investigation</h2>
+                    <p>VeriTrust does not stop at a phishing score. It keeps content, authentication, identity, URL, and infrastructure evidence separate so reviewers can see what was checked, what was unavailable, and why the final recommendation was produced.</p>
+                </div>
+                
+                <div class="grid-3 solution-grid">
+                    <div class="card" data-module="phishing">
+                        <div class="solution-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                        </div>
+                        <h3>Email Threat Intelligence</h3>
+                        <p>Analyze pasted message text or an original EML using MailGuard and deterministic phishing, BEC, impersonation, and lure indicators.</p>
+                        <ul class="solution-list">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> AI content likelihood plus rule evidence</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Explicit benign, phishing, uncertain, and failed states</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Risk kept separate from evidence completeness</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" data-module="phishing">
+                        <div class="solution-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                        </div>
+                        <h3>Authentication &amp; Sender Forensics</h3>
+                        <p>Use original-message evidence to examine DKIM, DMARC, ARC, sender-domain relationships, and trusted-receiver SPF when the required SMTP facts exist.</p>
+                        <ul class="solution-list">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Trust-aware SPF, DKIM, DMARC, and ARC handling</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> From, Reply-To, Return-Path, and signing-domain relationships</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Copied authentication headers are not silently trusted</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" data-modules="link gateway">
+                        <div class="solution-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/><path d="M4 19h16"/></svg>
+                        </div>
+                        <h3>Link, Relay &amp; Evidence Correlation</h3>
+                        <p>Extract suspicious URLs, observe recorded mail-server infrastructure, enrich eligible public hops, and combine independent evidence without diluting strong malicious signals.</p>
+                        <ul class="solution-list">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Swift URL specialist plus deterministic URL indicators</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> SMTP hop, ASN, provider, and approximate infrastructure GeoIP</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Policy-backed Gateway recommendation and case review</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>How an email investigation works</h2>
+                    <p>The workflow preserves the difference between what the system observed, what it could verify, and what remains unavailable.</p>
+                </div>
+                
+                <div class="grid-4">
+                    <div class="card">
+                        <div class="step-number">01</div>
+                        <h4>Acquire</h4>
+                        <p style="margin-top: 0.5rem; font-size: 0.875rem;">Paste a suspicious message for fast triage or upload the original EML for header, attachment-metadata, and routing evidence.</p>
+                    </div>
+                    <div class="card">
+                        <div class="step-number">02</div>
+                        <h4>Verify</h4>
+                        <p style="margin-top: 0.5rem; font-size: 0.875rem;">Analyze content while separately checking available sender authentication and identity relationships.</p>
+                    </div>
+                    <div class="card">
+                        <div class="step-number">03</div>
+                        <h4>Trace</h4>
+                        <p style="margin-top: 0.5rem; font-size: 0.875rem;">Inspect embedded links and recorded delivery infrastructure, with approximate geolocation only for eligible public mail servers.</p>
+                    </div>
+                    <div class="card">
+                        <div class="step-number">04</div>
+                        <h4>Correlate</h4>
+                        <p style="margin-top: 0.5rem; font-size: 0.875rem;">Apply conservative evidence correlation, show limitations, and produce an analyst-ready recommendation and report.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="api" class="reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Forensic intelligence capabilities</h2>
+                    <p>The current platform is centered on email evidence and investigation. Each capability retains its own provenance and limitation state instead of being flattened into one opaque score.</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-item" data-module="phishing">
+                        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+                        <div class="feature-content"><h4>AI Threat Detection</h4><p>MailGuard phishing likelihood plus deterministic social-engineering, credential, payment, urgency, and impersonation indicators.</p></div>
+                    </div>
+                    <div class="feature-item" data-module="phishing">
+                        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                        <div class="feature-content"><h4>Authentication Forensics</h4><p>DKIM, DMARC, ARC, and trusted-receiver SPF with explicit unavailable states when the required evidence does not exist.</p></div>
+                    </div>
+                    <div class="feature-item" data-module="phishing">
+                        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="17" r="3"/><path d="M10.5 10.5l4 4M14 7h4v4"/></svg></div>
+                        <div class="feature-content"><h4>Sender Identity Graph</h4><p>Compare visible sender, Reply-To, Return-Path, Message-ID, authentication domains, and linked domains with reason-coded relationships.</p></div>
+                    </div>
+                    <div class="feature-item" data-module="link">
+                        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.1-1.1"/></svg></div>
+                        <div class="feature-content"><h4>URL Intelligence</h4><p>Extract URLs from email evidence and evaluate them with Swift plus deterministic indicators without requiring the reviewer to open the destination.</p></div>
+                    </div>
+                    <div class="feature-item" data-module="phishing">
+                        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
+                        <div class="feature-content"><h4>Relay &amp; Geo Context</h4><p>Extract observed Received-header hops and enrich eligible public infrastructure with ASN, provider, reverse-DNS, and approximate GeoIP context when available.</p></div>
+                    </div>
+                    <div class="feature-item" data-module="gateway">
+                        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16M6 16l4-4 3 2 5-7"/></svg></div>
+                        <div class="feature-content"><h4>Evidence Correlation &amp; Cases</h4><p>Preserve strong independent risk evidence, apply policy guards, record limitations, and route consequential findings into human case review.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section reveal">
+            <div class="container stats-grid">
+                <div class="stat-item"><h2>3</h2><p>Evidence modes</p></div>
+                <div class="stat-item"><h2>4</h2><p>Authentication protocols</p></div>
+                <div class="stat-item"><h2>Geo</h2><p>Infrastructure, not person location</p></div>
+                <div class="stat-item"><h2>Metrics</h2><p>Controlled benchmark pending</p></div>
+            </div>
+        </section>
+
+        <section id="evidence-modes" class="reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Choose the evidence level you actually have</h2>
+                    <p>VeriTrust never pretends that pasted text, an original EML, and a trusted SMTP receiver event provide the same forensic evidence.</p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="card pricing-card">
+                        <div class="pricing-header"><h3>Quick Content Scan</h3><div class="price">Text</div></div>
+                        <ul class="pricing-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Message wording and social-engineering indicators</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Embedded URL extraction and intelligence</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> No header, authentication, or relay-origin claim</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Metadata-only retention path</li>
+                        </ul>
+                        <a href="phishing.html" class="btn btn-secondary">Paste Email Text</a>
+                    </div>
+
+                    <div class="card pricing-card popular">
+                        <div class="popular-badge">Recommended for investigation</div>
+                        <div class="pricing-header"><h3>Full EML Investigation</h3><div class="price">EML</div></div>
+                        <ul class="pricing-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Bounded MIME and header parsing</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> DKIM, DMARC, ARC, identity, links, and attachments metadata</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Recorded relay infrastructure and approximate GeoIP when available</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> SPF remains unavailable without trusted SMTP facts</li>
+                        </ul>
+                        <a href="phishing.html" class="btn btn-primary">Upload Original EML</a>
+                    </div>
+
+                    <div class="card pricing-card">
+                        <div class="pricing-header"><h3>Trusted Receiver Evidence</h3><div class="price">SMTP</div></div>
+                        <ul class="pricing-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Trusted client IP, HELO, MAIL FROM, and receiver identity</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> SPF evaluation at the trusted boundary</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Stronger infrastructure-origin reliability semantics</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Integration through the documented email API</li>
+                        </ul>
+                        <a href="developers.html" class="btn btn-secondary">View Integration Guide</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section reveal">
+            <div class="container">
+                <div class="cta-container">
+                    <div class="cta-content">
+                        <h2>Ready to investigate a suspicious email?</h2>
+                        <p>Start with the evidence you have. VeriTrust will show what it can verify, what remains unavailable, and why human review may still be required.</p>
+                        <div class="cta-actions">
+                            <a href="phishing.html" class="btn btn-primary">Investigate Email</a>
+                            <a href="docs.html" class="btn btn-secondary">View Docs</a>
+                            <a href="developers.html" class="btn btn-secondary">Use the API</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" style="margin-bottom: 0.5rem;" aria-label="VeriTrust home">
+                        <img src="/assets/images/logo.png" alt="VeriTrust Logo" class="brand-logo-img">
+                        <img src="/assets/images/brand.png" alt="VeriTrust" class="brand-text-img">
+                    </a>
+                    <p>Evidence-aware email threat detection and forensic intelligence for cautious investigation and human review.</p>
+                    <div class="social-links">
+                        <a href="docs.html" aria-label="Docs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></svg></a>
+                        <a href="developers.html" aria-label="Developers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></a>
+                        <a href="security.html" aria-label="Security"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Investigate</h4>
+                    <ul>
+                        <li><a href="phishing.html">Email Investigation</a></li>
+                        <li><a href="gateway.html">Evidence Correlation</a></li>
+                        <li><a href="link-check.html">Link Intelligence</a></li>
+                        <li><a href="detection.html">Investigation Workflows</a></li>
+                        <li><a href="cases.html">Case Workspace</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Developers</h4>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="developers.html">Developers</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="model-performance.html">Model Performance</a></li>
+                        <li><a href="security.html">Security Notes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="docs.html">Docs</a></li>
+                        <li><a href="security.html">Security</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="model-performance.html">Model Performance</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="security.html">Security</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 VeriTrust. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <section id="cookie-consent" class="cookie-consent" role="dialog" aria-modal="false" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-description" hidden>
+        <div class="cookie-consent-inner">
+            <div class="cookie-consent-copy">
+                <span class="cookie-consent-mark" aria-hidden="true">
+                    <img class="cookie-consent-logo" src="/assets/images/logo.png" alt="">
+                    <img class="cookie-consent-wordmark" src="/assets/images/brand.png" alt="">
+                </span>
+                <div>
+                    <p class="cookie-consent-label">Privacy preferences</p>
+                    <h2 id="cookie-consent-title">Your privacy, your choice.</h2>
+                    <p id="cookie-consent-description" class="cookie-consent-description">We use essential browser storage for security, sign-in, and saved preferences. Optional cookies are used only with your permission. Read our <a href="privacy.html">Privacy Policy</a>.</p>
+                </div>
+            </div>
+            <div class="cookie-consent-actions" aria-label="Cookie preferences">
+                <button class="cookie-consent-button" type="button" data-cookie-choice="essential">Essential only</button>
+                <button class="cookie-consent-button cookie-consent-button-primary" type="button" data-cookie-choice="all">Accept all</button>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
