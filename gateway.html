@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#1A1A1A" name="theme-color"/>
+<title>Evidence Correlation Gateway | VeriTrust</title>
+<meta content="Correlate suspicious email text, URLs, and available supporting evidence into one explainable threat decision." name="description"/>
+<link href="https://www.veritrustlab.in/gateway" rel="canonical"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="VeriTrust" property="og:site_name"/>
+<meta content="Evidence Correlation Gateway | VeriTrust" property="og:title"/>
+<meta content="Correlate suspicious email text, URLs, and available supporting evidence into one explainable threat decision." property="og:description"/>
+<meta content="https://www.veritrustlab.in/gateway" property="og:url"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="Evidence Correlation Gateway | VeriTrust" name="twitter:title"/>
+<meta content="Correlate suspicious email text, URLs, and available supporting evidence into one explainable threat decision." name="twitter:description"/>
+<link href="/favicon.ico" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/tool-pages.css" rel="stylesheet"/>
+<link href="/assets/css/pages/gateway.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<script defer="" src="/assets/js/core/analysis-result.js"></script>
+<script defer="" src="/assets/js/pages/gateway.js"></script>
+<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+<style>
+    /* Match the plain introductory treatment used on detection.html. */
+    html body.vt-gateway-page .gateway-powershell-feature {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      min-height: 0;
+      margin-bottom: 20px;
+      padding: 0 !important;
+      overflow: visible;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    html body.vt-gateway-page .gateway-powershell-feature::after {
+      content: none !important;
+    }
+
+    html body.vt-gateway-page .gateway-powershell-copy .eyebrow {
+      margin: 0 0 14px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    html body.vt-gateway-page .gateway-powershell-copy > p:not(.eyebrow) {
+      margin: 8px 0 14px;
+    }
+
+    @media (max-width: 600px) {
+      html body.vt-gateway-page .gateway-powershell-feature {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body class="vt-tool-page vt-gateway-page vt-graphite-theme">
+<header class="tool-header-shell vt-page-header">
+<div class="tool-header-inner">
+<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html"><img alt="" class="tool-header-mark" src="/assets/images/logo.png"/><img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/></a>
+<nav aria-label="Primary" class="tool-header-links"><a href="index.html">Home</a><a class="active" href="detection.html">Investigate</a><a href="developers.html">Developers</a><a href="docs.html">Docs</a></nav>
+<div class="tool-header-actions"><a class="tool-header-login" href="auth.html">Log in</a><a class="tool-header-dashboard" href="dashboard.html">Dashboard</a></div>
+</div>
+</header>
+<main class="tool-shell gateway-shell">
+<section aria-labelledby="gateway-powershell-title" class="gateway-powershell-feature">
+<div class="gateway-powershell-copy">
+<p class="eyebrow">PowerShell integration</p>
+<h2 id="gateway-powershell-title">Run live SMTP enforcement or forensic commands from PowerShell.</h2>
+<p>Use the persistent sender/receiver CLI to enforce VeriTrust inline between laptops, or submit email text, URLs, and original email evidence through the same correlation service used by the web workflow.</p>
+</div>
+<a class="btn btn-secondary gateway-powershell-action" href="gateway-powershell.html#live-smtp">Open PowerShell Gateway <span aria-hidden="true">→</span></a>
+</section>
+<div class="gateway-notice" hidden="" id="gateway-auth">Sign in before submitting a gateway scan. <a href="auth.html">Open sign in</a></div>
+<div class="gateway-notice gateway-error" hidden="" id="gateway-error" role="alert"></div>
+<section class="gateway-layout">
+<form class="tool-panel gateway-form" id="gateway-form">
+<div class="panel-title"><div><h1>New correlation scan</h1><p>Submit available email and URL evidence for policy-aware correlation and review.</p></div></div>
+<label class="field"><span>Message or email text</span><textarea class="textarea gateway-textarea" id="gateway-text" maxlength="12000" placeholder="Paste suspicious email or message content..."></textarea></label>
+<label class="field"><span>URLs, one per line</span><textarea class="textarea gateway-urls" id="gateway-urls" placeholder="https://example.com/path"></textarea></label>
+<label class="gateway-upload" for="gateway-file"><strong>Optional supporting media</strong><span id="gateway-file-label">Optional compatibility input; email and URL evidence are the primary workflow</span><input accept="image/jpeg,image/png,image/webp,image/bmp,audio/mpeg,audio/wav,audio/ogg,audio/mp4,video/mp4,video/webm,video/quicktime" id="gateway-file" multiple="" type="file"/></label>
+<label class="field"><span>Context category</span><select class="select" id="gateway-context"><option value="">General</option><option value="credential">Credential request</option><option value="financial">Financial/payment</option><option value="identity">Identity verification</option></select></label>
+<div class="gateway-actions"><button class="btn btn-primary" id="gateway-submit" type="submit">Correlate evidence</button><button class="btn btn-secondary" hidden="" id="gateway-cancel" type="button">Cancel pending scan</button></div>
+<p class="gateway-privacy">Advisory only. VeriTrust correlates available evidence and does not automatically block or quarantine content.</p>
+</form>
+<section aria-live="polite" class="tool-panel gateway-result">
+<div class="panel-title"><div><h2>Correlated decision</h2><p id="gateway-status-copy">No scan submitted.</p></div><div class="gateway-result-state"><span class="gateway-card-loader" hidden="" id="gateway-result-loading">Loading scan</span><span class="status-pill" id="gateway-status">Idle</span></div></div>
+<div class="tool-result-empty" id="gateway-empty">The correlated decision and supporting evidence will appear here.</div>
+<div class="gateway-output" hidden="" id="gateway-output">
+<div class="gateway-decision"><div><span>Recommendation</span><strong id="gateway-recommendation">—</strong></div><div><span>Risk</span><strong id="gateway-risk">—</strong></div><div><span>Verdict</span><strong id="gateway-verdict">—</strong></div></div>
+<div class="gateway-reasons" id="gateway-reasons"></div>
+<h3>Evidence</h3><div class="gateway-evidence" id="gateway-evidence"></div>
+<details class="result-details"><summary>Audit identifiers</summary><div class="result-meta" id="gateway-audit"></div></details>
+</div>
+</section>
+</section>
+<section class="tool-panel gateway-history"><div class="panel-title"><div><h2>Recent scans</h2><p>Your latest evidence-correlation activity.</p></div><button class="btn btn-secondary" id="gateway-refresh" type="button">Refresh</button></div><div class="gateway-history-list" id="gateway-history-list"></div><div class="gateway-history-pagination" hidden="" id="gateway-history-pagination"><p id="gateway-history-count"></p><button class="btn btn-secondary" id="gateway-history-more" type="button">Show more</button></div></section>
+</main>
+<footer class="legal-footer"><a href="privacy.html">Privacy</a><span>·</span><a href="security.html">Security</a><span>·</span><a href="docs.html">Docs</a></footer>
+</body>
+</html>

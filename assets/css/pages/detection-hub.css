@@ -1,0 +1,48 @@
+/* Compact tool launcher; uses the landing page's shared glass palette. */
+body.vt-detection-page .detection-hub {
+  width: min(1080px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 28px) 0 20px;
+  display: grid;
+  gap: 22px;
+  animation: none;
+}
+.detection-intro h1 { margin: 0; font-size: clamp(26px, 3vw, 36px); line-height: 1.2; letter-spacing: -.035em; }
+.detection-intro p { margin: 8px 0 0; color: var(--text-secondary); font-size: 15px; line-height: 1.5; }
+.detection-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+body.vt-detection-page .detection-tool {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 8px 14px;
+  padding: 22px;
+  border: 1px solid var(--vt-glass-border);
+  border-radius: 14px;
+  background: var(--vt-glass-surface);
+  backdrop-filter: var(--vt-glass-blur);
+  -webkit-backdrop-filter: var(--vt-glass-blur);
+  box-shadow: var(--vt-glass-shadow);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.detection-tool-icon { grid-row: 1 / 3; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-main); }
+.detection-tool-icon svg { width: 23px; height: 23px; }
+.detection-tool h2 { margin: 0; font-size: 18px; line-height: 1.4; font-weight: 600; }
+.detection-tool p { margin: 0; color: var(--text-secondary); font-size: 13px; line-height: 1.5; }
+.detection-tool-action { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; min-height: 44px; margin-top: 8px; border-top: 1px solid var(--vt-glass-border); padding-top: 10px; color: var(--accent-main); font-size: 14px; font-weight: 600; }
+body.vt-detection-page .detection-tool:hover { border-color: var(--accent-border); background: var(--vt-glass-surface-strong); }
+.detection-tool:focus-visible, .detection-resources a:focus-visible { outline: 2px solid var(--accent-main); outline-offset: 4px; }
+.detection-resources { display: flex; gap: 24px; flex-wrap: wrap; }
+.detection-resources a { color: var(--text-secondary); font-size: 13px; padding-block: 8px; }
+.vt-detection-page .analysis-footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; width: min(1080px, calc(100% - 48px)); margin: 0 auto; padding: 16px 0; border-top: 1px solid var(--vt-glass-border); font-size: 12px; color: var(--text-secondary); }
+.vt-detection-page .analysis-footer nav { display: flex; gap: 20px; }
+.vt-detection-page .analysis-footer a { color: inherit; }
+@media (max-width: 600px) {
+  body.vt-detection-page .detection-hub { width: calc(100% - 32px); padding-top: calc(var(--header-height) + 16px); gap: 14px; }
+  .detection-tools { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  body.vt-detection-page .detection-tool { padding: 14px 16px; gap: 4px 12px; }
+  .detection-tool h2 { font-size: 16px; }
+  .detection-tool-action { margin-top: 2px; min-height: 36px; padding-top: 6px; }
+  .vt-detection-page .analysis-footer { width: calc(100% - 32px); }
+}
+@media (prefers-reduced-motion: reduce) { .detection-tool { transition: none !important; } }

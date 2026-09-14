@@ -1,0 +1,32 @@
+{
+  "name": "veritrust-domain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VeriTrust static web application and Vercel API",
+  "scripts": {
+    "check": "node scripts/verify.js && node scripts/test-modules.js && node --test tests/*.test.js",
+    "test": "node --test tests/*.test.js",
+    "config:check": "node scripts/check-runtime-config.js",
+    "config:canary": "node scripts/print-canary-model-config.js",
+    "ci": "npm run check && npm audit --omit=dev --audit-level=high",
+    "worker": "node worker/index.js",
+    "start": "vercel dev",
+    "mail-gateway": "node mail-gateway/server.js",
+    "mail-receiver:test": "node mail-gateway/test-receiver.js"
+  },
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "iconv-lite": "0.7.3",
+    "mailauth": "5.0.2",
+    "mailparser": "3.9.15",
+    "tldts": "7.4.10"
+  },
+  "overrides": {
+    "deepmerge-ts": "8.0.1",
+    "nodemailer": "9.1.1",
+    "undici": "8.10.2"
+  },
+  "engines": {
+    "node": "24.x"
+  }
+}

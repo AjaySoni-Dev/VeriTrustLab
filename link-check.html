@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html aria-busy="true" class="vt-auth-checking" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/favicon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>URL Intelligence | VeriTrust</title>
+<meta content="Analyze suspicious URLs, domains, shortened links, and phishing-style link patterns with AI-assisted risk scoring." name="description"/>
+<link href="https://www.veritrustlab.in/link-check" rel="canonical"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="VeriTrust" property="og:site_name"/>
+<meta content="VeriTrust Link Intelligence" property="og:title"/>
+<meta content="Analyze suspicious URLs, domains, shortened links, and phishing-style link patterns with AI-assisted risk scoring." property="og:description"/>
+<meta content="https://www.veritrustlab.in/link-check" property="og:url"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="VeriTrust Link Intelligence" name="twitter:title"/>
+<meta content="Analyze suspicious URLs, domains, shortened links, and phishing-style link patterns with AI-assisted risk scoring." name="twitter:description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/tool-pages.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<script defer="" src="/assets/js/core/reporting.js"></script>
+<script defer="" src="/assets/js/core/analysis-result.js"></script>
+<script defer="" src="/assets/js/core/analysis-progress.js"></script>
+<script defer="" src="/assets/js/pages/link-check.js"></script>
+<link href="/assets/css/pages/analysis-workspace.css" rel="stylesheet"/>
+<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+</head>
+<body class="vt-tool-page vt-graphite-theme vt-analysis-page">
+<header class="tool-header-shell vt-page-header">
+<div class="tool-header-inner">
+<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html">
+<img alt="" class="tool-header-mark" src="/assets/images/logo.png"/>
+<img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/>
+</a>
+<nav aria-label="Primary" class="tool-header-links">
+<a href="index.html">Home</a>
+<a class="active" href="detection.html">Investigate</a>
+<a href="developers.html">Developers</a>
+<a href="docs.html">Docs</a>
+<a href="model-performance.html">Model Performance</a>
+</nav>
+<div class="tool-header-actions">
+<a class="tool-header-login" href="auth.html">Log in</a>
+<a class="tool-header-dashboard" href="dashboard.html">Dashboard</a>
+<button aria-expanded="false" aria-label="Open page menu" class="tool-menu-toggle" type="button">
+<svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+<circle cx="12" cy="5" r="1.8"></circle>
+<circle cx="12" cy="12" r="1.8"></circle>
+<circle cx="12" cy="19" r="1.8"></circle>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<main class="tool-shell analysis-shell"><nav aria-label="Detection modules" class="analysis-module-nav"><a href="/phishing">Email investigation</a><a aria-current="page" href="/link-check">URL intelligence</a></nav><section class="analysis-heading"><p class="analysis-section-label">EMAIL THREAT INTELLIGENCE</p><h1>URL intelligence</h1><p>Review a suspicious URL as independent evidence or as part of an email investigation.</p></section><section class="analysis-layout">
+<form class="analysis-input" id="linkCheckForm" novalidate="">
+<div class="analysis-form-heading"><h2>Enter a link</h2><span>HTTP or HTTPS</span></div>
+<div class="field"><label for="linkUrl">URL</label><input aria-describedby="linkInputHelp" autocomplete="off" class="input" id="linkUrl" inputmode="url" placeholder="https://" spellcheck="false" type="text"/></div>
+<p class="analysis-field-help" id="linkInputHelp">The URL is analyzed without opening the destination page.</p>
+<div class="field"><label for="linkContext">Message or context <span class="analysis-optional">optional</span></label><textarea class="textarea" id="linkContext" maxlength="12000" placeholder="Add the message that contained this link, or paste a message with a URL."></textarea></div>
+<input id="linkModel" type="hidden" value="swift"/>
+<div class="analysis-submit"><span>VeriTrust Swift · URL and context analysis</span><button class="btn btn-primary" id="linkSubmit" type="submit">Analyze link <span aria-hidden="true">↗</span></button></div>
+</form><aside aria-label="Analysis activity" class="analysis-activity">
+<div class="analysis-idle" id="analysisIdle"><span class="analysis-section-label">YOUR ANALYSIS</span><h2>Ready when you are</h2><p>Submit your input to follow processing here. Your report appears below when the server returns a result.</p></div>
+<section class="analysis-progress" hidden="" id="analysisProgress">
+<div class="analysis-progress-heading"><span aria-hidden="true" class="analysis-status-dot"></span><h2 id="analysisProgressTitle">Analysis in progress</h2></div>
+<p aria-atomic="true" aria-live="polite" id="analysisProgressMessage" role="status"></p>
+<details open=""><summary>Processing activity</summary><ol id="analysisProgressEvents"></ol></details>
+</section>
+<p class="analysis-secondary-status" id="activityLog"></p>
+</aside></section><section aria-label="Link detection report" class="analysis-report" hidden="" id="linkResultShell" tabindex="-1"><div id="linkResult"></div></section></main>
+<footer class="legal-footer">
+<a href="docs.html">Docs</a><span aria-hidden="true">·</span><a href="developers.html">Developers</a><span aria-hidden="true">·</span><a href="model-performance.html">Model Performance</a><span aria-hidden="true">·</span><a href="privacy.html">Privacy</a><span aria-hidden="true">·</span><a href="terms.html">Terms</a><span aria-hidden="true">·</span><a href="security.html">Security</a><span aria-hidden="true">·</span><a href="disclaimer.html">Disclaimer</a>
+</footer>
+</body>
+</html>

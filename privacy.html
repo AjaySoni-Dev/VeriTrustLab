@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/favicon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Privacy | VeriTrust</title>
+<meta content="Current VeriTrust data flow for submitted images, message text, URLs, workspace scan records, hosted inference, API usage and profile information." name="description"/>
+<link href="https://www.veritrustlab.in/privacy" rel="canonical"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="VeriTrust" property="og:site_name"/>
+<meta content="Privacy | VeriTrust" property="og:title"/>
+<meta content="Current VeriTrust data flow for submitted images, message text, URLs, workspace scan records, hosted inference, API usage and profile information." property="og:description"/>
+<meta content="https://www.veritrustlab.in/privacy" property="og:url"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="Privacy | VeriTrust" name="twitter:title"/>
+<meta content="Current VeriTrust data flow for submitted images, message text, URLs, workspace scan records, hosted inference, API usage and profile information." name="twitter:description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<link href="/assets/css/base/glass-system.css" rel="stylesheet"/>
+</head>
+<body class="vt-graphite-theme">
+<header class="tool-header-shell vt-page-header">
+<div class="tool-header-inner">
+<a aria-label="VeriTrust home" class="tool-header-brand" href="index.html">
+<img alt="" class="tool-header-mark" src="/assets/images/logo.png"/>
+<img alt="VeriTrust" class="tool-header-word" src="/assets/images/brand.png"/>
+</a>
+<nav aria-label="Primary" class="tool-header-links">
+<a href="index.html">Home</a>
+<a href="detection.html">Investigate</a>
+<a href="developers.html">Developers</a>
+<a href="docs.html">Docs</a>
+<a href="model-performance.html">Model Performance</a>
+</nav>
+<div class="tool-header-actions">
+<a class="tool-header-login" href="auth.html">Log in</a>
+<a class="tool-header-dashboard" href="dashboard.html">Dashboard</a>
+<button aria-expanded="false" aria-label="Open page menu" class="tool-menu-toggle" type="button">
+<svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+<circle cx="12" cy="5" r="1.8"></circle>
+<circle cx="12" cy="12" r="1.8"></circle>
+<circle cx="12" cy="19" r="1.8"></circle>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<main class="container docs-layout">
+<aside class="toc"><a href="#data">Data</a><a href="#usage">Use</a><a href="#api">API keys</a><a href="#control">Deletion</a></aside>
+<article class="doc-content">
+<section class="doc-section">
+<p class="eyebrow">Privacy</p>
+<h1>How VeriTrust handles submitted content.</h1>
+<p>VeriTrust processes submitted images, message text, URLs, account and workspace records, scan results, profile information, and API usage metadata to operate the implemented review workflows.</p>
+</section>
+<section class="doc-section" id="data">
+<h2>Information You Submit</h2>
+<p>Web checks send the submitted image, message text, or URL string to the configured hosted inference service. Optional infrastructure enrichment also sends the image to the configured configured enrichment provider before inference.</p>
+<p>Completed web checks can store scan metadata, result scores, model runs, indicators, and limited input previews in the active Supabase workspace. The current image route records file metadata but does not persist the original uploaded image file.</p>
+<p>Avoid submitting secrets, unnecessary personal data, private credentials, or content you do not have permission to process.</p>
+</section>
+<section class="doc-section" id="usage">
+<h2>How Data Is Used</h2>
+<p>Submitted content is used to produce the requested analysis. Web message and link history can include a preview of up to 500 characters plus a text hash; results can include extracted URLs, domains, email addresses, and phone numbers found in the text.</p>
+<p>Developer API v1 calls record key, endpoint, scan type, status, request ID, and latency metadata for quota and usage reporting, but they do not create dashboard scan-history records in the current implementation.</p>
+</section>
+<section class="doc-section" id="api">
+<h2>API Keys</h2>
+<p>Raw API keys are shown only once. VeriTrust stores hashes, prefixes, masked values, scope metadata, timestamps, and usage limits, not the raw key value.</p>
+</section>
+<section class="doc-section" id="control">
+<h2>Access, Export, And Deletion</h2>
+<p>Users can export available scan reports as JSON or through the browser print flow. The current interface does not provide complete self-service account, workspace, or scan deletion; contact the platform operator for requests that are not exposed in the product.</p>
+<p>Do not submit passwords, one-time codes, payment data, private credentials, or content you are not authorized to send to the configured service providers.</p>
+</section>
+</article>
+</main>
+</body>
+</html>
