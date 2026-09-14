@@ -208,62 +208,80 @@ body.vt-tool-page.vt-email-investigation .textarea {
 }
 
 .vt-email-investigation .email-result-hero--compact {
-  grid-template-columns: minmax(0, 1.5fr) minmax(310px, .72fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.95fr);
+  gap: 24px;
   align-items: stretch;
-  padding: 20px 22px;
+  padding: 24px 28px;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 4px !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .vt-email-investigation .email-result-primary {
   min-width: 0;
-  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .vt-email-investigation .email-result-primary > p:not(.email-result-kicker) {
   max-width: 78ch;
-  margin: 7px 0 0;
+  margin: 8px 0 0;
   color: var(--muted);
-  font-size: 12.5px;
+  font-size: 13.5px;
   line-height: 1.55;
 }
 
 .vt-email-investigation .email-result-hero--compact h2 {
-  font-size: clamp(23px, 2.6vw, 31px);
+  font-size: clamp(24px, 2.8vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin: 4px 0 0;
 }
 
 .vt-email-investigation .email-result-actions {
-  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .vt-email-investigation .email-result-actions .btn {
   min-height: 40px;
-  padding: 9px 14px;
-  font-size: 12px;
+  padding: 0.55rem 1.15rem;
+  border-radius: 4px !important;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .vt-email-investigation .email-result-decision {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(118px, .7fr) minmax(0, 1.3fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   overflow: hidden;
-  border: 1px solid var(--border-strong);
-  border-radius: 13px;
-  background: var(--border);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--border-subtle);
 }
 
 .vt-email-investigation .email-risk-score,
-.vt-email-investigation .email-next-action {
+.vt-email-investigation .email-next-action,
+.vt-email-investigation .email-decision-metric {
   min-width: 0;
-  display: grid;
-  align-content: center;
-  gap: 5px;
-  padding: 15px;
-  background: #090b0f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 16px;
+  background: #1e1e1e;
 }
 
 .vt-email-investigation .email-risk-score > span,
-.vt-email-investigation .email-next-action > span {
+.vt-email-investigation .email-next-action > span,
+.vt-email-investigation .email-decision-metric > span {
   color: var(--soft);
   font-family: var(--mono);
   font-size: 9px;
@@ -273,20 +291,26 @@ body.vt-tool-page.vt-email-investigation .textarea {
 }
 
 .vt-email-investigation .email-risk-score > strong {
-  font-size: 28px;
+  color: var(--text-primary);
+  font-size: 30px;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -.04em;
+  letter-spacing: -.03em;
 }
 
-.vt-email-investigation .email-next-action > strong {
+.vt-email-investigation .email-next-action > strong,
+.vt-email-investigation .email-decision-metric > strong {
+  color: var(--text-primary);
   font-size: 14px;
+  font-weight: 600;
   line-height: 1.35;
 }
 
 .vt-email-investigation .email-risk-score small,
-.vt-email-investigation .email-next-action small {
+.vt-email-investigation .email-next-action small,
+.vt-email-investigation .email-decision-metric small {
   color: var(--soft);
-  font-size: 9.5px;
+  font-size: 10px;
   line-height: 1.4;
 }
 
@@ -434,26 +458,30 @@ body.vt-tool-page.vt-email-investigation .textarea {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  margin-top: 12px;
 }
 
 .vt-email-investigation .email-signal-chips > span {
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 5px 8px;
-  background: #0c0e12;
-  color: var(--muted);
-  font-size: 9.5px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 4px 8px;
+  background: var(--bg-surface-light);
+  color: var(--text-primary);
+  font-family: var(--mono);
+  font-size: 10px;
   line-height: 1.3;
 }
 
 .vt-email-investigation .email-signal-chips > span[data-tone="danger"] {
-  border-color: rgba(251, 113, 133, .32);
-  color: #fecdd3;
+  border-color: rgba(239, 68, 68, .35);
+  background: rgba(239, 68, 68, .08);
+  color: #fca5a5;
 }
 
 .vt-email-investigation .email-signal-chips > span[data-tone="attention"] {
-  border-color: rgba(251, 191, 36, .28);
+  border-color: rgba(245, 158, 11, .35);
+  background: rgba(245, 158, 11, .08);
   color: #fde68a;
 }
 
@@ -983,15 +1011,24 @@ body.vt-email-result-page {
   height: auto !important;
   overflow-x: hidden !important;
   overflow-y: auto !important;
+  background-color: var(--bg-base) !important;
+  background-image: none !important;
+  color: var(--text-primary) !important;
+}
+
+body.vt-email-result-page::before {
+  content: none !important;
+  display: none !important;
 }
 
 .vt-email-result-page .email-result-page-shell {
-  width: min(1380px, calc(100% - 48px));
+  width: min(1200px, calc(100% - 48px));
   min-height: 100vh;
   height: auto !important;
   overflow: visible !important;
+  margin-inline: auto;
   padding-top: calc(var(--header-height) + 20px);
-  padding-bottom: 42px;
+  padding-bottom: 48px;
 }
 
 .vt-email-result-page .analysis-module-nav {
@@ -1007,25 +1044,46 @@ body.vt-email-result-page {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  align-items: end;
-  margin-bottom: 14px;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .vt-email-result-page .email-result-page-heading h1 {
   margin: 4px 0 0;
-  font-size: clamp(28px, 3vw, 40px);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 700;
   letter-spacing: -.035em;
+  color: var(--text-primary);
 }
 
 .vt-email-result-page .email-result-page-heading p:last-child {
-  margin: 7px 0 0;
+  margin: 6px 0 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 13.5px;
+}
+
+.vt-email-result-page .email-result-page-heading .btn {
+  min-height: 40px;
+  padding: 0.55rem 1.15rem;
+  border-radius: 4px !important;
+  border: 1px solid var(--border-subtle) !important;
+  background: var(--bg-surface-light) !important;
+  color: var(--text-primary) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: none !important;
+  transition: all 180ms ease;
+}
+
+.vt-email-result-page .email-result-page-heading .btn:hover {
+  border-color: var(--border-hover) !important;
+  background: var(--bg-surface-hover) !important;
+  transform: translateY(-1px);
 }
 
 .vt-email-result-page .email-result-load-status {
-  min-height: 18px;
-  margin: 0 0 8px;
+  min-height: 0;
+  margin: 0;
   color: var(--soft);
   font-size: 10.5px;
 }
@@ -1034,8 +1092,11 @@ body.vt-email-result-page {
 body.vt-email-result-page.vt-email-has-result .analysis-report {
   max-height: none !important;
   overflow: visible !important;
-  margin: 0;
-  padding: 16px;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .vt-email-result-page .legal-footer {
@@ -1082,40 +1143,19 @@ body.vt-email-result-page.vt-email-has-result .analysis-report {
 
 .vt-email-investigation .email-usp-workspace {
   display: grid;
-  gap: 10px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 12px;
-  background: rgba(255, 255, 255, .012);
-}
-
-.vt-email-investigation .email-usp-workspace-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 20px;
-  padding: 2px 2px 5px;
-}
-
-.vt-email-investigation .email-usp-workspace-heading h3 {
-  margin: 2px 0 0;
-  font-size: 16px;
-  letter-spacing: -.015em;
-}
-
-.vt-email-investigation .email-usp-workspace-heading > p {
-  max-width: 620px;
-  margin: 0;
-  color: var(--soft);
-  font-size: 10px;
-  line-height: 1.5;
-  text-align: right;
+  gap: 16px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  margin-top: 18px;
 }
 
 .vt-email-investigation .email-usp-tabs {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 7px;
+  gap: 10px;
 }
 
 .vt-email-investigation .email-usp-tab {
@@ -1123,56 +1163,61 @@ body.vt-email-result-page.vt-email-has-result .analysis-report {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   grid-template-rows: auto auto;
-  gap: 4px 9px;
+  gap: 4px 10px;
   align-items: center;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 10px 11px;
-  background: #0d0f13;
-  color: var(--text);
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 4px !important;
+  padding: 12px 14px !important;
+  background: var(--bg-surface-light) !important;
+  color: var(--text-primary) !important;
   text-align: left;
   cursor: pointer;
-  transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+  box-shadow: none !important;
+  transition: all 180ms ease;
 }
 
 .vt-email-investigation .email-usp-tab:hover {
-  border-color: color-mix(in srgb, var(--analysis-accent) 42%, var(--border));
-  background: #11151a;
+  border-color: var(--border-hover) !important;
+  background: var(--bg-surface-hover) !important;
+  transform: translateY(-1px);
 }
 
 .vt-email-investigation .email-usp-tab:focus-visible {
-  outline: 2px solid var(--analysis-accent);
+  outline: 2px solid var(--accent-main);
   outline-offset: 2px;
 }
 
 .vt-email-investigation .email-usp-tab[aria-selected="true"],
 .vt-email-investigation .email-usp-tab.is-active {
-  border-color: color-mix(in srgb, var(--analysis-accent) 62%, var(--border));
-  background: linear-gradient(145deg, rgba(1, 175, 175, .12), rgba(255, 255, 255, .012));
+  border-color: var(--accent-main) !important;
+  background: #282828 !important;
+  box-shadow: 0 0 16px rgba(1, 175, 175, 0.18) !important;
 }
 
 .vt-email-investigation .email-usp-tab-index {
   grid-row: 1 / 3;
-  width: 29px;
-  height: 29px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--analysis-accent) 46%, var(--border));
-  border-radius: 8px;
-  color: var(--analysis-accent);
-  font: 700 9px/1 var(--mono);
+  border: 1px solid var(--accent-border) !important;
+  border-radius: 4px !important;
+  background: var(--accent-soft) !important;
+  color: var(--accent-main) !important;
+  font: 600 11px/1 var(--mono) !important;
 }
 
 .vt-email-investigation .email-usp-tab > span:nth-child(2) {
   min-width: 0;
   display: grid;
-  gap: 1px;
+  gap: 2px;
 }
 
 .vt-email-investigation .email-usp-tab strong {
   overflow: hidden;
-  color: var(--text);
-  font-size: 11px;
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 600;
   line-height: 1.3;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1180,9 +1225,9 @@ body.vt-email-result-page.vt-email-has-result .analysis-report {
 
 .vt-email-investigation .email-usp-tab small {
   overflow: hidden;
-  color: var(--soft);
-  font-size: 8.5px;
-  line-height: 1.25;
+  color: var(--text-tertiary);
+  font-size: 10px;
+  line-height: 1.3;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1190,8 +1235,8 @@ body.vt-email-result-page.vt-email-has-result .analysis-report {
 .vt-email-investigation .email-usp-tab > em {
   grid-column: 2;
   justify-self: start;
-  color: var(--analysis-accent);
-  font: 600 8px/1.25 var(--mono);
+  color: var(--accent-main);
+  font: 600 9.5px/1.25 var(--mono);
   font-style: normal;
   overflow-wrap: anywhere;
 }
@@ -1203,11 +1248,12 @@ body.vt-email-result-page.vt-email-has-result .analysis-report {
 .vt-email-investigation .email-usp-tabpanel {
   min-width: 0;
   display: grid;
-  gap: 12px;
-  border: 1px solid var(--border-strong);
-  border-radius: 12px;
-  padding: 17px;
-  background: #090b0f;
+  gap: 16px;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 4px !important;
+  padding: 22px 24px !important;
+  background: var(--bg-surface) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .vt-email-investigation .email-usp-tabpanel[hidden] {
@@ -1701,21 +1747,21 @@ body.vt-email-investigation.vt-email-has-result .email-evidence-guide {
 }
 
 /* Match the landing page canvas and action system exactly. */
-html:has(body.vt-email-investigation:not(.vt-email-result-page)) {
+html:has(body.vt-email-investigation) {
   background: var(--bg-base);
 }
 
-body.vt-tool-page.vt-graphite-theme.vt-email-investigation:not(.vt-email-result-page) {
+body.vt-tool-page.vt-graphite-theme.vt-email-investigation {
   background-color: var(--bg-base) !important;
   background-image: none !important;
   background-attachment: scroll !important;
 }
 
-body.vt-email-investigation:not(.vt-email-result-page)::before {
+body.vt-email-investigation::before {
   content: none !important;
 }
 
-body.vt-email-investigation:not(.vt-email-result-page) .vt-site-header {
+body.vt-email-investigation .vt-site-header {
   border-bottom-color: var(--border-subtle) !important;
   background: var(--header-bg) !important;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02) !important;
@@ -1723,8 +1769,8 @@ body.vt-email-investigation:not(.vt-email-result-page) .vt-site-header {
   -webkit-backdrop-filter: none !important;
 }
 
-html body.vt-email-investigation:not(.vt-email-result-page) :is(.analysis-input, .analysis-activity),
-.vt-email-investigation:not(.vt-email-result-page) .email-evidence-guide-content {
+html body.vt-email-investigation :is(.analysis-input, .analysis-activity),
+.vt-email-investigation .email-evidence-guide-content {
   border-color: var(--border-subtle);
   background: var(--bg-surface) !important;
   box-shadow: var(--shadow-sm) !important;
@@ -1732,7 +1778,7 @@ html body.vt-email-investigation:not(.vt-email-result-page) :is(.analysis-input,
   -webkit-backdrop-filter: none;
 }
 
-body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn {
+body.vt-tool-page.vt-email-investigation .btn {
   min-height: 44px;
   padding: 0.6875rem 1.25rem;
   border: 1px solid transparent !important;
@@ -1745,31 +1791,31 @@ body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn {
   transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
-body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn-primary {
+body.vt-tool-page.vt-email-investigation .btn-primary {
   border-color: rgba(255, 255, 255, 0.08) !important;
   background: var(--accent-button) !important;
   color: #171717 !important;
 }
 
-body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn-primary:hover:not(:disabled) {
+body.vt-tool-page.vt-email-investigation .btn-primary:hover:not(:disabled) {
   background: var(--accent-button-hover) !important;
   box-shadow: 0 8px 22px var(--accent-glow) !important;
   transform: translateY(-1px);
 }
 
-body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn-secondary {
+body.vt-tool-page.vt-email-investigation .btn-secondary {
   border-color: var(--border-subtle) !important;
   background: var(--bg-surface-light) !important;
   color: var(--text-primary) !important;
 }
 
-body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn-secondary:hover:not(:disabled) {
+body.vt-tool-page.vt-email-investigation .btn-secondary:hover:not(:disabled) {
   border-color: var(--border-hover) !important;
   background: var(--bg-surface-hover) !important;
   transform: translateY(-1px);
 }
 
-body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn:active:not(:disabled) {
+body.vt-tool-page.vt-email-investigation .btn:active:not(:disabled) {
   box-shadow: none !important;
   transform: translateY(0);
 }

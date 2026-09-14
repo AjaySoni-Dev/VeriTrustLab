@@ -290,7 +290,7 @@
         const payload = await parseResponse(response);
         if (!payload.evidence || !payload.gateway_decision) throw new Error('The saved scan does not contain a complete email decision.');
         renderResult(payload);
-        setStatus('Saved forensic investigation loaded.');
+        setStatus('');
         return;
       } catch (error) {
         lastError = error;
@@ -370,19 +370,18 @@
           ? '<a class="btn btn-secondary" href="/gateway-powershell#live-smtp">Open trusted SMTP guide</a>'
           : '';
       return `<div class="email-evidence-upgrade"><div><strong>${escapeHtml(item.label || titleCase(item.action || 'Evidence upgrade'))}</strong>${unlocks.length ? `<div class="email-unlock-list" aria-label="Evidence unlocked by this upgrade">${unlocks.map((value) => `<span>${escapeHtml(titleCase(value))}</span>`).join('')}</div>` : ''}</div>${action}</div>`;
-    }).join('') : '<p class="email-ladder-note">No higher acquisition stage was requested. Evidence coverage and threat risk remain separate concepts.</p>';
+    }).join('') : '';
     const parent = lineage.parent_scan_id
       ? `<div class="email-lineage"><span>Investigation lineage</span><strong>Upgraded from a prior evidence stage</strong><a href="${resultPath(lineage.parent_scan_id, 'progressive')}">Open previous scan ${escapeHtml(String(lineage.parent_scan_id).slice(0, 8))}… →</a></div>`
-      : `<div class="email-lineage"><span>Investigation lineage</span><strong>This is the first recorded stage in this chain</strong><small>Scan ${escapeHtml(String(lineage.current_scan_id || scanId || 'not recorded'))}</small></div>`;
+      : '';
 
     return `<section class="email-usp-tabpanel" id="uspPanelProgressive" role="tabpanel" aria-labelledby="uspTabProgressive" data-usp-panel="progressive">
       <header class="email-usp-panel-header">
-        <div><p class="email-result-kicker">USP 01 · Progressive Evidence Escalation™</p><h3>What evidence could this investigation actually establish?</h3><p>Start with the evidence you have, then strengthen the same investigation only when more trustworthy acquisition is needed.</p></div>
+        <div><p class="email-result-kicker">USP 01 · Progressive Evidence Escalation™</p><h3>Evidence Acquisition &amp; Claim Boundaries</h3></div>
         <div class="email-usp-panel-state"><span>${helpLabel('Acquisition stage', HELP.acquisitionStage)}</span><strong>${escapeHtml(evidenceStageName(evidence.input_mode))}</strong></div>
       </header>
-      <div class="email-plain-language-note"><strong>In plain language</strong><p>A higher stage gives VeriTrust more evidence to inspect. It does not automatically make the phishing verdict more correct.</p></div>
       <div class="email-ladder-track" aria-label="Evidence acquisition ladder">${stageMarkup}</div>
-      <div class="email-section-heading"><h4>${helpLabel('Evidence coverage', HELP.completeness)}</h4><p>${escapeHtml(completeness.wording || 'Evidence completeness describes forensic coverage, not threat risk.')}</p></div>
+      <div class="email-section-heading"><h4>${helpLabel('Evidence coverage', HELP.completeness)}</h4></div>
       <div class="email-evidence-grid" aria-label="Evidence coverage by forensic dimension">${matrix || '<p>No dimension-level coverage was returned.</p>'}</div>
       ${parent}
       ${nextMarkup}
@@ -429,16 +428,14 @@
 
     return `<section class="email-usp-tabpanel email-geotrace" id="uspPanelGeotrace" role="tabpanel" aria-labelledby="uspTabGeotrace" data-usp-panel="geotrace" hidden>
       <header class="email-usp-panel-header">
-        <div><p class="email-result-kicker">USP 02 · Trust-Boundary GeoTrace™</p><h3>Which infrastructure was reconstructed, and what was directly observed?</h3><p>VeriTrust keeps header-derived relay claims separate from network facts recorded by a configured SMTP receiver.</p></div>
+        <div><p class="email-result-kicker">USP 02 · Trust-Boundary GeoTrace™</p><h3>Infrastructure Provenance &amp; Boundary Verification</h3></div>
         <div class="email-usp-panel-state"><span>Trust state</span><strong>${escapeHtml(stateLabel)}</strong></div>
       </header>
-      <div class="email-plain-language-note"><strong>How to read this</strong><p>${helpLabel('Trusted receiver', HELP.trustedReceiver)} is direct SMTP evidence. ${helpLabel('Observed relay', HELP.observedRelay)} is reconstructed from headers and stays unverified. ${helpLabel('Geo context', HELP.geoContext)} describes infrastructure, not a person.</p></div>
       <div class="email-trust-banner" data-state="${escapeHtml(String(infrastructureSummary.state || 'UNAVAILABLE').toLowerCase())}"><strong>${escapeHtml(stateLabel)}</strong><span>${escapeHtml(infrastructureSummary.wording || 'Mail infrastructure context only; no physical-person attribution.')}</span></div>
-      <div class="email-section-heading"><h4>Infrastructure coordinate trace</h4><p>Approximate infrastructure coordinates only; this does not identify a person.</p></div><div class="email-geotrace-map">${map}</div>
+      <div class="email-section-heading"><h4>Infrastructure coordinate trace</h4></div><div class="email-geotrace-map">${map}</div>
       <div class="email-geotrace-legend"><span data-trust="trusted">Trusted receiver observation</span><span data-trust="observed">Observed relay claim</span></div>
-      <div class="email-section-heading"><h4>Mail infrastructure path</h4><p>Host, IP and ${helpLabel('ASN', HELP.asn)} context are shown only when available.</p></div>
+      <div class="email-section-heading"><h4>Mail infrastructure path</h4></div>
       <div class="email-hop-list">${hopRows}</div>
-      <p class="email-detail-boundary">Approximate infrastructure positions only. NAT, relays, VPNs, cloud infrastructure and compromised systems can separate observed infrastructure from a human operator.</p>
     </section>`;
   }
 
@@ -462,15 +459,13 @@
 
     return `<section class="email-usp-tabpanel" id="uspPanelCampaign" role="tabpanel" aria-labelledby="uspTabCampaign" data-usp-panel="campaign" hidden>
       <header class="email-usp-panel-header">
-        <div><p class="email-result-kicker">USP 03 · MailGraph Campaign Memory™</p><h3>Does this investigation connect to a prior campaign?</h3><p>Deterministic, weighted and ${helpLabel('privacy-minimized', HELP.privacyMinimized)} correlation explains why investigations connect instead of hiding the decision behind an opaque similarity score.</p></div>
+        <div><p class="email-result-kicker">USP 03 · MailGraph Campaign Memory™</p><h3>Prior Campaign &amp; Infrastructure Correlation</h3></div>
         <div class="email-usp-panel-state"><span>${helpLabel('Campaign Memory', HELP.campaignMemory)}</span><strong>${escapeHtml(stateLabel)}</strong></div>
       </header>
-      <div class="email-plain-language-note"><strong>In plain language</strong><p>A single weak coincidence is intentionally not enough. VeriTrust requires durable or multiple independent forensic indicators before it links investigations.</p></div>
       ${summary}
       <div class="email-section-heading"><h4>Matched forensic entities</h4><p>${helpLabel('Correlation weight', HELP.correlationWeight)} shows how much each repeated entity contributes.</p></div>
       ${entities}
       ${relatedLinks}
-      <p class="email-detail-boundary">${escapeHtml(campaignMemory.scoring_notice || 'Weak one-dimensional overlap is intentionally insufficient to create a campaign.')}</p>
     </section>`;
   }
 
@@ -485,7 +480,7 @@
       : '';
     const stateLabel = passport?.passport_id ? `${passport.signature_algorithm || 'Ed25519'} signed` : 'Unavailable';
     const body = !passport?.passport_id
-      ? `<p class="email-detail-empty">This investigation does not contain a signed Evidence Passport. Review recorded limitations before relying on exported evidence.</p>${exportActions}`
+      ? `<p class="email-detail-empty">This investigation does not contain a signed Evidence Passport.</p>${exportActions}`
       : `<div class="email-passport-card">
           <div><span>Passport ID</span><code>${escapeHtml(passport.passport_id)}</code></div>
           <div><span>${helpLabel('Signing algorithm', HELP.ed25519)}</span><strong>${escapeHtml(passport.signature_algorithm || 'Ed25519')}</strong></div>
@@ -494,16 +489,14 @@
           <div><span>${helpLabel('Evidence SHA-256', HELP.sha256)}</span><code>${escapeHtml(passport.evidence_sha256 || 'Unavailable')}</code></div>
           <div><span>${helpLabel('Manifest SHA-256', HELP.manifest)}</span><code>${escapeHtml(passport.manifest_sha256 || 'Unavailable')}</code></div>
         </div>
-        <p class="email-detail-boundary">${escapeHtml(passport.statement || 'Cryptographic integrity verifies the packaged evidence; it is not legal admissibility, sender identity or WORM storage.')}</p>
-        <div class="email-section-heading"><h4>Evidence package</h4><p>Export the signed evidence package, then verify that later changes are detectable.</p></div>
+        <div class="email-section-heading"><h4>Export &amp; Verification</h4></div>
         ${exportActions}`;
 
     return `<section class="email-usp-tabpanel" id="uspPanelPassport" role="tabpanel" aria-labelledby="uspTabPassport" data-usp-panel="passport" hidden>
       <header class="email-usp-panel-header">
-        <div><p class="email-result-kicker">USP 04 · Evidence Passport™</p><h3>Can the investigation package be checked for modification?</h3><p>${helpLabel('Evidence Passport', HELP.evidencePassport)} binds the evidence to cryptographic integrity and authenticity metadata.</p></div>
+        <div><p class="email-result-kicker">USP 04 · Evidence Passport™</p><h3>Cryptographic Provenance &amp; Verification</h3></div>
         <div class="email-usp-panel-state"><span>Passport state</span><strong>${escapeHtml(stateLabel)}</strong></div>
       </header>
-      <div class="email-plain-language-note"><strong>In plain language</strong><p>If the packaged evidence or its manifest changes after signing, verification should fail. This is integrity evidence, not a claim of legal admissibility or human identity.</p></div>
       ${body}
     </section>`;
   }
@@ -520,10 +513,6 @@
     const passportState = passport?.passport_id ? 'Signed' : 'Unavailable';
 
     return `<section class="email-usp-workspace" aria-labelledby="uspWorkspaceTitle">
-      <div class="email-usp-workspace-heading">
-        <div><p class="email-result-kicker">Forensic evidence workspace</p><h3 id="uspWorkspaceTitle">Inspect one capability at a time</h3></div>
-        <p>Move through acquisition trust, infrastructure provenance, campaign correlation and cryptographic integrity without loading every forensic section at once.</p>
-      </div>
       <div class="email-usp-tabs" role="tablist" aria-label="VeriTrust forensic capabilities">
         <button class="email-usp-tab" id="uspTabProgressive" type="button" role="tab" aria-selected="true" aria-controls="uspPanelProgressive" data-usp-tab="progressive">
           <span class="email-usp-tab-index">01</span><span><strong>Evidence strength</strong><small>Progressive Evidence Escalation™</small></span><em>${escapeHtml(evidenceStageName(evidence.input_mode))} · ${escapeHtml(titleCase(completeness.level || 'limited'))}</em>
@@ -656,7 +645,10 @@
         <div class="email-result-primary">
           <p class="email-result-kicker">Investigation result</p>
           <h2 id="emailResultTitle">${escapeHtml(STATE_LABELS[specialistState])}</h2>
-          <p>${escapeHtml(stateCopy)}</p>
+          <p class="email-result-copy">${escapeHtml(stateCopy)}</p>
+          <div class="email-signal-chips" aria-label="Key signals to review">
+            ${signals.length ? signals.map((item) => `<span data-tone="${escapeHtml(item.tone)}">${escapeHtml(item.label)}</span>`).join('') : '<span data-tone="neutral">No high-priority deterministic signal was recorded; review the complete report for evidence coverage.</span>'}
+          </div>
           <div class="email-result-actions">
             <button class="btn btn-primary email-pdf-view" type="button" data-view-email-pdf>View Complete Report</button>
             <button class="btn btn-secondary" type="button" data-new-investigation>New investigation</button>
@@ -665,21 +657,15 @@
         </div>
         <aside class="email-result-decision" aria-label="Gateway decision summary">
           <div class="email-risk-score"><span>${helpLabel('Risk score', HELP.risk)}</span><strong>${escapeHtml(risk)}</strong><small>Gateway correlation</small></div>
-          <div class="email-next-action"><span>Recommended action</span><strong>${escapeHtml(recommendation)}</strong><small>${decision.degraded ? 'Some checks were unavailable; review evidence gaps.' : 'Based on the evidence available to this investigation.'}</small></div>
+          <div class="email-next-action"><span>Recommended action</span><strong>${escapeHtml(recommendation)}</strong><small>${decision.degraded ? 'Some checks unavailable' : 'Available evidence basis'}</small></div>
+          <div class="email-decision-metric"><span>Evidence</span><strong>${escapeHtml(titleCase(completeness.level || 'limited'))}</strong><small>${escapeHtml(evidenceStageName(evidence.input_mode))}</small></div>
+          <div class="email-decision-metric"><span>AI signal</span><strong>${escapeHtml(modelLikelihood)}</strong><small>${model?.status === 'completed' ? 'Model likelihood' : 'Unavailable'}</small></div>
         </aside>
       </article>
-      <section class="email-result-metrics email-result-metrics--compact" aria-label="Investigation summary">
-        <article><span>Evidence</span><strong>${escapeHtml(titleCase(completeness.level || 'limited'))}</strong><small>${escapeHtml(evidenceStageName(evidence.input_mode))}</small></article>
-        <article><span>AI signal</span><strong>${escapeHtml(modelLikelihood)}</strong><small>${model?.status === 'completed' ? 'Supporting signal, not a standalone verdict' : 'Unavailable or incomplete'}</small></article>
-      </section>
-      <section class="email-essential-signals" aria-labelledby="essentialSignalsTitle">
-        <div><p class="email-result-kicker">Decision evidence</p><h3 id="essentialSignalsTitle">Key signals to review</h3></div>
-        <div class="email-signal-chips">${signals.length ? signals.map((item) => `<span data-tone="${escapeHtml(item.tone)}">${escapeHtml(item.label)}</span>`).join('') : '<span data-tone="neutral">No high-priority deterministic signal was recorded; review the complete report for evidence coverage.</span>'}</div>
-        <p>Full technical evidence and limitations are preserved in the report. Open a proof tab below for acquisition, infrastructure, campaign, or integrity evidence.</p>
-      </section>
       ${renderUspTabs({ evidence, infrastructure, infrastructureSummary, campaignMemory, passport, scanId: payload.scan_id })}`;
 
     shell.hidden = false;
+    setStatus('');
     document.body?.classList?.add('vt-email-has-result');
     enhanceHelpTerms(target);
     state.lastScanId = payload.scan_id || null;
