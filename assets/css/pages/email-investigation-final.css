@@ -1571,8 +1571,12 @@ body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .textarea {
 }
 
 .vt-email-investigation:not(.vt-email-result-page) .email-dropzone-action {
-  border-radius: 3px;
-  background: #292929;
+  min-height: 44px;
+  padding-inline: 1.25rem;
+  border-color: var(--border-subtle);
+  border-radius: 4px;
+  background: var(--bg-surface-light);
+  color: var(--text-primary);
 }
 
 .vt-email-investigation:not(.vt-email-result-page) .email-submit-row {
@@ -1694,6 +1698,80 @@ body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .textarea {
 
 body.vt-email-investigation.vt-email-has-result .email-evidence-guide {
   display: none;
+}
+
+/* Match the landing page canvas and action system exactly. */
+html:has(body.vt-email-investigation:not(.vt-email-result-page)) {
+  background: var(--bg-base);
+}
+
+body.vt-tool-page.vt-graphite-theme.vt-email-investigation:not(.vt-email-result-page) {
+  background-color: var(--bg-base) !important;
+  background-image: none !important;
+  background-attachment: scroll !important;
+}
+
+body.vt-email-investigation:not(.vt-email-result-page)::before {
+  content: none !important;
+}
+
+body.vt-email-investigation:not(.vt-email-result-page) .vt-site-header {
+  border-bottom-color: var(--border-subtle) !important;
+  background: var(--header-bg) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html body.vt-email-investigation:not(.vt-email-result-page) :is(.analysis-input, .analysis-activity),
+.vt-email-investigation:not(.vt-email-result-page) .email-evidence-guide-content {
+  border-color: var(--border-subtle);
+  background: var(--bg-surface) !important;
+  box-shadow: var(--shadow-sm) !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn {
+  min-height: 44px;
+  padding: 0.6875rem 1.25rem;
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  box-shadow: none !important;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn-primary {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: var(--accent-button) !important;
+  color: #171717 !important;
+}
+
+body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn-primary:hover:not(:disabled) {
+  background: var(--accent-button-hover) !important;
+  box-shadow: 0 8px 22px var(--accent-glow) !important;
+  transform: translateY(-1px);
+}
+
+body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn-secondary {
+  border-color: var(--border-subtle) !important;
+  background: var(--bg-surface-light) !important;
+  color: var(--text-primary) !important;
+}
+
+body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn-secondary:hover:not(:disabled) {
+  border-color: var(--border-hover) !important;
+  background: var(--bg-surface-hover) !important;
+  transform: translateY(-1px);
+}
+
+body.vt-tool-page.vt-email-investigation:not(.vt-email-result-page) .btn:active:not(:disabled) {
+  box-shadow: none !important;
+  transform: translateY(0);
 }
 
 @media (min-width: 1000px) {

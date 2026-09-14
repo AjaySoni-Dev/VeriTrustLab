@@ -3065,6 +3065,38 @@ html body * {
   content: "";
 }
 
+/* Authenticated workspace destinations stay visible in the shared desktop
+   navigation and move into the existing mobile menu at smaller widths. */
+body.vt-authenticated .vt-site-header .tool-header-inner {
+  max-width: 1480px;
+}
+
+body.vt-authenticated .vt-site-header .tool-header-links {
+  gap: clamp(0.85rem, 1.6vw, 1.4rem);
+}
+
+.vt-site-header .tool-header-links .workspace-menu-link[hidden] {
+  display: none !important;
+}
+
+@media (min-width: 1051px) {
+  body.vt-authenticated .vt-site-header .tool-header-links .workspace-menu-link {
+    display: inline-flex;
+  }
+
+  body.vt-authenticated .vt-site-header .tool-header-links .workspace-menu-link[href="/cases"] {
+    margin-left: 0.15rem;
+    padding-left: 1.1rem;
+    border-left: 1px solid var(--border-subtle);
+  }
+}
+
+@media (max-width: 1300px) {
+  body.vt-authenticated .vt-site-header .tool-header-context {
+    display: none;
+  }
+}
+
 .vt-site-footer {
   width: 100%;
   margin: 64px 0 0;

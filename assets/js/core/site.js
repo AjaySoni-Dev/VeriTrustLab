@@ -208,6 +208,10 @@ const VeriTrustSiteChrome = (() => {
           <a href="/phishing">Investigate</a>
           <a href="/gateway-powershell#live-smtp">Live SMTP</a>
           <a href="/verify-evidence">Verify Evidence</a>
+          <a href="/cases" class="workspace-menu-link" hidden aria-hidden="true">Cases</a>
+          <a href="/api-access" class="workspace-menu-link" hidden aria-hidden="true">API Keys</a>
+          <a href="/billing" class="workspace-menu-link" hidden aria-hidden="true">Usage</a>
+          <a href="/account" class="workspace-menu-link" hidden aria-hidden="true">Account</a>
         </nav>
         <div class="tool-header-actions">
           <a href="/auth" class="tool-header-login" hidden aria-hidden="true">Log in</a>
@@ -338,6 +342,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     nav.insertBefore(fragment, firstWorkspaceLink);
 
+    const workspaceSections = {
+      cases: '/cases',
+      case: '/cases',
+      'api-access': '/api-access',
+      billing: '/billing',
+      account: '/account'
+    };
+    nav.querySelectorAll(':scope > .workspace-menu-link').forEach((link) => {
+      link.classList.remove('active');
+      link.removeAttribute('aria-current');
+      if (workspaceSections[currentPage] === link.getAttribute('href')) {
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+
     const actions = nav.closest('.tool-header-inner')?.querySelector('.tool-header-actions');
     if (actions && !actions.querySelector('.tool-menu-toggle')) {
       const toggle = document.createElement('button');
@@ -369,6 +389,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const authLinks = document.querySelectorAll('.tool-header-login, .login-link, .nav-actions a[href="/auth"]');
     const dashboardLinks = document.querySelectorAll('.tool-header-dashboard, a[href="/dashboard"]');
     const toolHeaderLinks = document.querySelector('.tool-header-links, #primary-navigation');
+    const workspaceLinks = document.querySelectorAll('.tool-header-links > .workspace-menu-link');
     const isAuthPage = VeriTrustSiteChrome.currentPage() === 'auth';
 
     const closeToolMenu = () => {
@@ -419,6 +440,14 @@ document.addEventListener('DOMContentLoaded', async () => {
           window.location.href = '/auth';
         });
       }
+    };
+
+    const setWorkspaceLinksVisible = (visible) => {
+      workspaceLinks.forEach((link) => {
+        link.hidden = !visible;
+        if (visible) link.removeAttribute('aria-hidden');
+        else link.setAttribute('aria-hidden', 'true');
+      });
     };
 
     const ensureMobileMenuActions = (authState = 'signed-out') => {
@@ -484,16 +513,19 @@ document.addEventListener('DOMContentLoaded', async () => {
           link.textContent = 'Dashboard';
         }
       });
+      setWorkspaceLinksVisible(true);
       ensureMobileMenuActions('authenticated');
     } else if (access.sessionError) {
       document.body.classList.remove('vt-authenticated', 'vt-signed-out');
       document.body.classList.add('vt-session-unavailable');
       authLinks.forEach(hideAuthLink);
+      setWorkspaceLinksVisible(false);
       ensureMobileMenuActions('unavailable');
     } else {
       document.body.classList.remove('vt-authenticated', 'vt-session-unavailable');
       document.body.classList.add('vt-signed-out');
       authLinks.forEach(showAuthLink);
+      setWorkspaceLinksVisible(false);
       ensureMobileMenuActions('signed-out');
     }
   };
