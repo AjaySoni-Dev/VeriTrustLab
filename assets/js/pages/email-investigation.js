@@ -83,7 +83,7 @@
     CAMPAIGN_MEMORY_SCHEMA_NOT_APPLIED: 'Campaign Memory needs the forensic-intelligence database migration.',
     EVIDENCE_PASSPORT_SCHEMA_NOT_APPLIED: 'Evidence Passport persistence needs the forensic-intelligence database migration.',
   });
-  const state = { mode: 'text', file: null, busy: false, lastScanId: null, parentScanId: null };
+  const state = { mode: 'text', file: null, busy: false, lastScanId: null, parentScanId: null, lastIdempotencyKey: null, lastRequestBody: null };
   const analysisProgress = global.VeriTrustAnalysisProgress.create();
   const one = (selector, root = document) => root.querySelector(selector);
   const all = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -250,8 +250,11 @@
     const context = await global.VeriTrustSupabase.getSessionContext();
     if (!context?.organization?.id) throw new Error('Sign in and select a workspace before starting an investigation.');
     const idempotencyKey = global.crypto?.randomUUID?.() || `email-web-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    state.lastIdempotencyKey = idempotencyKey;
+    state.lastScanId = null;
     if (state.mode === 'eml') {
       const file = validateFile(state.file || one('#emailEmlFile')?.files?.[0]);
+      state.lastRequestBody = file;
       return analysisProgress.request(endpoint('emailAnalyzeEml', '/api/v1/gateway/email/analyze-eml'), {
         signal,
         method: 'POST',
@@ -263,11 +266,13 @@
     const body = one('#phishingText')?.value.trim() || '';
     if (!subject && !body) throw new Error('Provide an email subject or message body.');
     if (body.length > 12000) throw new Error('Keep the message body at or below 12,000 characters.');
+    const jsonPayload = JSON.stringify({ subject, body, channel: 'email', retention_policy: 'metadata_only', org_id: context.organization.id, ...(state.parentScanId ? { parent_scan_id: state.parentScanId } : {}) });
+    state.lastRequestBody = jsonPayload;
     return analysisProgress.request(endpoint('emailAnalyzeText', '/api/v1/gateway/email/analyze-text'), {
       signal,
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
-      body: JSON.stringify({ subject, body, channel: 'email', retention_policy: 'metadata_only', org_id: context.organization.id, ...(state.parentScanId ? { parent_scan_id: state.parentScanId } : {}) }),
+      body: jsonPayload,
     });
   }
 
@@ -861,6 +866,110 @@
       }
     });
 
+    async function recoverInterruptedInvestigation(originalError) {
+      const message = String(originalError?.message || '').toLowerCase();
+      const isNetworkOrStreamFailure = !originalError?.status
+        || Number(originalError?.status) >= 500
+        || message.includes('network error')
+        || message.includes('connection ended')
+        || message.includes('failed to fetch')
+        || message.includes('unreadable')
+        || message.includes('timed out')
+        || message.includes('timeout')
+        || message.includes('load failed');
+      if (!isNetworkOrStreamFailure) return false;
+
+      const candidateScanId = state.lastScanId || analysisProgress.getLastScanId?.();
+
+      // Strategy 1: If we have a scan ID, poll the evidence API
+      if (candidateScanId && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(candidateScanId)) {
+        setStatus('Finalizing forensic evidence from the server...');
+        analysisProgress.update({ stage: 'decision', state: 'running', message: 'Retrieving final forensic investigation report from the server...' });
+        for (let attempt = 0; attempt < 6; attempt += 1) {
+          await new Promise((resolve) => global.setTimeout(resolve, 600 * (attempt + 1)));
+          try {
+            const response = await global.fetch(`/api/v2/phishing/evidence/${encodeURIComponent(candidateScanId)}`, {
+              method: 'GET', credentials: 'same-origin', cache: 'no-store', headers: { Accept: 'application/json' },
+            });
+            if (response.ok) {
+              const payload = await parseResponse(response);
+              if (payload?.evidence && payload?.gateway_decision) {
+                analysisProgress.finish();
+                setStatus('Check complete. Opening the structured investigation result...');
+                global.location.assign(resultPath(candidateScanId));
+                return true;
+              }
+            }
+          } catch { /* continue polling */ }
+        }
+      }
+
+      // Strategy 2: Replay with the same Idempotency-Key (requesting application/json)
+      if (state.lastIdempotencyKey && state.lastRequestBody) {
+        setStatus('Re-synchronizing report with the server...');
+        analysisProgress.update({ stage: 'decision', state: 'running', message: 'Re-synchronizing report with the server...' });
+        const targetEndpoint = state.mode === 'eml'
+          ? endpoint('emailAnalyzeEml', '/api/v1/gateway/email/analyze-eml')
+          : endpoint('emailAnalyzeText', '/api/v1/gateway/email/analyze-text');
+        const replayHeaders = {
+          Accept: 'application/json',
+          'Idempotency-Key': state.lastIdempotencyKey,
+          ...(state.mode === 'eml'
+            ? { 'Content-Type': 'message/rfc822', 'X-Retention-Policy': 'ephemeral_24h' }
+            : { 'Content-Type': 'application/json' }),
+          ...(state.parentScanId ? { 'X-VeriTrust-Parent-Scan-Id': state.parentScanId } : {}),
+        };
+
+        for (let attempt = 0; attempt < 4; attempt += 1) {
+          await new Promise((resolve) => global.setTimeout(resolve, 800 * (attempt + 1)));
+          try {
+            const response = await global.fetch(targetEndpoint, {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: replayHeaders,
+              body: state.lastRequestBody,
+            });
+            if (response.ok) {
+              const payload = await parseResponse(response);
+              if (payload?.evidence && payload?.gateway_decision) {
+                analysisProgress.finish();
+                if (payload.scan_id) {
+                  setStatus('Check complete. Opening the structured investigation result...');
+                  global.location.assign(resultPath(payload.scan_id));
+                  return true;
+                }
+                renderResult(payload);
+                return true;
+              }
+              if (payload?.status === 'processing' && payload?.scan_id) {
+                state.lastScanId = payload.scan_id;
+                await loadSavedInvestigation(payload.scan_id);
+                return true;
+              }
+            }
+          } catch { /* retry */ }
+        }
+      }
+
+      // Strategy 3: Check recent scans for the organization to recover recently saved scan
+      try {
+        const context = await global.VeriTrustSupabase?.getSessionContext?.();
+        if (context?.organization?.id) {
+          const recent = await global.VeriTrustSupabase.getRecentScans(context.organization.id, 3);
+          const scans = Array.isArray(recent?.scans) ? recent.scans : (Array.isArray(recent) ? recent : []);
+          const completedMatch = scans.find((s) => s?.id && (!candidateScanId || s.id === candidateScanId) && (s.status === 'completed' || s.risk_score !== null));
+          if (completedMatch?.id) {
+            analysisProgress.finish();
+            setStatus('Check complete. Opening the structured investigation result...');
+            global.location.assign(resultPath(completedMatch.id));
+            return true;
+          }
+        }
+      } catch { /* ignore */ }
+
+      return false;
+    }
+
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (state.busy) return;
@@ -898,8 +1007,11 @@
         renderResult(payload);
         setStatus('Check complete. Review the result and any missing evidence.');
       } catch (error) {
-        analysisProgress.finish(error);
-        setStatus('');
+        const recovered = await recoverInterruptedInvestigation(error);
+        if (!recovered) {
+          analysisProgress.finish(error);
+          setStatus('');
+        }
       } finally {
         setBusy(false);
       }

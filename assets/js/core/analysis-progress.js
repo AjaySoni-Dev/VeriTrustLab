@@ -64,6 +64,8 @@
     let active = false;
     let completedCount = 0;
 
+    let lastScanId = null;
+
     const stageLabel = (value) => String(value || 'Processing')
       .replace(/[_-]+/gu, ' ')
       .replace(/\b\w/gu, (letter) => letter.toUpperCase());
@@ -96,6 +98,7 @@
     function begin(message = 'Checking input and workspace access.') {
       active = true;
       completedCount = 0;
+      lastScanId = null;
       history.clear();
       list?.replaceChildren();
       syncCompletedBadge();
@@ -112,6 +115,7 @@
 
     function update(event) {
       if (!active) return;
+      if (event.scan_id) lastScanId = event.scan_id;
       const previous = history.get(event.stage);
       if (event.state === 'completed' && previous?.state !== 'completed') completedCount += 1;
       history.set(event.stage, { ...event });
@@ -132,12 +136,21 @@
       }
     }
 
+    function friendlyErrorMessage(error) {
+      if (!error) return 'The investigation could not be completed.';
+      const msg = String(error.message || '').trim();
+      if (/^network error$/iu.test(msg) || /^failed to fetch$/iu.test(msg)) {
+        return 'The connection was interrupted. Retrying scan retrieval...';
+      }
+      return `${msg}${error.code ? ` Reference: ${error.code}.` : ''}`;
+    }
+
     function finish(error = null, { pending = false, title, message } = {}) {
       active = false;
       if (panel) panel.dataset.state = error ? 'failed' : 'completed';
       if (heading) heading.textContent = error ? 'Analysis interrupted' : pending ? 'Scan still processing' : 'Report received';
       if (currentStage) currentStage.textContent = error ? 'Action required' : pending ? 'Processing' : 'Complete';
-      if (current) current.textContent = error ? `${error.message}${error.code ? ` Reference: ${error.code}.` : ''}` : pending ? 'The server confirmed that this scan is already running. Open its saved status to follow it.' : 'The investigation is complete. Review the concise result or open the complete PDF report.';
+      if (current) current.textContent = error ? friendlyErrorMessage(error) : pending ? 'The server confirmed that this scan is already running. Open its saved status to follow it.' : 'The investigation is complete. Review the concise result or open the complete PDF report.';
       if (!error && title && heading) heading.textContent = title;
       if (!error && message && current) current.textContent = message;
 
@@ -168,7 +181,7 @@
         return readResponse(response, update);
       });
     }
-    return { begin, update, finish, request };
+    return { begin, update, finish, request, getLastScanId: () => lastScanId };
   }
 
   const api = { create, readResponse };
