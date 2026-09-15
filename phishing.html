@@ -37,10 +37,10 @@
 <script defer="" src="/assets/js/core/email-report-pdf.js?v=20260915-final2"></script>
 <script defer="" src="/assets/js/core/analysis-result.js"></script>
 <script defer="" src="/assets/js/core/analysis-progress.js"></script>
-<script defer="" src="/assets/js/pages/email-investigation.js?v=20260915-final2"></script>
+<script defer="" src="/assets/js/pages/email-investigation.js?v=20260915-final3"></script>
 <link href="/assets/css/pages/analysis-workspace.css" rel="stylesheet"/>
 <link href="/assets/css/pages/email-investigation-final.css?v=20260915-workspace2" rel="stylesheet"/>
-  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui2">
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui3">
 </head>
 <body class="vt-tool-page vt-graphite-theme vt-email-investigation vt-analysis-page">
 <header class="tool-header-shell vt-page-header vt-site-header">
@@ -52,7 +52,7 @@
     <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Dashboard</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
   </div>
 </header>
-<main class="tool-shell analysis-shell"><section class="analysis-heading"><p class="analysis-section-label">EMAIL FORENSIC INVESTIGATION</p><h1>Email investigation</h1><p>Start with the evidence you have. VeriTrust preserves the difference between pasted content, original message evidence, and facts observed directly at a trusted SMTP boundary.</p></section>
+<main class="tool-shell analysis-shell"><div class="email-investigation-entry" id="emailInvestigationEntry"><section class="analysis-heading"><p class="analysis-section-label">EMAIL FORENSIC INVESTIGATION</p><h1>Email investigation</h1><p>Start with the evidence you have. VeriTrust preserves the difference between pasted content, original message evidence, and facts observed directly at a trusted SMTP boundary.</p></section>
 <section aria-labelledby="emailInputTitle" class="analysis-layout">
 <form class="analysis-input email-input-panel" data-email-workbench="" id="phishingForm" novalidate="">
 <div class="email-input-header">
@@ -121,6 +121,7 @@
 <a class="email-stage3-action" href="/gateway-powershell#live-smtp">Need trusted SMTP evidence? Run the live receiver demo →</a>
 </div>
 </details>
+</div>
 <section aria-labelledby="emailResultTitle" aria-live="polite" class="email-result-shell analysis-report" hidden="" id="emailInvestigationResult" tabindex="-1">
 <div class="email-result-content" id="phishingResult"></div>
 </section>

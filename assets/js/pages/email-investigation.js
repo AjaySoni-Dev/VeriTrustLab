@@ -508,30 +508,12 @@
   }
 
   function renderUspTabs({ evidence, infrastructure, infrastructureSummary, campaignMemory, passport, scanId }) {
-    const completeness = evidence.evidence_completeness || {};
-    const publicHops = infrastructure.filter((hop) => hop.ip_classification === 'public');
-    const trusted = publicHops.filter((hop) => hop.trust_level === 'trusted_receiver');
-    const relatedCount = Number(campaignMemory.related_scan_count || campaignMemory.related_scans?.length || 0);
-    const geoState = trusted.length ? 'Trusted boundary' : publicHops.length ? 'Observed relays' : 'Unavailable';
-    const campaignState = campaignMemory.state === 'CORRELATED'
-      ? `${relatedCount} linked`
-      : campaignMemory.state === 'UNAVAILABLE' ? 'Unavailable' : 'No strong match';
-    const passportState = passport?.passport_id ? 'Signed' : 'Unavailable';
-
     return `<section class="email-usp-workspace" aria-label="Forensic capability views">
       <div class="email-usp-tabs" role="tablist" aria-label="VeriTrust forensic capabilities">
-        <button class="email-usp-tab" id="uspTabProgressive" type="button" role="tab" aria-selected="true" aria-controls="uspPanelProgressive" data-usp-tab="progressive">
-          <span class="email-usp-tab-index">01</span><span class="email-usp-tab-label"><strong>Acquisition</strong></span><em>${escapeHtml(evidenceStageName(evidence.input_mode))} · ${escapeHtml(titleCase(completeness.level || 'limited'))}</em>
-        </button>
-        <button class="email-usp-tab" id="uspTabGeotrace" type="button" role="tab" aria-selected="false" aria-controls="uspPanelGeotrace" data-usp-tab="geotrace" tabindex="-1">
-          <span class="email-usp-tab-index">02</span><span class="email-usp-tab-label"><strong>GeoTrace</strong></span><em>${escapeHtml(geoState)}</em>
-        </button>
-        <button class="email-usp-tab" id="uspTabCampaign" type="button" role="tab" aria-selected="false" aria-controls="uspPanelCampaign" data-usp-tab="campaign" tabindex="-1">
-          <span class="email-usp-tab-index">03</span><span class="email-usp-tab-label"><strong>Campaign</strong></span><em>${escapeHtml(campaignState)}</em>
-        </button>
-        <button class="email-usp-tab" id="uspTabPassport" type="button" role="tab" aria-selected="false" aria-controls="uspPanelPassport" data-usp-tab="passport" tabindex="-1">
-          <span class="email-usp-tab-index">04</span><span class="email-usp-tab-label"><strong>Passport</strong></span><em>${escapeHtml(passportState)}</em>
-        </button>
+        <button class="email-usp-tab" id="uspTabProgressive" type="button" role="tab" aria-selected="true" aria-controls="uspPanelProgressive" data-usp-tab="progressive">Acquisition</button>
+        <button class="email-usp-tab" id="uspTabGeotrace" type="button" role="tab" aria-selected="false" aria-controls="uspPanelGeotrace" data-usp-tab="geotrace" tabindex="-1">GeoTrace</button>
+        <button class="email-usp-tab" id="uspTabCampaign" type="button" role="tab" aria-selected="false" aria-controls="uspPanelCampaign" data-usp-tab="campaign" tabindex="-1">Campaign</button>
+        <button class="email-usp-tab" id="uspTabPassport" type="button" role="tab" aria-selected="false" aria-controls="uspPanelPassport" data-usp-tab="passport" tabindex="-1">Passport</button>
       </div>
       <div class="email-usp-tabpanels">
         ${renderProgressiveEvidenceDetails(evidence, scanId)}
@@ -585,9 +567,14 @@
   function resetInvestigationView() {
     const shell = one('#emailInvestigationResult');
     const target = one('#phishingResult');
-    if (shell) shell.hidden = true;
+    const entry = one('#emailInvestigationEntry');
+    if (shell) {
+      shell.hidden = true;
+      shell.classList.remove('is-entering');
+    }
     if (target) target.replaceChildren();
-    document.body?.classList?.remove('vt-email-has-result');
+    if (entry) entry.hidden = false;
+    document.body?.classList?.remove('vt-email-has-result', 'vt-email-summary-view');
     state.lastScanId = null;
     state.parentScanId = null;
     const form = one('#phishingForm');
@@ -608,7 +595,7 @@
     one('#emailSubject')?.focus({ preventScroll: true });
   }
 
-  function renderResult(payload) {
+  function buildResultViewModel(payload) {
     const evidence = payload.evidence || {};
     const decision = payload.gateway_decision || {};
     const specialistState = STATE_LABELS[evidence.state] ? evidence.state : 'UNCERTAIN';
@@ -619,7 +606,6 @@
     const infrastructure = Array.isArray(evidence.infrastructure) ? evidence.infrastructure : [];
     const children = Array.isArray(evidence.children) ? evidence.children : [];
     const model = Array.isArray(evidence.model_evidence) ? evidence.model_evidence[0] : null;
-    const limitations = Array.isArray(evidence.limitations) ? evidence.limitations : [];
     const completeness = evidence.evidence_completeness || {};
     const infrastructureSummary = evidence.infrastructure_summary || {};
     const threatIntelligence = evidence.threat_intelligence || {};
@@ -637,51 +623,15 @@
     }[specialistState];
     const recommendation = DECISION_LABELS[decision.recommendation] || 'Review manually';
     const signals = essentialSignals({ deterministic, authentication, relationships, children, threatIntelligence });
-    const checkedDimensions = Number(completeness.checked_dimensions);
-    const totalDimensions = Number(completeness.total_dimensions);
-    const coverage = Number.isFinite(checkedDimensions) && Number.isFinite(totalDimensions) && totalDimensions > 0
-      ? `${checkedDimensions}/${totalDimensions} evidence dimensions checked`
-      : 'Coverage derived from the submitted evidence';
-    const target = one('#phishingResult');
-    const shell = one('#emailInvestigationResult');
-    if (!target || !shell) return;
+    return {
+      payload, evidence, decision, specialistState, infrastructure, infrastructureSummary,
+      campaignMemory, passport, risk, modelLikelihood, stateCopy, recommendation, signals,
+      completeness, scanId: payload.scan_id || null,
+    };
+  }
 
-    target.innerHTML = `
-      <article class="email-result-hero email-result-hero--compact" data-state="${specialistState}">
-        <div class="email-result-primary">
-          <p class="email-result-kicker">Decision summary</p>
-          <h2 id="emailResultTitle">${escapeHtml(STATE_LABELS[specialistState])}</h2>
-          <p class="email-result-copy">${escapeHtml(stateCopy)}</p>
-          <div class="email-signal-chips" aria-label="Key signals to review">
-            ${signals.length ? signals.map((item) => `<span data-tone="${escapeHtml(item.tone)}">${escapeHtml(item.label)}</span>`).join('') : '<span data-tone="neutral">No high-priority deterministic signal was recorded; review the complete report for evidence coverage.</span>'}
-          </div>
-          <div class="email-result-actions">
-            <button class="btn btn-primary email-pdf-view" type="button" data-view-email-pdf>View Complete Report</button>
-            ${isResultPage() ? '' : '<button class="btn btn-secondary" type="button" data-new-investigation>New investigation</button>'}
-            ${['manual_review', 'hold', 'quarantine', 'block'].includes(decision.recommendation) ? '<a class="btn btn-secondary" href="/cases">Open review queue</a>' : ''}
-          </div>
-        </div>
-        <aside class="email-result-decision" aria-label="Gateway decision summary">
-          <div class="email-risk-score"><span>${helpLabel('Risk score', HELP.risk)}</span><strong>${escapeHtml(risk)}</strong><small>Gateway correlation</small></div>
-          <div class="email-next-action"><span>Recommended action</span><strong>${escapeHtml(recommendation)}</strong><small>${decision.degraded ? 'Some checks unavailable' : 'Available evidence basis'}</small></div>
-          <div class="email-decision-metric"><span>Evidence</span><strong>${escapeHtml(titleCase(completeness.level || 'limited'))}</strong><small>${escapeHtml(evidenceStageName(evidence.input_mode))}</small></div>
-          <div class="email-decision-metric"><span>AI signal</span><strong>${escapeHtml(modelLikelihood)}</strong><small>${model?.status === 'completed' ? 'Model likelihood' : 'Unavailable'}</small></div>
-        </aside>
-      </article>
-      ${renderUspTabs({ evidence, infrastructure, infrastructureSummary, campaignMemory, passport, scanId: payload.scan_id })}`;
-
-    shell.hidden = false;
-    setStatus('');
-    document.body?.classList?.add('vt-email-has-result');
-    enhanceHelpTerms(target);
-    state.lastScanId = payload.scan_id || null;
-    bindUspTabs(target, payload.scan_id || null);
-
-    one('[data-new-investigation]', target)?.addEventListener('click', () => {
-      if (isResultPage()) openNewInvestigation();
-      else resetInvestigationView();
-    });
-    one('[data-view-email-pdf]', target)?.addEventListener('click', async (event) => {
+  function bindPdfAction(root, payload) {
+    one('[data-view-email-pdf]', root)?.addEventListener('click', async (event) => {
       const button = event.currentTarget;
       const originalLabel = button.textContent;
       button.disabled = true;
@@ -697,7 +647,99 @@
         global.setTimeout(() => { button.textContent = originalLabel; button.disabled = false; }, 3200);
       }
     });
+  }
+
+  function revealPrimaryResult(shell) {
+    const entry = one('#emailInvestigationEntry');
+    if (entry) entry.hidden = true;
+    shell.hidden = false;
+    document.body?.classList?.add('vt-email-has-result', 'vt-email-summary-view');
+    shell.classList.remove('is-entering');
+    // Force a fresh animation even when the user runs multiple investigations
+    // without navigating away from the page.
+    void shell.offsetWidth;
+    shell.classList.add('is-entering');
+    shell.addEventListener('animationend', () => shell.classList.remove('is-entering'), { once: true });
     shell.focus({ preventScroll: true });
+    const reduceMotion = global.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+    global.scrollTo?.({ top: 0, left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+
+  function renderPrimarySummary(view) {
+    const target = one('#phishingResult');
+    const shell = one('#emailInvestigationResult');
+    if (!target || !shell) return;
+    const detailAction = view.scanId
+      ? `<a class="btn btn-primary" href="${resultPath(view.scanId)}">View detailed report</a>`
+      : '<span class="email-detail-unavailable">Detailed evidence is unavailable because this response has no investigation ID.</span>';
+    const reviewAction = ['manual_review', 'hold', 'quarantine', 'block'].includes(view.decision.recommendation)
+      ? '<a class="btn btn-secondary" href="/cases">Open review queue</a>'
+      : '';
+    target.innerHTML = `
+      <article class="email-completion-summary" data-state="${view.specialistState}">
+        <div class="email-completion-primary">
+          <p class="email-result-kicker">Investigation complete</p>
+          <h2 id="emailResultTitle">${escapeHtml(STATE_LABELS[view.specialistState])}</h2>
+          <p class="email-result-copy">${escapeHtml(view.stateCopy)}</p>
+          <div class="email-signal-chips" aria-label="Key signals to review">
+            ${view.signals.length ? view.signals.map((item) => `<span data-tone="${escapeHtml(item.tone)}">${escapeHtml(item.label)}</span>`).join('') : '<span data-tone="neutral">No high-priority deterministic signal was recorded; review the detailed evidence for coverage and limitations.</span>'}
+          </div>
+          <div class="email-result-actions">
+            ${detailAction}
+            <button class="btn btn-secondary" type="button" data-view-email-pdf>Open PDF report</button>
+            ${reviewAction}
+            <button class="btn btn-secondary" type="button" data-new-investigation>New investigation</button>
+          </div>
+        </div>
+        <aside class="email-completion-metrics" aria-label="Decision snapshot">
+          <div><span>${helpLabel('Risk score', HELP.risk)}</span><strong>${escapeHtml(view.risk)}</strong><small>Gateway correlation</small></div>
+          <div><span>Recommended action</span><strong>${escapeHtml(view.recommendation)}</strong><small>${view.decision.degraded ? 'Some checks unavailable' : 'Available evidence basis'}</small></div>
+          <div><span>Evidence</span><strong>${escapeHtml(titleCase(view.completeness.level || 'limited'))}</strong><small>${escapeHtml(evidenceStageName(view.evidence.input_mode))}</small></div>
+          <div><span>AI signal</span><strong>${escapeHtml(view.modelLikelihood)}</strong><small>Model likelihood</small></div>
+        </aside>
+      </article>`;
+
+    revealPrimaryResult(shell);
+    setStatus('');
+    enhanceHelpTerms(target);
+    state.lastScanId = view.scanId;
+    one('[data-new-investigation]', target)?.addEventListener('click', resetInvestigationView);
+    bindPdfAction(target, view.payload);
+  }
+
+  function renderDetailedEvidence(view) {
+    const target = one('#phishingResult');
+    const shell = one('#emailInvestigationResult');
+    if (!target || !shell) return;
+    target.innerHTML = `
+      <div class="email-detail-snapshot" aria-label="Investigation decision snapshot">
+        <strong id="emailResultTitle" class="email-detail-verdict" data-state="${view.specialistState}">${escapeHtml(STATE_LABELS[view.specialistState])}</strong>
+        <span>Risk ${escapeHtml(view.risk)}</span>
+        <span>AI ${escapeHtml(view.modelLikelihood)}</span>
+        <span>Evidence ${escapeHtml(titleCase(view.completeness.level || 'limited'))}</span>
+      </div>
+      ${renderUspTabs({
+        evidence: view.evidence,
+        infrastructure: view.infrastructure,
+        infrastructureSummary: view.infrastructureSummary,
+        campaignMemory: view.campaignMemory,
+        passport: view.passport,
+        scanId: view.scanId,
+      })}`;
+
+    shell.hidden = false;
+    setStatus('');
+    document.body?.classList?.add('vt-email-has-result');
+    enhanceHelpTerms(target);
+    state.lastScanId = view.scanId;
+    bindUspTabs(target, view.scanId);
+    shell.focus({ preventScroll: true });
+  }
+
+  function renderResult(payload) {
+    const view = buildResultViewModel(payload);
+    if (isResultPage()) renderDetailedEvidence(view);
+    else renderPrimarySummary(view);
   }
 
   function renderFailure(error) {
@@ -887,8 +929,8 @@
               const payload = await parseResponse(response);
               if (payload?.evidence && payload?.gateway_decision) {
                 analysisProgress.finish();
-                setStatus('Check complete. Opening the structured investigation result...');
-                global.location.assign(resultPath(candidateScanId));
+                setStatus('Check complete. Preparing the decision summary...');
+                renderResult(payload);
                 return true;
               }
             }
@@ -926,8 +968,8 @@
               if (payload?.evidence && payload?.gateway_decision) {
                 analysisProgress.finish();
                 if (payload.scan_id) {
-                  setStatus('Check complete. Opening the structured investigation result...');
-                  global.location.assign(resultPath(payload.scan_id));
+                  setStatus('Check complete. Preparing the decision summary...');
+                  renderResult(payload);
                   return true;
                 }
                 renderResult(payload);
@@ -952,8 +994,8 @@
           const completedMatch = scans.find((s) => s?.id && (!candidateScanId || s.id === candidateScanId) && (s.status === 'completed' || s.risk_score !== null));
           if (completedMatch?.id) {
             analysisProgress.finish();
-            setStatus('Check complete. Opening the structured investigation result...');
-            global.location.assign(resultPath(completedMatch.id));
+            setStatus('Check complete. Restoring the decision summary...');
+            await loadSavedInvestigation(completedMatch.id);
             return true;
           }
         }
@@ -989,15 +1031,9 @@
         }
 
         analysisProgress.finish();
-        if (payload.scan_id) {
-          setStatus('Check complete. Opening the structured investigation result...');
-          global.location.assign(resultPath(payload.scan_id));
-          return;
-        }
-
-        // Defensive fallback for an invalid upstream response that omitted scan_id.
+        setStatus('Check complete. Preparing the decision summary...');
         renderResult(payload);
-        setStatus('Check complete. Review the result and any missing evidence.');
+        setStatus('');
       } catch (error) {
         const recovered = await recoverInterruptedInvestigation(error);
         if (!recovered) {

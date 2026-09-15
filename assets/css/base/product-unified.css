@@ -1238,3 +1238,353 @@ html body.vt-home-sih .sih-demo h2 {
   html body.vt-email-investigation .email-usp-tab > em { font-size: 8.8px !important; }
   html body.vt-email-investigation .email-geotrace-map { min-height: 160px !important; }
 }
+
+/* ========================================================================
+   Final investigation flow split — 2026-09-15
+   /phishing owns the immediate decision. /phishing-result owns evidence detail.
+   ======================================================================== */
+
+html body.vt-email-investigation .email-investigation-entry[hidden] {
+  display: none !important;
+}
+
+/* Programmatic focus is used after result replacement for accessibility, but it
+   must never draw a browser-default black rectangle around the result surface. */
+html body.vt-email-investigation :where(.email-result-shell, .analysis-report):focus,
+html body.vt-email-investigation :where(.email-result-shell, .analysis-report):focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Primary investigation page: the completed decision replaces the workbench. */
+html body.vt-email-investigation.vt-email-summary-view .analysis-shell {
+  padding-top: calc(var(--header-height) + clamp(28px, 5vw, 56px)) !important;
+}
+html body.vt-email-investigation.vt-email-summary-view .analysis-report {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  max-height: none !important;
+}
+html body.vt-email-investigation .email-result-shell.is-entering {
+  animation: vt-investigation-result-reveal 320ms cubic-bezier(.2,.75,.25,1) both;
+}
+@keyframes vt-investigation-result-reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+html body.vt-email-investigation .email-completion-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(340px, .65fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(8px, 1vw, 14px) 0 clamp(30px, 5vw, 54px);
+  border: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  background: transparent;
+  box-shadow: none;
+}
+html body.vt-email-investigation .email-completion-primary {
+  min-width: 0;
+}
+html body.vt-email-investigation .email-completion-primary h2 {
+  margin: 5px 0 10px;
+  color: var(--text-primary);
+  font-size: clamp(2.35rem, 5vw, 4.4rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+html body.vt-email-investigation .email-completion-primary .email-result-copy {
+  max-width: 68ch !important;
+  margin: 0;
+  color: var(--text-secondary) !important;
+  font-size: .96rem;
+  line-height: 1.65;
+}
+html body.vt-email-investigation .email-completion-summary .email-signal-chips {
+  margin-top: 18px;
+}
+html body.vt-email-investigation .email-completion-summary .email-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+html body.vt-email-investigation .email-detail-unavailable {
+  align-self: center;
+  max-width: 52ch;
+  color: var(--text-tertiary);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+html body.vt-email-investigation .email-completion-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+  border-left: 1px solid var(--border-subtle);
+}
+html body.vt-email-investigation .email-completion-metrics > div {
+  min-width: 0;
+  min-height: 92px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+html body.vt-email-investigation .email-completion-metrics > div:nth-child(odd) {
+  border-right: 1px solid var(--border-subtle);
+}
+html body.vt-email-investigation .email-completion-metrics > div:nth-last-child(-n+2) {
+  border-bottom: 0;
+}
+html body.vt-email-investigation .email-completion-metrics span,
+html body.vt-email-investigation .email-completion-metrics small {
+  display: block;
+  color: var(--text-tertiary);
+}
+html body.vt-email-investigation .email-completion-metrics span {
+  margin-bottom: 7px;
+  font: 600 9px/1.2 var(--mono);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+html body.vt-email-investigation .email-completion-metrics strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: clamp(1rem, 1.6vw, 1.22rem);
+  line-height: 1.25;
+}
+html body.vt-email-investigation .email-completion-metrics > div:first-child strong {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 1;
+}
+html body.vt-email-investigation .email-completion-metrics small {
+  margin-top: 6px;
+  font-size: .72rem;
+  line-height: 1.35;
+}
+
+/* Detail page: no outer card, no large duplicated verdict. */
+html body.vt-email-result-page .email-result-page-heading {
+  align-items: end;
+}
+html body.vt-email-result-page .email-result-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+html body.vt-email-result-page .analysis-report,
+html body.vt-email-result-page .email-result-shell,
+html body.vt-email-result-page .analysis-report:focus,
+html body.vt-email-result-page .email-result-shell:focus {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  max-height: none !important;
+}
+html body.vt-email-result-page .email-result-content {
+  display: grid !important;
+  gap: 18px !important;
+}
+html body.vt-email-result-page .email-detail-snapshot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: transparent;
+}
+html body.vt-email-result-page .email-detail-snapshot > :where(strong, span) {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 2px;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font: 600 10px/1.2 var(--mono);
+  letter-spacing: .02em;
+}
+html body.vt-email-result-page .email-detail-verdict[data-state="LIKELY_PHISHING"] {
+  border-color: rgba(239, 68, 68, .34);
+  background: rgba(239, 68, 68, .08);
+  color: #fca5a5;
+}
+html body.vt-email-result-page .email-detail-verdict[data-state="LIKELY_BENIGN"] {
+  border-color: rgba(34, 197, 94, .32);
+  background: rgba(34, 197, 94, .08);
+  color: #86efac;
+}
+html body.vt-email-result-page .email-detail-verdict[data-state="UNCERTAIN"],
+html body.vt-email-result-page .email-detail-verdict[data-state="UNSUPPORTED"] {
+  border-color: rgba(245, 158, 11, .34);
+  background: rgba(245, 158, 11, .08);
+  color: #fcd34d;
+}
+
+/* Match the Dashboard workspace tabs exactly: one bounded rail, equal-width
+   destinations, flat separators, and a restrained active accent. */
+html body.vt-email-result-page .email-usp-workspace {
+  display: grid !important;
+  gap: 0 !important;
+  min-width: 0;
+}
+html body.vt-email-result-page .email-usp-tabs {
+  position: sticky !important;
+  top: calc(var(--header-height) + 8px) !important;
+  z-index: 18 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  margin: 0 0 22px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 4px !important;
+  background: var(--bg-surface) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+html body.vt-email-result-page .email-usp-tab {
+  min-width: 0 !important;
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: .65rem .8rem !important;
+  border: 0 !important;
+  border-right: 1px solid var(--border-subtle) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--text-tertiary) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  font: 500 .78rem/1.25 Inter, sans-serif !important;
+  text-align: center !important;
+  transition: color 140ms ease, background-color 140ms ease !important;
+}
+html body.vt-email-result-page .email-usp-tab:last-child {
+  border-right: 0 !important;
+}
+html body.vt-email-result-page .email-usp-tab:hover {
+  background: var(--bg-surface-hover) !important;
+  color: var(--text-primary) !important;
+}
+html body.vt-email-result-page .email-usp-tab[aria-selected="true"],
+html body.vt-email-result-page .email-usp-tab.is-active {
+  background: var(--accent-soft) !important;
+  color: var(--accent-main) !important;
+  box-shadow: inset 0 -2px 0 var(--accent-main) !important;
+}
+html body.vt-email-result-page .email-usp-tabpanels {
+  min-width: 0 !important;
+}
+html body.vt-email-result-page .email-usp-tabpanel {
+  padding: 0 2px 2px !important;
+}
+
+@media (max-width: 860px) {
+  html body.vt-email-investigation .email-completion-summary {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  html body.vt-email-investigation .email-completion-metrics {
+    border-left: 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+}
+
+@media (max-width: 760px) {
+  html body.vt-email-investigation.vt-email-summary-view .analysis-shell {
+    padding-top: calc(var(--header-height) + 22px) !important;
+  }
+  html body.vt-email-investigation .email-completion-primary h2 {
+    font-size: clamp(2.1rem, 13vw, 3.2rem);
+  }
+  html body.vt-email-investigation .email-completion-summary .email-result-actions > :where(.btn, a.btn, button.btn) {
+    width: 100%;
+    justify-content: center;
+  }
+  html body.vt-email-result-page .email-result-page-heading {
+    align-items: start;
+  }
+  html body.vt-email-result-page .email-result-page-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  html body.vt-email-result-page .email-usp-tabs {
+    position: static !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  html body.vt-email-result-page .email-usp-tab {
+    border-right: 1px solid var(--border-subtle) !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+  }
+  html body.vt-email-result-page .email-usp-tab:nth-child(2n) {
+    border-right: 0 !important;
+  }
+  html body.vt-email-result-page .email-usp-tab:nth-last-child(-n+2) {
+    border-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 520px) {
+  html body.vt-email-investigation .email-completion-metrics {
+    grid-template-columns: 1fr;
+  }
+  html body.vt-email-investigation .email-completion-metrics > div,
+  html body.vt-email-investigation .email-completion-metrics > div:nth-child(odd),
+  html body.vt-email-investigation .email-completion-metrics > div:nth-last-child(-n+2) {
+    min-height: 0;
+    padding: 12px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  html body.vt-email-investigation .email-completion-metrics > div:last-child {
+    border-bottom: 0;
+  }
+  html body.vt-email-result-page .email-detail-snapshot {
+    align-items: stretch;
+  }
+  html body.vt-email-result-page .email-detail-snapshot > :where(strong, span) {
+    flex: 1 1 calc(50% - 8px);
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body.vt-email-investigation .email-result-shell.is-entering {
+    animation: none !important;
+  }
+}
+
+/* Keep the short post-investigation summary composition anchored to the viewport
+   without inventing decorative separators or leaving the footer mid-screen. */
+html body.vt-email-investigation.vt-email-summary-view {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+html body.vt-email-investigation.vt-email-summary-view > .analysis-shell {
+  flex: 1 0 auto;
+}
+html body.vt-email-investigation.vt-email-summary-view > .vt-site-footer {
+  margin-top: auto;
+}
+html body.vt-email-investigation .email-completion-summary {
+  border-bottom: 0;
+}
