@@ -25,7 +25,7 @@ module.exports = async function handler(req, res) {
     return routeHandler(req, res);
   }
   if (handleOptions(req, res)) return;
-  sendJson(res, 404, { ok: false, error: { code: 'NOT_FOUND', message: 'Unknown VeriTrust detection endpoint.' } });
+  sendJson(res, 404, { ok: false, error: { code: 'NOT_FOUND', message: 'Unknown VeriTrust Lab detection endpoint.' } });
 };
 
 module.exports.routeName = routeName;

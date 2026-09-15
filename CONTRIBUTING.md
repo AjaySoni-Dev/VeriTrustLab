@@ -1,4 +1,4 @@
-# Contributing to VeriTrust
+# Contributing to VeriTrust Lab
 
 ## Before you start
 

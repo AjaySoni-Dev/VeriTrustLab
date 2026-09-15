@@ -16,7 +16,7 @@ $CacheRoot = Join-Path $env:LOCALAPPDATA 'VeriTrust\MailConsole'
 $RuntimeRoot = if ($env:VERITRUST_MAIL_GATEWAY_ROOT) { $env:VERITRUST_MAIL_GATEWAY_ROOT } else { Join-Path $PSScriptRoot 'mail-gateway' }
 $NodeRoot = Join-Path $CacheRoot 'node24'
 $CredFile = Join-Path $CacheRoot 'receiver-credentials.json'
-$FirewallRuleName = 'VeriTrust SMTP over Tailscale 2525'
+$FirewallRuleName = 'VeriTrust Lab SMTP over Tailscale 2525'
 $script:Ansi = $false
 $script:Esc = [char]27
 
@@ -166,10 +166,10 @@ function Get-VeriTrustRuntime {
     $server = Join-Path $RuntimeRoot 'server.js'
     $sink = Join-Path $RuntimeRoot 'test-receiver.js'
     if ((Test-Path -LiteralPath $server) -and (Test-Path -LiteralPath $sink)) {
-        Write-Tag 'OK' ('Using bundled VeriTrust SMTP runtime: {0}' -f $RuntimeRoot) 'ok'
+        Write-Tag 'OK' ('Using bundled VeriTrust Lab SMTP runtime: {0}' -f $RuntimeRoot) 'ok'
         return
     }
-    throw ('Bundled VeriTrust SMTP runtime is missing from {0}. Re-extract the complete VeriTrust demo package; this presentation build does not download runtime source from GitHub.' -f $RuntimeRoot)
+    throw ('Bundled VeriTrust Lab SMTP runtime is missing from {0}. Re-extract the complete VeriTrust Lab demo package; this presentation build does not download runtime source from GitHub.' -f $RuntimeRoot)
 }
 
 function Read-SecretText {
@@ -204,7 +204,7 @@ function Unprotect-Text {
 function Get-ReceiverCredentials {
     $apiKey=$env:VERITRUST_API_KEY;$secret=$null;if($env:VERITRUST_RECEIVER_SECRET){$secret=$env:VERITRUST_RECEIVER_SECRET}elseif($env:VERITRUST_EMAIL_RECEIVER_SECRET){$secret=$env:VERITRUST_EMAIL_RECEIVER_SECRET}
     if(Test-Path -LiteralPath $CredFile){try{$stored=Get-Content -LiteralPath $CredFile -Raw|ConvertFrom-Json;if(-not $apiKey -and $stored.ApiKey){$apiKey=Unprotect-Text $stored.ApiKey};if(-not $secret -and $stored.ReceiverSecret){$secret=Unprotect-Text $stored.ReceiverSecret}}catch{Write-Tag 'CREDENTIALS' 'Stored values could not be decrypted; asking again.' 'warn'}}
-    if(-not $apiKey){$apiKey=Read-SecretText 'Paste VeriTrust Gateway API key'};if($apiKey -notmatch '^vtg_(?:test|live)_[A-Za-z0-9_-]{20,}$'){throw 'Invalid VeriTrust Gateway API key format.'}
+    if(-not $apiKey){$apiKey=Read-SecretText 'Paste VeriTrust Lab Gateway API key'};if($apiKey -notmatch '^vtg_(?:test|live)_[A-Za-z0-9_-]{20,}$'){throw 'Invalid VeriTrust Lab Gateway API key format.'}
     if(-not $secret){$secret=Read-SecretText 'Paste VERITRUST_EMAIL_RECEIVER_SECRET'};if([Text.Encoding]::UTF8.GetByteCount($secret)-lt 32){throw 'VERITRUST_EMAIL_RECEIVER_SECRET must be at least 32 bytes.'}
     @{ApiKey=Protect-Text $apiKey;ReceiverSecret=Protect-Text $secret}|ConvertTo-Json|Set-Content -LiteralPath $CredFile -Encoding UTF8
     return [pscustomobject]@{ApiKey=$apiKey;ReceiverSecret=$secret}
@@ -286,7 +286,7 @@ function Show-Pairing {
 function Show-MailCard {
     param([IO.FileInfo]$File)
     $subject=Get-HeaderValue $File.FullName 'Subject';$from=Get-HeaderValue $File.FullName 'From';$to=Get-HeaderValue $File.FullName 'To'
-    Write-Line '';Write-Rule '73;210;126';Write-Tag 'ACCEPTED' 'VeriTrust approved message received.' 'ok'
+    Write-Line '';Write-Rule '73;210;126';Write-Tag 'ACCEPTED' 'VeriTrust Lab approved message received.' 'ok'
     Write-Line ('  File     {0}' -f $File.Name) Cyan;Write-Line ('  Time     {0}' -f $File.LastWriteTime) White;Write-Line ('  Size     {0:N0} bytes' -f $File.Length) White
     if($from){Write-Line ('  From     {0}' -f $from) White};if($to){Write-Line ('  To       {0}' -f $to) White};if($subject){Write-Line ('  Subject  {0}' -f $subject) White}
     Write-Line ('  Saved    {0}' -f $File.FullName) DarkGray;Write-Rule '73;210;126'
@@ -379,7 +379,7 @@ try {
         VERITRUST_SMTP_UPSTREAM_HOST='127.0.0.1';VERITRUST_SMTP_UPSTREAM_PORT=[string]$SinkPort;VERITRUST_SMTP_UPSTREAM_STARTTLS='off';VERITRUST_SMTP_UPSTREAM_SECURE='false';
         VERITRUST_SMTP_ANALYSIS_TIMEOUT_MS='90000';VERITRUST_SMTP_DEGRADED_MODE='defer';VERITRUST_SMTP_API_FAILURE_MODE='defer';VERITRUST_SMTP_ADD_DECISION_HEADERS='true'
     }
-    $gatewayProcess=Start-NodeProcess $node $gatewayScript $RuntimeRoot $gatewayEnv;Start-Sleep -Seconds 1;if($gatewayProcess.HasExited){throw 'VeriTrust SMTP gateway exited during startup.'}
+    $gatewayProcess=Start-NodeProcess $node $gatewayScript $RuntimeRoot $gatewayEnv;Start-Sleep -Seconds 1;if($gatewayProcess.HasExited){throw 'VeriTrust Lab SMTP gateway exited during startup.'}
     if(-not(Test-SmtpGreeting '127.0.0.1' $GatewayPort)){throw ('SMTP gateway started but localhost:{0} did not return a valid SMTP greeting.' -f $GatewayPort)}
     if(-not(Test-SmtpGreeting $tailIP $GatewayPort)){throw ('SMTP gateway started but Tailscale endpoint {0}:{1} did not return a valid SMTP greeting.' -f $tailIP,$GatewayPort)}
     Write-Tag 'OK' ('SMTP enforcement gateway: {0}:{1}' -f $tailIP,$GatewayPort) 'ok'
@@ -392,7 +392,7 @@ try {
     $running=$true;$buffer='';Draw-Prompt $buffer
     while($running){
         if($sinkProcess.HasExited){throw 'The downstream receiver process stopped unexpectedly.'}
-        if($gatewayProcess.HasExited){throw 'The VeriTrust gateway process stopped unexpectedly.'}
+        if($gatewayProcess.HasExited){throw 'The VeriTrust Lab gateway process stopped unexpectedly.'}
 
         $files=Get-ChildItem -LiteralPath $SaveDir -Filter '*.eml' -File -ErrorAction SilentlyContinue|Sort-Object LastWriteTime
         foreach($file in $files){
@@ -419,5 +419,5 @@ finally {
     if($gatewayProcess -and -not $gatewayProcess.HasExited){try{$gatewayProcess.Kill()}catch{}}
     if($sinkProcess -and -not $sinkProcess.HasExited){try{$sinkProcess.Kill()}catch{}}
     $credentials=$null;$smtpPassword=$null
-    Write-Line '';Write-Tag 'CLOSED' 'VeriTrust receiver stopped.' 'dim'
+    Write-Line '';Write-Tag 'CLOSED' 'VeriTrust Lab receiver stopped.' 'dim'
 }

@@ -919,7 +919,7 @@
   }
 }
 
-/* SIH26106 forensic intelligence extensions */
+/* Forensic intelligence extensions */
 .email-acquisition-overview {
   display: grid;
   grid-template-columns: 1fr auto 1fr auto 1fr;

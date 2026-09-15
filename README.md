@@ -1,4 +1,4 @@
-<h1 align="center">VeriTrust MailGraph</h1>
+<h1 align="center">VeriTrust Lab MailGraph</h1>
 
 <p align="center">
   <strong>AI-powered email threat detection, infrastructure geolocation, and forensic intelligence</strong><br>
@@ -26,7 +26,7 @@
 
 ## Overview
 
-**VeriTrust MailGraph** turns suspicious email input into structured, provenance-aware threat evidence rather than stopping at a single phishing score.
+**VeriTrust Lab MailGraph** turns suspicious email input into structured, provenance-aware threat evidence rather than stopping at a single phishing score.
 
 The main flow is:
 
@@ -46,7 +46,7 @@ A separate long-running SMTP gateway can provide trusted transport observations 
 | Gateway | Evidence correlation, policy, persistence, review, storage, and execution logic. |
 | Model adapters | Phishing, URL, and configured model-provider integration. |
 | Vercel APIs | Account, billing, detection, system, v1, and Gateway entry points. |
-| Judge-facing UI | Home, canonical email investigation, trusted SMTP demo, Evidence Passport verifier, and a focused recent-investigations dashboard. Cases and administration remain secondary/direct-access surfaces. |
+| Primary product UI | Home, canonical email investigation, trusted SMTP demo, Evidence Passport verifier, and a focused recent-investigations dashboard. Cases and administration remain secondary/direct-access surfaces. |
 | SMTP enforcement | Persistent Node/PowerShell mail relay for controlled private/LAN deployment. |
 | OpenAPI | Email v2 and Gateway contracts. |
 | Tests and verification | Node regression tests, runtime checks, module checks, and repository verification. |
@@ -57,7 +57,7 @@ A separate long-running SMTP gateway can provide trusted transport observations 
 
 | Page | Purpose |
 |---|---|
-| `index.html` | Minimal product entry: four USP proof cards, evidence ladder, and two primary actions. |
+| `index.html` | Minimal product entry: four forensic capability proof cards, evidence ladder, and two primary actions. |
 | `phishing.html` | Canonical email-threat and forensic investigation interface. |
 | `gateway-powershell.html` | Two-laptop trusted SMTP sender/receiver demonstration guide. |
 | `verify-evidence.html` | Independent Evidence Passport integrity and trusted-issuer verification. |
@@ -154,7 +154,7 @@ Deployments require the compatible existing Supabase contract plus `supabase/mig
 - Infrastructure geolocation is approximate infrastructure context, not person geolocation or actor attribution.
 - Missing, failed, unavailable, or uncertain evidence must not be converted into a benign result.
 - Attachments are metadata-only in the email-forensics path and are never executed by the parser.
-- No controlled VeriTrust accuracy/precision/recall/F1 benchmark is claimed by this repository.
+- No controlled VeriTrust Lab accuracy/precision/recall/F1 benchmark is claimed by this repository.
 - Standalone Detection Hub, Link Check, generic Gateway UI, and Web CLI pages are intentionally removed. Their shared backend capabilities remain where the canonical email workflow depends on them.
 
 ---

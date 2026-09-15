@@ -172,9 +172,9 @@ const VeriTrustSiteChrome = (() => {
     header.dataset.siteHeader = 'true';
     header.innerHTML = `
       <div class="tool-header-inner">
-        <a href="/" class="tool-header-brand" aria-label="VeriTrust home">
+        <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home">
           <img src="/assets/images/logo.png" alt="" class="tool-header-mark">
-          <img src="/assets/images/brand.png" alt="VeriTrust" class="tool-header-word">
+          <img src="/assets/images/brand.png" alt="VeriTrust Lab" class="tool-header-word">
         </a>
         <nav class="tool-header-links" aria-label="Primary navigation">
           <a href="/">Home</a>
@@ -206,7 +206,7 @@ const VeriTrustSiteChrome = (() => {
     footer.dataset.siteFooter = 'true';
     footer.innerHTML = `
       <div class="vt-site-footer-bottom">
-        <span>&copy; 2026 VeriTrust.</span>
+        <span>&copy; 2026 VeriTrust Lab.</span>
         <span>Infrastructure location is approximate and does not identify a person.</span>
       </div>
     `;
@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const bindLogout = (link) => {
       link.hidden = false;
       link.removeAttribute('aria-hidden');
-      link.setAttribute('aria-label', 'Log out of VeriTrust');
+      link.setAttribute('aria-label', 'Log out of VeriTrust Lab');
       link.href = '#sign-out';
       link.textContent = 'Log out';
       link.classList.add('is-logout');

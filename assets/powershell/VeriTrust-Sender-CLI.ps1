@@ -272,7 +272,7 @@ function Resolve-EmlPath {
 function Parse-PairingCode {
     param([string]$Code)
     $parts=$Code.Trim() -split '\|'
-    if ($parts.Count -ne 6 -or $parts[0] -notin @('VTCLI2','VTUI1')) { throw 'Invalid pairing code. Use the code shown by the VeriTrust receiver.' }
+    if ($parts.Count -ne 6 -or $parts[0] -notin @('VTCLI2','VTUI1')) { throw 'Invalid pairing code. Use the code shown by the VeriTrust Lab receiver.' }
     [int]$port=0; if (-not [int]::TryParse($parts[2],[ref]$port) -or $port -lt 1 -or $port -gt 65535) {throw 'Pairing code contains an invalid SMTP port.'}
     if ($parts[1] -notmatch '^100\.\d{1,3}\.\d{1,3}\.\d{1,3}$') {throw 'Pairing code does not contain a valid Tailscale IP.'}
     if (-not $parts[3] -or $parts[4].Length -lt 12) {throw 'Pairing code contains invalid SMTP credentials.'}
@@ -292,7 +292,7 @@ function Show-Help {
         @('/pair','Replace the current receiver pairing code.'),
         @('/pwd','Show the current working directory.'),
         @('/cd <path>','Change the working directory used for relative file names.'),
-        @('/last','Show the last VeriTrust decision.'),
+        @('/last','Show the last VeriTrust Lab decision.'),
         @('/history','Show recent send decisions for this session.'),
         @('/clear','Redraw the VeriTrust Lab console.'),
         @('/help','Show command reference.'),
@@ -319,7 +319,7 @@ function Show-Status {
 
 function Send-OneFile {
     param([string]$Path,$Pairing,[string]$ConnectHost)
-    $file=Get-Item -LiteralPath $Path; if ($file.Length -gt $MaxMessageBytes) {throw ('{0} exceeds the VeriTrust SMTP message limit.' -f $file.Name)}
+    $file=Get-Item -LiteralPath $Path; if ($file.Length -gt $MaxMessageBytes) {throw ('{0} exceeds the VeriTrust Lab SMTP message limit.' -f $file.Name)}
     $mailFrom='sender@{0}' -f $Pairing.Domain; $mailTo='receiver@{0}' -f $Pairing.Domain
     $client=New-Object Net.Sockets.TcpClient; $client.ReceiveTimeout=180000; $client.SendTimeout=180000
     Write-Line ''; Write-Rule '0;157;167'; Write-Tag 'SEND' $file.Name 'info'; Write-Line ('  size      {0:N0} bytes' -f $file.Length) DarkGray; Write-Line ('  endpoint  {0}:{1}' -f $ConnectHost,$Pairing.Port) DarkGray; Write-Rule
@@ -333,7 +333,7 @@ function Send-OneFile {
         Send-SmtpCommand $writer $reader ('MAIL FROM:<{0}>' -f $mailFrom) @(250) -Quiet | Out-Null
         Send-SmtpCommand $writer $reader ('RCPT TO:<{0}>' -f $mailTo) @(250,251) -Quiet | Out-Null
         Send-SmtpCommand $writer $reader 'DATA' @(354) -Quiet | Out-Null
-        Write-Tag 'ANALYZE' 'Uploading raw EML; waiting for VeriTrust policy decision…' 'warn'
+        Write-Tag 'ANALYZE' 'Uploading raw EML; waiting for VeriTrust Lab policy decision…' 'warn'
         Send-EmlData $stream $Path; $decision=Read-SmtpResponse -Reader $reader -Quiet; try {$writer.WriteLine('QUIT');$writer.Flush()} catch {}
         $label='UNKNOWN';$kind='dim'
         if ($decision.Code -ge 200 -and $decision.Code -lt 300) {$label='ALLOWED';$kind='ok'} elseif ($decision.Code -ge 400 -and $decision.Code -lt 500) {$label='DEFERRED';$kind='warn'} elseif ($decision.Code -ge 500) {$label='BLOCKED';$kind='bad'}
@@ -363,7 +363,7 @@ function Connect-Pairing {
 }
 
 while (-not $pairing) {
-    try { Write-Line ''; Write-Line 'Paste the pairing code shown by the VeriTrust receiver.' Yellow; $c=Connect-Pairing; $pairing=$c.Pairing; $connectHost=$c.ConnectHost }
+    try { Write-Line ''; Write-Line 'Paste the pairing code shown by the VeriTrust Lab receiver.' Yellow; $c=Connect-Pairing; $pairing=$c.Pairing; $connectHost=$c.ConnectHost }
     catch { Write-Tag 'PAIRING ERROR' $_.Exception.Message 'bad' }
 }
 
@@ -413,4 +413,4 @@ while ($running) {
     } catch {Write-Tag 'TRANSACTION ERROR' $_.Exception.Message 'bad';Write-Line 'Session remains active. Fix the issue and send another file.' DarkGray}
 }
 
-Write-Line '';Write-Rule;Write-Tag 'CLOSED' 'VeriTrust sender session ended.' 'dim';Write-Line ('Transactions {0} · Allowed {1} · Deferred {2} · Blocked {3}' -f $sent,$allowed,$deferred,$blocked) Gray
+Write-Line '';Write-Rule;Write-Tag 'CLOSED' 'VeriTrust Lab sender session ended.' 'dim';Write-Line ('Transactions {0} · Allowed {1} · Deferred {2} · Blocked {3}' -f $sent,$allowed,$deferred,$blocked) Gray

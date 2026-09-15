@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const confirm = document.getElementById('recovery-confirm')?.value || '';
           if (password !== confirm) throw new Error('Passwords do not match.');
           await window.VeriTrustSupabase.updatePassword(password);
-          showMessage('Password updated. Opening your requested VeriTrust page...', 'success');
+          showMessage('Password updated. Opening your requested VeriTrust Lab page...', 'success');
           window.location.href = redirectTarget;
           return;
         }
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           });
 
           if (data?.authenticated) {
-            showMessage('Account created. Opening your requested VeriTrust page...', 'success');
+            showMessage('Account created. Opening your requested VeriTrust Lab page...', 'success');
             window.location.href = redirectTarget;
           } else {
             showMessage('Account created. Check your email to confirm your account, then sign in.', 'success');
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           email: document.getElementById('login-email')?.value.trim() || '',
           password: document.getElementById('login-password')?.value || '',
         });
-        showMessage('Signed in. Opening your requested VeriTrust module...', 'success');
+        showMessage('Signed in. Opening your requested VeriTrust Lab module...', 'success');
         window.location.href = redirectTarget;
       } catch (error) {
         showMessage(error.message || 'Authentication failed.', 'error');

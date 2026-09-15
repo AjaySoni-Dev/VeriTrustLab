@@ -30,7 +30,7 @@ module.exports = async function handler(req, res) {
       request_id: `vt_req_${Date.now().toString(36)}`,
       error: {
         code: 'NOT_FOUND',
-        message: 'Unknown VeriTrust API v1 endpoint.',
+        message: 'Unknown VeriTrust Lab API v1 endpoint.',
       },
     });
     return;

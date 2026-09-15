@@ -8,20 +8,20 @@
   },
   "receiver_script": {
     "path": "/assets/powershell/VeriTrust-Receiver-CLI.ps1",
-    "sha256": "e2e236ad85d9a1c0657b0fe90d048ce705bd5c0dfa3cf4a1c2858a7804a4f2a8"
+    "sha256": "9768f57030404cd49277e79af6c4da855f3fb25dfbaa8ce4696bd3a833b5c6f6"
   },
   "sender_script": {
     "path": "/assets/powershell/VeriTrust-Sender-CLI.ps1",
-    "sha256": "b07fdb8aa5c4717dc079796562ac817e1f0312acc4c831fe4e70de253d75a720"
+    "sha256": "d9be41b6b7b5f304267db2c1094d90e8bb8c24901d6d53e432e39f4ab6f1ebb6"
   },
   "package": {
     "path": "/assets/downloads/VeriTrust-Lab-Persistent-CLI.zip",
-    "sha256": "7b1bf28ca9feb5526c25a65edf71afc5e1b9d9ae802159beef3803e133eb9773",
+    "sha256": "ceeff8f4ca30030ff806559e498bfe6e71df23f027ce1d0affa996a5abd03f21",
     "contains_matching_mail_gateway_runtime": true
   },
   "smtp_runtime": {
     "path": "/assets/downloads/VeriTrust-SMTP-Gateway-Runtime.zip",
-    "sha256": "29066114d9e71d18a2a671b42fd0293ebbf883815b0fe7146e5c328b3e5bc55c",
+    "sha256": "e749e1d915e4fa0a3c2b2a6fec4fa14316540deab7819411f46d03286817248b",
     "packaged_inside_complete_demo_zip": true
   },
   "logo": {

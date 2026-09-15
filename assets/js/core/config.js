@@ -140,10 +140,10 @@
 
     const disabledTerms = disabled.map((key) => MODULE_TERMS[key]);
     const mentionsDisabledModule = (value) => disabledTerms.some((pattern) => pattern.test(String(value || '')));
-    if (mentionsDisabledModule(document.title)) document.title = 'VeriTrust | Email Threat & Forensic Intelligence';
+    if (mentionsDisabledModule(document.title)) document.title = 'VeriTrust Lab | Email Threat & Forensic Intelligence';
     root.querySelectorAll('meta[content]').forEach((element) => {
       if (mentionsDisabledModule(element.getAttribute('content'))) {
-        element.setAttribute('content', 'VeriTrust email threat detection and forensic intelligence platform.');
+        element.setAttribute('content', 'VeriTrust Lab email threat detection and forensic intelligence platform.');
       }
     });
     root.querySelectorAll('script[type="application/ld+json"]').forEach((element) => {

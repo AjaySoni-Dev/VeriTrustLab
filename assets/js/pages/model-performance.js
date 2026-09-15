@@ -12,7 +12,7 @@
     const cards = Array.isArray(payload.cards) ? payload.cards : [];
     summary.setAttribute('aria-busy', 'false');
     if (!cards.length) {
-      summary.innerHTML = '<strong>Independent validation pending</strong><p>Five active model paths are registered, but none has an approved, published model card. VeriTrust therefore displays no benchmark claim.</p>';
+      summary.innerHTML = '<strong>Independent validation pending</strong><p>Five active model paths are registered, but none has an approved, published model card. VeriTrust Lab therefore displays no benchmark claim.</p>';
       root.innerHTML = '<div class="model-card-empty"><strong>No published model cards</strong><p>Evaluation data, calibration, thresholds, limitations, and approval evidence must be recorded before publication.</p></div>';
       return;
     }

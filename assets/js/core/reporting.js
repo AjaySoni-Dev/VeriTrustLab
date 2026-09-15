@@ -32,11 +32,11 @@
   }
 
   function modelDisplayName(model = {}) {
-    const raw = String(model.name || model.key || 'VeriTrust').trim();
+    const raw = String(model.name || model.key || 'VeriTrust Lab').trim();
     return raw
       .split(/\s+/)
       .map((part) => {
-        if (/^veritrust$/i.test(part)) return 'VeriTrust';
+        if (/^veritrust$/i.test(part)) return 'VeriTrust Lab';
         return titleWords(part);
       })
       .join(' ');
@@ -74,7 +74,7 @@
     const model = data.model || report.model || {};
 
     return {
-      title: report.title || data.title || 'VeriTrust Scan Report',
+      title: report.title || data.title || 'VeriTrust Lab Scan Report',
       scan_id: data.scan_id || data.scan?.id || report.scan_id || null,
       scan_type: scanType,
       created_at: data.created_at || report.created_at || new Date().toISOString(),
@@ -96,7 +96,7 @@
       },
       scores: data.scores || report.scores || [],
       report: {
-        title: report.title || data.title || 'VeriTrust Scan Report',
+        title: report.title || data.title || 'VeriTrust Lab Scan Report',
         disclaimer:
           report.disclaimer ||
           result.disclaimer ||
@@ -798,8 +798,8 @@
               <div>
                 <div class="brand">
                   <div class="brand-lockup">
-                    <img class="brand-logo" src="${escapeHtml(logoUrl)}" alt="VeriTrust logo">
-                    <img class="brand-word" src="${escapeHtml(brandUrl)}" alt="VeriTrust">
+                    <img class="brand-logo" src="${escapeHtml(logoUrl)}" alt="VeriTrust Lab logo">
+                    <img class="brand-word" src="${escapeHtml(brandUrl)}" alt="VeriTrust Lab">
                   </div>
                   <h1>Scan Report</h1>
                   <p class="subtitle">AI-assisted digital trust verification</p>

@@ -457,7 +457,7 @@
     } else {
       document.finding('No higher evidence stage requested', acquisitionStage === 'Trusted SMTP receiver' ? 'The investigation already contains the highest supported transport-evidence stage.' : 'No additional evidence action was returned by the completeness engine.', 'Evidence acquisition');
     }
-    document.finding('Safety boundary', 'Evidence completeness describes what VeriTrust could examine. Missing evidence is displayed as missing and is never converted into a benign or safe result.', 'Coverage is not threat risk');
+    document.finding('Safety boundary', 'Evidence completeness describes what VeriTrust Lab could examine. Missing evidence is displayed as missing and is never converted into a benign or safe result.', 'Coverage is not threat risk');
 
     document.sectionTitle('Message tactics and decision signals');
     const decisionCodes = list(decision.reason_codes);
@@ -600,7 +600,7 @@
     document.text('EMAIL INVESTIGATION', MARGIN, 84, 8, true, TEAL_COLOR);
     document.text(state, MARGIN, 104, 25, true, HEADING_COLOR);
     document.cursor = 145;
-    document.lines('Evidence-backed email review from the VeriTrust Unified Gateway, prepared for clear human decision-making.', { size: 10.8, lineHeight: 16, color: MUTED_COLOR });
+    document.lines('Evidence-backed email review from the VeriTrust Lab Unified Gateway, prepared for clear human decision-making.', { size: 10.8, lineHeight: 16, color: MUTED_COLOR });
     document.cursor += 15;
 
     const cardTop = document.cursor;
@@ -655,7 +655,7 @@
     if (logoPromise) return logoPromise;
     logoPromise = (async () => {
       const response = await global.fetch('/assets/images/brand.png', { cache: 'force-cache' });
-      if (!response.ok) throw new Error('VeriTrust report logo could not be loaded.');
+      if (!response.ok) throw new Error('VeriTrust Lab report logo could not be loaded.');
       const bitmap = await global.createImageBitmap(await response.blob());
       const canvas = global.document.createElement('canvas');
       canvas.width = 452;
@@ -689,9 +689,9 @@
     if (!viewer) throw new Error('The browser blocked the PDF report window.');
     try { viewer.opener = null; } catch { /* browser may enforce opener policy */ }
     try {
-      viewer.document.title = 'Preparing VeriTrust report…';
+      viewer.document.title = 'Preparing VeriTrust Lab report…';
       viewer.document.body.style.cssText = 'margin:0;background:#11151b;color:#e8eef4;font:14px system-ui;display:grid;place-items:center;min-height:100vh';
-      viewer.document.body.textContent = 'Preparing complete VeriTrust forensic report…';
+      viewer.document.body.textContent = 'Preparing complete VeriTrust Lab forensic report…';
     } catch { /* cross-context document may not be writable */ }
     try {
       const { bytes, url } = await pdfBlob(payload);

@@ -1,6 +1,6 @@
 {
-  "name": "VeriTrust",
-  "short_name": "VeriTrust",
+  "name": "VeriTrust Lab",
+  "short_name": "VeriTrust Lab",
   "description": "AI-powered email threat detection, infrastructure geolocation, and forensic intelligence.",
   "start_url": "/",
   "display": "standalone",

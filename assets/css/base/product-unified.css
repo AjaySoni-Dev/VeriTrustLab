@@ -1,5 +1,5 @@
 /*
- * VeriTrust unified product surface — 2026-09-15
+ * VeriTrust Lab unified product surface — 2026-09-15
  *
  * The landing page is the visual source of truth: flat graphite canvas,
  * teal accent, restrained 4px geometry, one product header, one footer,
@@ -269,7 +269,7 @@ body.vt-dashboard-page .workspace-nav a.active {
 }
 
 /* --------------------------------------------------------------------------
-   Investigation workspace and four-USP result flow
+   Investigation workspace and four-capability result flow
    -------------------------------------------------------------------------- */
 body.vt-email-investigation :where(.analysis-input, .analysis-activity, .analysis-report) {
   border: 1px solid var(--border-subtle) !important;
@@ -580,6 +580,19 @@ body .vt-site-footer .vt-site-footer-bottom {
     scroll-snap-align: start;
   }
   body.vt-email-investigation .email-usp-tabpanel { padding: 14px !important; }
+  body.vt-email-investigation .email-capability-heading h3 {
+    font-size: clamp(1.25rem, 6vw, 1.6rem) !important;
+  }
+  body.vt-email-investigation .email-capability-subtitle {
+    font-size: .78rem !important;
+  }
+  body.vt-email-investigation .email-usp-panel-state {
+    justify-self: stretch !important;
+    min-width: 0 !important;
+    padding: 10px 0 0 !important;
+    border-left: 0 !important;
+    border-top: 1px solid var(--border-subtle) !important;
+  }
   body.vt-email-investigation .email-geotrace-map { min-height: 180px; }
   body.vt-email-investigation .email-geotrace-map svg { min-height: 180px; }
   body.vt-email-investigation .email-hop-row,
@@ -1018,6 +1031,28 @@ html body.vt-email-investigation .email-usp-tabpanel {
   box-shadow: none !important;
 }
 html body.vt-email-investigation .email-usp-tabpanel[hidden] { display: none !important; }
+html body.vt-email-investigation .email-capability-heading {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 6px !important;
+}
+html body.vt-email-investigation .email-capability-heading h3 {
+  margin: 0 !important;
+  color: var(--text-primary) !important;
+  font-size: clamp(1.35rem, 2.25vw, 1.9rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.025em !important;
+}
+html body.vt-email-investigation .email-capability-subtitle {
+  max-width: 72ch !important;
+  margin: 0 !important;
+  color: var(--text-tertiary) !important;
+  font-size: .82rem !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0 !important;
+}
 html body.vt-email-investigation .email-usp-panel-state {
   justify-self: end !important;
   min-width: 170px !important;

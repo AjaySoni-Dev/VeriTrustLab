@@ -74,7 +74,7 @@
   }
 
   async function request(action, button) {
-    if (action === 'erasure' && !global.confirm('Start an erasure review? VeriTrust will verify legal holds and organization-owned records before any deletion.')) return;
+    if (action === 'erasure' && !global.confirm('Start an erasure review? VeriTrust Lab will verify legal holds and organization-owned records before any deletion.')) return;
     button.disabled = true;
     const original = button.textContent;
     button.textContent = action === 'export' ? 'Requesting export…' : 'Starting review…';

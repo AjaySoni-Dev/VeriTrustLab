@@ -24,4 +24,4 @@ foreach ($file in $files) {
 }
 if ($failed) { exit 1 }
 Write-Host ''
-Write-Host 'Both VeriTrust CLI scripts passed the local Windows PowerShell parser.' -ForegroundColor Cyan
+Write-Host 'Both VeriTrust Lab CLI scripts passed the local Windows PowerShell parser.' -ForegroundColor Cyan

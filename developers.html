@@ -10,18 +10,18 @@
 <link href="/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
 <link href="/favicon-192.png" rel="icon" sizes="192x192" type="image/png"/>
 <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<title>Email Threat Intelligence API | VeriTrust</title>
-<meta content="Reference for VeriTrust email threat investigation, link intelligence, usage, and evidence-correlation APIs with scoped API-key authentication." name="description"/>
+<title>Email Threat Intelligence API | VeriTrust Lab</title>
+<meta content="Reference for VeriTrust Lab email threat investigation, link intelligence, usage, and evidence-correlation APIs with scoped API-key authentication." name="description"/>
 <link href="https://www.veritrustlab.in/developers" rel="canonical"/>
 <meta content="index, follow, max-image-preview:large" name="robots"/>
 <meta content="website" property="og:type"/>
-<meta content="VeriTrust" property="og:site_name"/>
-<meta content="Developers | VeriTrust" property="og:title"/>
-<meta content="Reference for VeriTrust email threat investigation, link intelligence, usage, and evidence-correlation APIs with scoped API-key authentication." property="og:description"/>
+<meta content="VeriTrust Lab" property="og:site_name"/>
+<meta content="Developers | VeriTrust Lab" property="og:title"/>
+<meta content="Reference for VeriTrust Lab email threat investigation, link intelligence, usage, and evidence-correlation APIs with scoped API-key authentication." property="og:description"/>
 <meta content="https://www.veritrustlab.in/developers" property="og:url"/>
 <meta content="summary" name="twitter:card"/>
-<meta content="Developers | VeriTrust" name="twitter:title"/>
-<meta content="Reference for VeriTrust email threat investigation, link intelligence, usage, and evidence-correlation APIs with scoped API-key authentication." name="twitter:description"/>
+<meta content="Developers | VeriTrust Lab" name="twitter:title"/>
+<meta content="Reference for VeriTrust Lab email threat investigation, link intelligence, usage, and evidence-correlation APIs with scoped API-key authentication." name="twitter:description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
@@ -35,7 +35,7 @@
 <body class="vt-graphite-theme">
 <header class="tool-header-shell vt-page-header vt-site-header">
   <div class="tool-header-inner">
-    <a href="/" class="tool-header-brand" aria-label="VeriTrust home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust" class="tool-header-word"></a>
+    <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust Lab" class="tool-header-word"></a>
     <nav class="tool-header-links" aria-label="Primary navigation">
       <a href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
     </nav>
@@ -58,8 +58,8 @@
 <article class="doc-content">
 <section class="doc-section" id="overview">
 <p class="eyebrow">Integrate email threat investigation, URL intelligence, evidence correlation, usage telemetry, and auditable request identifiers through versioned server endpoints.</p>
-<h1>VeriTrust email intelligence API.</h1>
-<p>Use the REST-style API from a trusted backend or private script. The focused public surface covers email investigation, Link Intelligence, usage telemetry, and the policy-backed Evidence Correlation Gateway; VeriTrust does not currently ship an official SDK.</p>
+<h1>VeriTrust Lab email intelligence API.</h1>
+<p>Use the REST-style API from a trusted backend or private script. The focused public surface covers email investigation, Link Intelligence, usage telemetry, and the policy-backed Evidence Correlation Gateway; VeriTrust Lab does not currently ship an official SDK.</p>
 <p>Signed-in users can create and revoke keys from API Access when their workspace plan permits it. The raw key is returned once; later list responses contain only masked metadata.</p>
 <p><a class="btn btn-primary" href="gateway-powershell.html">Open the PowerShell gateway guide</a></p>
 </section>
@@ -195,7 +195,7 @@ response = requests.post(
 data = response.json()
 
 display(Markdown(f"""
-## VeriTrust Link Intelligence
+## VeriTrust Lab Link Intelligence
 
 **URL:** {url}  
 **Verdict:** {data["result"]["label"]}  
@@ -207,7 +207,7 @@ display(Markdown(f"""
 </section>
 <section class="doc-section" id="security">
 <h2>Security Best Practices</h2>
-<p>Never expose VeriTrust API keys in frontend JavaScript, public GitHub repositories, or shared notebooks. Use environment variables or server-side calls.</p>
+<p>Never expose VeriTrust Lab API keys in frontend JavaScript, public GitHub repositories, or shared notebooks. Use environment variables or server-side calls.</p>
 <ul>
 <li>Store keys in environment variables or a secret manager.</li>
 <li>Rotate and revoke keys from the dashboard when access changes.</li>
@@ -217,6 +217,6 @@ display(Markdown(f"""
 </section>
 </article>
 </main>
-<footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
+<footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust Lab.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
 </body>
 </html>

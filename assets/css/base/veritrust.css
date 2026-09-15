@@ -3607,7 +3607,7 @@ body[data-page="index"] > .vt-site-footer {
   }
 }
 
-/* Final shared VeriTrust product system */
+/* Final shared VeriTrust Lab product system */
 body:not(.vt-dashboard-page) {
   background-color: var(--bg-base);
   background-image: radial-gradient(circle at 50% -8%, #10213b 0, #09111f 30rem, #060910 100%);

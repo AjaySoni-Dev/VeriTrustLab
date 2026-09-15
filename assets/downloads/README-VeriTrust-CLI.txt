@@ -2,7 +2,7 @@ VeriTrust Lab — Trusted SMTP Demo Package 2.1.0
 
 Purpose
 -------
-Two-laptop sender → trusted receiver demonstration for SIH26106.
+Two-laptop sender → trusted receiver demonstration for the trusted SMTP workflow.
 
 Included
 --------
@@ -16,7 +16,7 @@ Included
 
 Receiver boundary
 -----------------
-The receiver requires a VeriTrust API key scoped to gateway:scan and VERITRUST_EMAIL_RECEIVER_SECRET.
+The receiver requires a VeriTrust Lab API key scoped to gateway:scan and VERITRUST_EMAIL_RECEIVER_SECRET.
 The sender receives neither secret; it receives only the short-lived SMTP pairing credential.
 
 Deployment origin

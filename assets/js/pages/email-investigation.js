@@ -16,7 +16,7 @@
     dkim: 'DKIM checks the email\'s cryptographic signature to see whether signed parts of the message changed after the sender sent it.',
     dmarc: 'DMARC checks whether the visible sender domain aligns with successful SPF or DKIM results and follows the domain owner\'s policy.',
     arc: 'ARC records how earlier trusted mail systems evaluated the message while it was forwarded. It adds context but does not prove that content is safe.',
-    authResults: 'Authentication-Results is a header written by a mail server. VeriTrust treats a copied value as untrusted unless it comes directly from a configured receiver.',
+    authResults: 'Authentication-Results is a header written by a mail server. VeriTrust Lab treats a copied value as untrusted unless it comes directly from a configured receiver.',
     identity: 'Sender consistency compares the visible From address with reply, return-path, signing, and linked domains to reveal unexpected mismatches.',
     infrastructure: 'The delivery route is built from eligible public mail-server hops. It describes network infrastructure, not the sender\'s physical location.',
     model: 'The AI content check estimates phishing likelihood from the available subject and message wording. It is one piece of evidence, not a safety guarantee.',
@@ -25,8 +25,8 @@
     technicalCode: 'A technical code is the exact machine-readable name of a finding. It is kept in the report so another analyst or system can reproduce the decision.',
     acquisitionStage: 'The acquisition stage tells you how the email evidence was obtained. Pasted text has the least transport context, an original .eml adds message structure and headers, and a trusted receiver adds facts observed directly at the SMTP boundary.',
     completeness: 'Evidence completeness measures how much of the forensic checklist could actually run. It does not say whether the email is safe or malicious.',
-    trustedReceiver: 'A trusted receiver is a mail server or receiver integration configured by VeriTrust to record SMTP facts directly as the message arrives. Those facts are stronger than claims reconstructed later from message headers.',
-    observedRelay: 'An observed relay is a server hop reconstructed from the email headers. Headers can be incomplete or forged, so VeriTrust keeps this evidence explicitly below the trusted-receiver level.',
+    trustedReceiver: 'A trusted receiver is a mail server or receiver integration configured by VeriTrust Lab to record SMTP facts directly as the message arrives. Those facts are stronger than claims reconstructed later from message headers.',
+    observedRelay: 'An observed relay is a server hop reconstructed from the email headers. Headers can be incomplete or forged, so VeriTrust Lab keeps this evidence explicitly below the trusted-receiver level.',
     asn: 'An Autonomous System Number (ASN) identifies the network operator that announces an IP range on the Internet. It is infrastructure context, not proof of the person who sent the email.',
     geoContext: 'Geo context is an approximate location associated with network infrastructure. It does not identify the physical location of an attacker or sender.',
     campaignMemory: 'Campaign Memory compares privacy-minimized forensic entities from this investigation with prior investigations in the same workspace. It links scans only when the overlap is strong enough under conservative rules.',
@@ -377,7 +377,7 @@
 
     return `<section class="email-usp-tabpanel" id="uspPanelProgressive" role="tabpanel" aria-labelledby="uspTabProgressive" data-usp-panel="progressive">
       <header class="email-usp-panel-header">
-        <div><p class="email-result-kicker">USP 01 · Progressive Evidence Escalation™</p><h3>Evidence Acquisition &amp; Claim Boundaries</h3></div>
+        <div class="email-capability-heading"><h3>Progressive Evidence Escalation™</h3><p class="email-capability-subtitle">Evidence Acquisition &amp; Claim Boundaries</p></div>
         <div class="email-usp-panel-state"><span>${helpLabel('Acquisition stage', HELP.acquisitionStage)}</span><strong>${escapeHtml(evidenceStageName(evidence.input_mode))}</strong></div>
       </header>
       <div class="email-ladder-track" aria-label="Evidence acquisition ladder">${stageMarkup}</div>
@@ -434,7 +434,7 @@
 
     return `<section class="email-usp-tabpanel email-geotrace" id="uspPanelGeotrace" role="tabpanel" aria-labelledby="uspTabGeotrace" data-usp-panel="geotrace" hidden>
       <header class="email-usp-panel-header">
-        <div><p class="email-result-kicker">USP 02 · Trust-Boundary GeoTrace™</p><h3>Infrastructure Provenance &amp; Boundary Verification</h3></div>
+        <div class="email-capability-heading"><h3>Trust-Boundary GeoTrace™</h3><p class="email-capability-subtitle">Infrastructure Provenance &amp; Boundary Verification</p></div>
         <div class="email-usp-panel-state"><span>Trust state</span><strong>${escapeHtml(stateLabel)}</strong></div>
       </header>
       <div class="email-trust-banner" data-state="${escapeHtml(String(infrastructureSummary.state || 'UNAVAILABLE').toLowerCase())}"><strong>${escapeHtml(stateLabel)}</strong><span>${escapeHtml(infrastructureSummary.wording || 'Mail infrastructure context only; no physical-person attribution.')}</span></div>
@@ -465,7 +465,7 @@
 
     return `<section class="email-usp-tabpanel" id="uspPanelCampaign" role="tabpanel" aria-labelledby="uspTabCampaign" data-usp-panel="campaign" hidden>
       <header class="email-usp-panel-header">
-        <div><p class="email-result-kicker">USP 03 · MailGraph Campaign Memory™</p><h3>Prior Campaign &amp; Infrastructure Correlation</h3></div>
+        <div class="email-capability-heading"><h3>MailGraph Campaign Memory™</h3><p class="email-capability-subtitle">Prior Campaign &amp; Infrastructure Correlation</p></div>
         <div class="email-usp-panel-state"><span>${helpLabel('Campaign Memory', HELP.campaignMemory)}</span><strong>${escapeHtml(stateLabel)}</strong></div>
       </header>
       ${summary}
@@ -500,7 +500,7 @@
 
     return `<section class="email-usp-tabpanel" id="uspPanelPassport" role="tabpanel" aria-labelledby="uspTabPassport" data-usp-panel="passport" hidden>
       <header class="email-usp-panel-header">
-        <div><p class="email-result-kicker">USP 04 · Evidence Passport™</p><h3>Cryptographic Provenance &amp; Verification</h3></div>
+        <div class="email-capability-heading"><h3>Evidence Passport™</h3><p class="email-capability-subtitle">Cryptographic Provenance &amp; Verification</p></div>
         <div class="email-usp-panel-state"><span>Passport state</span><strong>${escapeHtml(stateLabel)}</strong></div>
       </header>
       ${body}
@@ -509,7 +509,7 @@
 
   function renderUspTabs({ evidence, infrastructure, infrastructureSummary, campaignMemory, passport, scanId }) {
     return `<section class="email-usp-workspace" aria-label="Forensic capability views">
-      <div class="email-usp-tabs" role="tablist" aria-label="VeriTrust forensic capabilities">
+      <div class="email-usp-tabs" role="tablist" aria-label="VeriTrust Lab forensic capabilities">
         <button class="email-usp-tab" id="uspTabProgressive" type="button" role="tab" aria-selected="true" aria-controls="uspPanelProgressive" data-usp-tab="progressive">Acquisition</button>
         <button class="email-usp-tab" id="uspTabGeotrace" type="button" role="tab" aria-selected="false" aria-controls="uspPanelGeotrace" data-usp-tab="geotrace" tabindex="-1">GeoTrace</button>
         <button class="email-usp-tab" id="uspTabCampaign" type="button" role="tab" aria-selected="false" aria-controls="uspPanelCampaign" data-usp-tab="campaign" tabindex="-1">Campaign</button>
@@ -619,7 +619,7 @@
       LIKELY_BENIGN: 'The available checks did not find strong phishing signs. This is not a guarantee of safety, especially where evidence was unavailable.',
       UNCERTAIN: 'The available evidence is not strong enough for a reliable conclusion. Verify the sender through a known phone number or official website.',
       UNSUPPORTED: 'Part of this email could not be safely processed within the service limits. Treat the result as incomplete and review it manually.',
-      FAILED: 'A required check failed, so VeriTrust did not label the message as safe. Try again or review it manually.',
+      FAILED: 'A required check failed, so VeriTrust Lab did not label the message as safe. Try again or review it manually.',
     }[specialistState];
     const recommendation = DECISION_LABELS[decision.recommendation] || 'Review manually';
     const signals = essentialSignals({ deterministic, authentication, relationships, children, threatIntelligence });
@@ -643,7 +643,7 @@
         global.setTimeout(() => { button.textContent = originalLabel; button.disabled = false; }, 1800);
       } catch (error) {
         button.textContent = 'Could not open report';
-        setError(`${error.message} Allow pop-ups for VeriTrust and try again.`);
+        setError(`${error.message} Allow pop-ups for VeriTrust Lab and try again.`);
         global.setTimeout(() => { button.textContent = originalLabel; button.disabled = false; }, 3200);
       }
     });
@@ -747,7 +747,7 @@
     const target = one('#phishingResult');
     if (!shell || !target) return;
     const guidance = failureGuidance(error);
-    target.innerHTML = `<article class="email-result-hero email-result-hero--compact" data-state="FAILED"><div class="email-result-primary"><p class="email-result-kicker">Investigation interrupted</p><h2 id="emailResultTitle">Check could not be completed</h2><p>${escapeHtml(error.message)} VeriTrust did not label the message as safe. ${escapeHtml(guidance.detail)}</p><div class="email-result-actions"><button class="btn btn-primary" type="button" data-new-investigation>Try a new investigation</button></div></div><aside class="email-result-decision"><div class="email-risk-score"><span>Risk score</span><strong>—</strong><small>No complete gateway decision</small></div><div class="email-next-action"><span>What to do</span><strong>Retry or review manually</strong><small>${helpLabel('Error details available', `Technical code: ${error.code || 'EMAIL_ANALYSIS_FAILED'}. Share this with support if the problem continues.`)}</small></div></aside></article>`;
+    target.innerHTML = `<article class="email-result-hero email-result-hero--compact" data-state="FAILED"><div class="email-result-primary"><p class="email-result-kicker">Investigation interrupted</p><h2 id="emailResultTitle">Check could not be completed</h2><p>${escapeHtml(error.message)} VeriTrust Lab did not label the message as safe. ${escapeHtml(guidance.detail)}</p><div class="email-result-actions"><button class="btn btn-primary" type="button" data-new-investigation>Try a new investigation</button></div></div><aside class="email-result-decision"><div class="email-risk-score"><span>Risk score</span><strong>—</strong><small>No complete gateway decision</small></div><div class="email-next-action"><span>What to do</span><strong>Retry or review manually</strong><small>${helpLabel('Error details available', `Technical code: ${error.code || 'EMAIL_ANALYSIS_FAILED'}. Share this with support if the problem continues.`)}</small></div></aside></article>`;
     shell.hidden = false;
     document.body?.classList?.add('vt-email-has-result');
     enhanceHelpTerms(target);

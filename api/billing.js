@@ -28,7 +28,7 @@ module.exports = async function handler(req, res) {
       ok: false,
       error: {
         code: 'NOT_FOUND',
-        message: 'Unknown VeriTrust billing endpoint.',
+        message: 'Unknown VeriTrust Lab billing endpoint.',
       },
     });
     return;

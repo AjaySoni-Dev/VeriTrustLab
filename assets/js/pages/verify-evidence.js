@@ -17,7 +17,7 @@
     if (input.passport && input.evidence) return { passport: input.passport, evidence: input.evidence };
     if (input.evidence && input.evidence.evidence_passport) return { passport: input.evidence.evidence_passport, evidence: input.evidence };
     if (input.evidence_passport) return { passport: input.evidence_passport, evidence: input };
-    throw new Error('No VeriTrust Evidence Passport was found in this JSON package.');
+    throw new Error('No VeriTrust Lab Evidence Passport was found in this JSON package.');
   }
 
   async function verifyPackage(source) {
@@ -41,10 +41,10 @@
       ['Evidence SHA-256', result.evidence_hash_valid, result.evidence_hash_valid ? 'The evidence payload has not changed.' : 'The evidence payload differs from the signed hash.'],
       ['Manifest SHA-256', result.manifest_hash_valid, result.manifest_hash_valid ? 'The recorded evidence manifest is unchanged.' : 'The evidence manifest differs from the signed hash.'],
       ['Signing-key identity', result.key_id_valid, result.key_id_valid ? 'The public-key fingerprint matches the passport key ID.' : 'The public key does not match the recorded key ID.'],
-      ['VeriTrust issuer trust', result.issuer_trusted, result.issuer_trusted ? 'The signing-key fingerprint is recognized by this VeriTrust deployment.' : "The signing key is not in this deployment's trusted issuer set."],
+      ['VeriTrust Lab issuer trust', result.issuer_trusted, result.issuer_trusted ? 'The signing-key fingerprint is recognized by this VeriTrust Lab deployment.' : "The signing key is not in this deployment's trusted issuer set."],
     ];
     root.dataset.state = result.valid ? 'valid' : 'invalid';
-    root.innerHTML = `<div class="verify-result-header"><span>Verification result</span><h2>${result.valid ? 'Evidence integrity verified' : 'Verification failed'}</h2><p>${result.valid ? 'All cryptographic integrity checks passed for this package.' : 'One or more checks failed. Do not treat this package as an unchanged VeriTrust evidence record.'}</p></div>
+    root.innerHTML = `<div class="verify-result-header"><span>Verification result</span><h2>${result.valid ? 'Evidence integrity verified' : 'Verification failed'}</h2><p>${result.valid ? 'All cryptographic integrity checks passed for this package.' : 'One or more checks failed. Do not treat this package as an unchanged VeriTrust Lab evidence record.'}</p></div>
       <div class="verify-checks">${checks.map(([label, pass, detail]) => `<div class="verify-check" data-pass="${Boolean(pass)}"><span>${pass ? '✓' : '!'}</span><div><strong>${escapeHtml(label)}</strong><small>${escapeHtml(detail)}</small></div></div>`).join('')}</div>
       <dl class="verify-meta"><div><dt>Passport ID</dt><dd>${escapeHtml(result.passport_id || 'Unavailable')}</dd></div><div><dt>Signing key</dt><dd>${escapeHtml(result.key_id || 'Unavailable')}</dd></div><div><dt>Algorithm</dt><dd>${escapeHtml(result.signature_algorithm || 'Ed25519')}</dd></div></dl>
       <p>This verifies integrity and recorded provenance only. It does not certify legal admissibility, attribution, or message safety.</p>
@@ -54,7 +54,7 @@
   }
 
   async function parseFile(file) {
-    if (!file) throw new Error('Choose a VeriTrust evidence JSON file.');
+    if (!file) throw new Error('Choose a VeriTrust Lab evidence JSON file.');
     if (!file.size) throw new Error('The selected file is empty.');
     if (file.size > MAX_BYTES) throw new Error('The verification package exceeds the 1 MiB limit.');
     const text = await file.text();
@@ -95,7 +95,7 @@
       const button = one('#verifyEvidenceSubmit');
       try {
         const raw = textarea?.value.trim() || '';
-        if (!raw) throw new Error('Choose or paste an exported VeriTrust evidence package.');
+        if (!raw) throw new Error('Choose or paste an exported VeriTrust Lab evidence package.');
         if (new Blob([raw]).size > MAX_BYTES) throw new Error('The verification package exceeds the 1 MiB limit.');
         let object;
         try { object = JSON.parse(raw); } catch { throw new Error('The pasted package is not valid JSON.'); }
