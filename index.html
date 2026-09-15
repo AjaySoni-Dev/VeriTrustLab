@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#1A1A1A">
+  <meta name="theme-color" content="#1c2049">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
@@ -22,7 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/base/veritrust.css">
   <link rel="stylesheet" href="/assets/css/base/graphite-orange-theme.css">
-  <link rel="stylesheet" href="/assets/css/pages/home-sih.css?v=20260915-2">
+  <link rel="stylesheet" href="/assets/css/pages/home-sih.css?v=20260915-3">
   <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -57,60 +57,302 @@
   <script src="/assets/js/core/config.js"></script>
   <script defer src="/assets/js/core/supabase-client.js"></script>
   <script defer src="/assets/js/core/site.js"></script>
-  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui2">
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui3">
 </head>
 <body class="vt-graphite-theme vt-home-sih">
   <header class="tool-header-shell vt-page-header vt-site-header">
-  <div class="tool-header-inner">
-    <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust Lab" class="tool-header-word"></a>
-    <nav class="tool-header-links" aria-label="Primary navigation">
-      <a href="/" class="active" aria-current="page">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
-    </nav>
-    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Dashboard</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
-  </div>
-</header>
-  <main class="sih-home-shell">
-    <section class="sih-hero" aria-labelledby="home-title">
+    <div class="tool-header-inner">
+      <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home">
+        <img src="/assets/images/logo.png" alt="" class="tool-header-mark" width="32" height="32">
+        <span class="sih-brand-text">VeriTrust</span>
+      </a>
+      <nav class="tool-header-links" aria-label="Primary navigation">
+        <a href="/" class="active" aria-current="page">Home</a>
+        <a href="/phishing">Investigate <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m1 1 4 4 4-4"/></svg></a>
+        <a href="/gateway-powershell#live-smtp">Live SMTP</a>
+        <a href="/verify-evidence">Verify Evidence</a>
+        <a href="/developers">Developers</a>
+      </nav>
+      <div class="tool-header-actions">
+        <a href="/auth" class="tool-header-login">Log in</a>
+        <a href="/dashboard" class="tool-header-dashboard">Dashboard</a>
+        <button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Slanted Angle -->
+  <section class="sih-hero-section" aria-labelledby="home-title">
+    <div class="sih-hero-container">
       <div class="sih-hero-copy">
-        <p class="sih-eyebrow">EMAIL FORENSIC INTELLIGENCE</p>
-        <h1 id="home-title">Email threat detection with <span>evidence-aware forensic intelligence.</span></h1>
-        <p>Analyze suspicious email evidence, escalate from pasted text to the original EML and trusted SMTP observation, trace only defensible infrastructure, correlate repeated campaign indicators, and verify the final evidence package cryptographically.</p>
-        <div class="sih-hero-actions">
-          <a class="btn btn-primary" href="/phishing">Start Investigation</a>
-          <a class="btn btn-secondary" href="/gateway-powershell#live-smtp">Run Live SMTP Demo</a>
+        <h1 id="home-title" class="sih-hero-headline">Email Threat Detection<br>without Hassle</h1>
+        <p class="sih-hero-desc">Far from heuristic guesswork and unverified alerts, VeriTrust Lab acquires raw email evidence, traces defensible infrastructure at trusted boundaries, and cryptographically signs tamper-proof evidence passports.</p>
+        <form class="sih-input-card" action="/phishing" method="GET" role="search">
+          <input type="text" name="q" class="sih-input-field" placeholder="Enter email address" aria-label="Enter email address" autocomplete="off" required>
+          <button type="submit" class="sih-btn-signup">Sign up</button>
+        </form>
+      </div>
+
+      <div class="sih-hero-visual" aria-hidden="true">
+        <!-- Floating Coins / Badges -->
+        <div class="sih-coin-badge sih-coin-1">$</div>
+        <div class="sih-coin-badge sih-coin-2">$</div>
+        <div class="sih-coin-badge sih-coin-3"></div>
+        <div class="sih-coin-badge sih-coin-4"></div>
+
+        <!-- Dashboard Mockup Window -->
+        <div class="sih-mockup-composition">
+          <div class="sih-mockup-window">
+            <div class="sih-mockup-header">
+              <div class="sih-mockup-dot"></div>
+              <div class="sih-mockup-dot"></div>
+              <div class="sih-mockup-dot"></div>
+            </div>
+            <div class="sih-mockup-body">
+              <div class="sih-mockup-metrics">
+                <div class="sih-metric-gray">
+                  <div>
+                    <small>Total Order</small>
+                    <strong>120</strong>
+                  </div>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+                <div class="sih-metric-red">
+                  <div>
+                    <small>Total Revenue</small>
+                    <strong>$15,000</strong>
+                  </div>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+                </div>
+              </div>
+
+              <!-- Trendline Chart -->
+              <div class="sih-mockup-chart-wrapper">
+                <div class="sih-chart-tag">$15,000</div>
+                <svg width="100%" height="100%" viewBox="0 0 360 110" preserveAspectRatio="none" style="display:block; overflow:visible;">
+                  <defs>
+                    <linearGradient id="sihRedGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#ff6565" stop-opacity="0.35"/>
+                      <stop offset="100%" stop-color="#ff6565" stop-opacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Background Bar Guides -->
+                  <rect x="25" y="45" width="8" height="55" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  <rect x="75" y="30" width="8" height="70" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  <rect x="125" y="55" width="8" height="45" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  <rect x="175" y="25" width="8" height="75" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  <rect x="225" y="40" width="8" height="60" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  <rect x="275" y="35" width="8" height="65" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  <rect x="325" y="20" width="8" height="80" rx="3" fill="#e2e8f0" opacity="0.6"/>
+                  <!-- Area Fill -->
+                  <path d="M 15 85 Q 70 80, 105 50 T 155 25 T 205 70 T 255 30 T 310 50 T 350 35 L 350 105 L 15 105 Z" fill="url(#sihRedGrad)"/>
+                  <!-- Curved Trendline -->
+                  <path d="M 15 85 Q 70 80, 105 50 T 155 25 T 205 70 T 255 30 T 310 50 T 350 35" fill="none" stroke="#ff5b5b" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- Point Marker -->
+                  <circle cx="155" cy="25" r="4.5" fill="#ff5252" stroke="#ffffff" stroke-width="2"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Foreground SVG: Plant & Person in Armchair with Laptop -->
+          <svg class="sih-foreground-svg" viewBox="0 0 540 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Potted Plant on the left -->
+            <g id="potted-plant" transform="translate(15, 30)">
+              <!-- Flower pot -->
+              <path d="M 28 175 L 62 175 L 56 215 L 34 215 Z" fill="#2d3748"/>
+              <path d="M 24 170 L 66 170 L 64 177 L 26 177 Z" fill="#1e293b"/>
+              <!-- Stems & Coral Leaves -->
+              <path d="M 45 170 Q 42 135 22 105" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+              <path d="M 45 170 Q 55 130 68 95" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+              <path d="M 45 170 Q 30 145 12 130" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 45 170 Q 58 145 80 135" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Coral leaves -->
+              <path d="M 22 105 C 10 95 6 115 16 122 C 26 128 32 112 22 105 Z" fill="#ff6b6b"/>
+              <path d="M 12 130 C 0 125 -2 142 8 147 C 18 152 22 138 12 130 Z" fill="#ee5253"/>
+              <path d="M 32 125 C 24 115 18 130 26 135 C 34 140 38 130 32 125 Z" fill="#ff7675"/>
+              <path d="M 68 95 C 60 85 78 80 82 92 C 86 104 74 105 68 95 Z" fill="#ff6b6b"/>
+              <path d="M 80 135 C 92 128 98 145 88 150 C 78 155 72 142 80 135 Z" fill="#ee5253"/>
+              <path d="M 58 125 C 68 118 72 132 64 137 C 56 142 52 132 58 125 Z" fill="#ff7675"/>
+            </g>
+
+            <!-- Character in Armchair on the right -->
+            <g id="character-armchair" transform="translate(240, -10)">
+              <!-- Cozy Burgundy Armchair -->
+              <path d="M 140 85 C 220 70 250 140 235 200 C 225 240 170 245 130 240 C 90 235 50 230 65 180 C 75 145 90 95 140 85 Z" fill="#93242d"/>
+              <path d="M 125 100 C 185 90 215 135 205 185 C 198 220 155 225 125 220 C 95 215 75 190 85 160 C 95 130 100 105 125 100 Z" fill="#b02a37"/>
+              <!-- Character Legs (Dark Slate Trousers) -->
+              <path d="M 120 175 L 75 220 L 55 210 L 105 165 Z" fill="#1e293b"/>
+              <path d="M 130 170 L 155 200 L 135 235 L 115 230 L 135 190 Z" fill="#1e293b"/>
+              <!-- Shoes / Sneakers -->
+              <path d="M 75 220 L 50 235 L 42 225 L 68 212 Z" fill="#e2e8f0"/>
+              <path d="M 135 235 L 125 250 L 145 250 L 148 235 Z" fill="#e2e8f0"/>
+              <!-- Laptop -->
+              <path d="M 85 145 L 135 155 L 125 185 L 75 175 Z" fill="#cbd5e1"/>
+              <path d="M 85 145 L 98 115 L 138 125 L 125 155 Z" fill="#f8fafc"/>
+              <path d="M 90 142 L 100 118 L 134 127 L 124 151 Z" fill="#0f172a"/>
+              <!-- Character Torso (Coral Red Tee) -->
+              <path d="M 145 110 C 145 110 175 118 170 160 C 165 180 140 185 125 180 C 118 160 120 125 145 110 Z" fill="#ff5b5b"/>
+              <path d="M 132 135 L 165 142" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+              <path d="M 128 150 L 162 157" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+              <!-- Arms holding laptop -->
+              <path d="M 160 125 C 160 140 145 155 125 160" stroke="#fcd34d" stroke-width="8" stroke-linecap="round"/>
+              <path d="M 130 120 C 120 135 105 150 95 155" stroke="#fcd34d" stroke-width="8" stroke-linecap="round"/>
+              <!-- Character Neck & Head -->
+              <path d="M 148 95 L 152 110 L 142 110 L 144 95 Z" fill="#fcd34d"/>
+              <circle cx="147" cy="85" r="14" fill="#fcd34d"/>
+              <!-- Hair & Smile -->
+              <path d="M 135 85 C 135 70 162 68 160 82 C 158 75 150 72 142 75 Z" fill="#1e293b"/>
+              <path d="M 140 88 Q 144 92 148 88" stroke="#78350f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <circle cx="141" cy="83" r="1.5" fill="#1e293b"/>
+              <circle cx="148" cy="83" r="1.5" fill="#1e293b"/>
+            </g>
+          </svg>
         </div>
       </div>
-      <aside class="sih-flow-card" aria-label="Forensic workflow">
+    </div>
+  </section>
+
+  <!-- Partner Logos Strip on White Background -->
+  <section class="sih-partners-strip" aria-label="Industry trust partners">
+    <div class="sih-partners-inner">
+      <!-- PUMA -->
+      <div class="sih-partner-logo" aria-label="Puma">
+        <svg viewBox="0 0 120 40" aria-hidden="true">
+          <path d="M 28 8 C 24 6 18 8 16 12 C 14 15 16 18 19 19 C 23 20 27 18 29 15 C 30 11 28 8 28 8 Z M 22 13 C 20 11 16 13 15 15 C 12 18 8 20 3 21 C 2 21 0 22 0 23 C 0 25 3 26 6 25 C 12 24 16 21 19 18 C 21 16 23 15 22 13 Z M 32 12 C 28 15 23 20 22 25 C 21 28 23 30 26 29 C 30 27 34 22 36 17 C 37 14 35 12 32 12 Z" />
+          <text x="44" y="28" font-family="'Inter', sans-serif" font-weight="900" font-size="20" letter-spacing="1.5">PUMA</text>
+        </svg>
+      </div>
+
+      <!-- Adobe -->
+      <div class="sih-partner-logo" aria-label="Adobe">
+        <svg viewBox="0 0 130 40" aria-hidden="true">
+          <path d="M 6 6 L 18 34 L 14 34 L 10 24 L 6 34 L 0 34 Z M 8 18 L 11 25 L 5 25 Z" fill="currentColor"/>
+          <path d="M 20 6 L 32 34 L 27 34 L 22 22 L 20 6 Z" fill="currentColor"/>
+          <path d="M 0 6 L 12 6 L 5 22 Z" fill="currentColor"/>
+          <text x="38" y="27" font-family="'Inter', sans-serif" font-weight="700" font-size="21" letter-spacing="-0.5">Adobe</text>
+        </svg>
+      </div>
+
+      <!-- Google -->
+      <div class="sih-partner-logo" aria-label="Google">
+        <svg viewBox="0 0 120 40" aria-hidden="true">
+          <text x="6" y="28" font-family="'Inter', sans-serif" font-weight="600" font-size="24" letter-spacing="-0.5">Google</text>
+        </svg>
+      </div>
+
+      <!-- PayPal -->
+      <div class="sih-partner-logo" aria-label="PayPal">
+        <svg viewBox="0 0 120 40" aria-hidden="true">
+          <path d="M 12 6 L 6 34 L 11 34 L 13 25 L 17 25 C 22 25 25 22 26 17 C 27 12 24 6 18 6 Z M 16 11 C 18 11 19 13 19 16 C 18 18 17 20 14 20 L 12 20 L 14 11 Z" fill="currentColor"/>
+          <path d="M 18 12 L 13 34 L 17 34 L 19 25 L 23 25 C 28 25 31 22 32 17 C 32 14 31 12 29 12 Z M 21 16 C 22 16 24 17 24 19 C 23 21 21 22 19 22 L 18 22 L 19 16 Z" fill="currentColor" opacity="0.75"/>
+          <text x="36" y="27" font-family="'Inter', sans-serif" font-style="italic" font-weight="800" font-size="20" letter-spacing="-0.5">PayPal</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Downstream Content -->
+  <main class="sih-content-shell">
+    <!-- One Forensic Workflow -->
+    <div class="sih-flow-wrapper">
+      <div class="sih-flow-card" aria-label="Forensic workflow">
         <p>ONE FORENSIC WORKFLOW</p>
-        <ol><li><span>01</span><strong>Acquire</strong><small>Know what evidence exists.</small></li><li><span>02</span><strong>Trace</strong><small>Separate observed from reconstructed infrastructure.</small></li><li><span>03</span><strong>Correlate</strong><small>Link only meaningful repeated entities.</small></li><li><span>04</span><strong>Verify</strong><small>Detect later evidence modification.</small></li></ol>
-      </aside>
-    </section>
-
-    <section class="sih-usps" aria-labelledby="usp-title">
-      <div class="sih-section-head"><p>FOUR IMPLEMENTED PROOFS</p><h2 id="usp-title">Built around evidence trust, not feature count.</h2></div>
-      <div class="sih-usp-grid">
-        <article><span>01</span><h3>Progressive Evidence Escalation™</h3><p>Know exactly what can be claimed from text, original EML, or trusted SMTP evidence.</p></article>
-        <article><span>02</span><h3>Trust-Boundary GeoTrace™</h3><p>Separate reconstructed relay claims from infrastructure directly observed at the trusted boundary.</p></article>
-        <article><span>03</span><h3>MailGraph Campaign Memory™</h3><p>Link investigations only when sufficiently strong forensic entities recur, and show why they matched.</p></article>
-        <article><span>04</span><h3>Evidence Passport™</h3><p>Bind the final evidence and manifest with SHA-256 and an Ed25519 signature so later changes are detectable.</p></article>
+        <ol>
+          <li><span>01</span><strong>Acquire</strong><small>Know what evidence exists.</small></li>
+          <li><span>02</span><strong>Trace</strong><small>Separate observed from reconstructed infrastructure.</small></li>
+          <li><span>03</span><strong>Correlate</strong><small>Link only meaningful repeated entities.</small></li>
+          <li><span>04</span><strong>Verify</strong><small>Detect later evidence modification.</small></li>
+        </ol>
       </div>
-      <a class="sih-text-action" href="/verify-evidence">Verify an Evidence Passport →</a>
-    </section>
+    </div>
 
-    <section class="sih-acquisition" aria-labelledby="acquisition-title">
-      <div class="sih-section-head"><p>PROGRESSIVE ACQUISITION</p><h2 id="acquisition-title">Stronger evidence, explicit claim boundaries.</h2><span>A stronger acquisition stage improves forensic coverage; it does not automatically make a phishing verdict more correct.</span></div>
-      <div class="sih-stage-grid">
-        <article><span>01</span><div><strong>Pasted text</strong><small>Content, AI signal and visible links.</small></div><em>LIMITED</em></article>
-        <article><span>02</span><div><strong>Original .eml</strong><small>Headers, authentication, identity, MIME, attachments and relay claims.</small></div><em>STRONGER</em></article>
-        <article><span>03</span><div><strong>Trusted SMTP receiver</strong><small>Direct client IP, HELO and envelope facts at the configured boundary.</small></div><em>TRUSTED BOUNDARY</em></article>
+    <!-- Four Implemented Proofs -->
+    <section class="sih-usps-section" aria-labelledby="usp-title">
+      <div class="sih-usps-inner">
+        <div class="sih-section-head">
+          <p>FOUR IMPLEMENTED PROOFS</p>
+          <h2 id="usp-title">Built around evidence trust, not feature count.</h2>
+        </div>
+        <div class="sih-usp-grid">
+          <article>
+            <span>01</span>
+            <h3>Progressive Evidence Escalation™</h3>
+            <p>Know exactly what can be claimed from text, original EML, or trusted SMTP evidence.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Trust-Boundary GeoTrace™</h3>
+            <p>Separate reconstructed relay claims from infrastructure directly observed at the trusted boundary.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>MailGraph Campaign Memory™</h3>
+            <p>Link investigations only when sufficiently strong forensic entities recur, and show why they matched.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Evidence Passport™</h3>
+            <p>Bind the final evidence and manifest with SHA-256 and an Ed25519 signature so later changes are detectable.</p>
+          </article>
+        </div>
+        <a class="sih-text-action" href="/verify-evidence">Verify an Evidence Passport →</a>
       </div>
     </section>
 
-    <section class="sih-demo" aria-labelledby="demo-title">
-      <div><p>DEMO PATH</p><h2 id="demo-title">Acquire → Trace → Correlate → Verify</h2><span>One investigation surface, one trusted SMTP integration, one cryptographic verification finish.</span></div>
-      <a class="btn btn-primary" href="/phishing">Open Email Investigation</a>
+    <!-- Progressive Acquisition -->
+    <section class="sih-acquisition-section" aria-labelledby="acquisition-title">
+      <div class="sih-acquisition-inner">
+        <div class="sih-section-head">
+          <p>PROGRESSIVE ACQUISITION</p>
+          <h2 id="acquisition-title">Stronger evidence, explicit claim boundaries.</h2>
+          <span>A stronger acquisition stage improves forensic coverage; it does not automatically make a phishing verdict more correct.</span>
+        </div>
+        <div class="sih-stage-grid">
+          <article>
+            <span>01</span>
+            <div>
+              <strong>Pasted text</strong>
+              <small>Content, AI signal and visible links.</small>
+            </div>
+            <em>LIMITED</em>
+          </article>
+          <article>
+            <span>02</span>
+            <div>
+              <strong>Original .eml</strong>
+              <small>Headers, authentication, identity, MIME, attachments and relay claims.</small>
+            </div>
+            <em>STRONGER</em>
+          </article>
+          <article>
+            <span>03</span>
+            <div>
+              <strong>Trusted SMTP receiver</strong>
+              <small>Direct client IP, HELO and envelope facts at the configured boundary.</small>
+            </div>
+            <em>TRUSTED BOUNDARY</em>
+          </article>
+        </div>
+      </div>
     </section>
+
+    <!-- Demo Path Call-to-Action Banner -->
+    <div class="sih-demo-wrapper">
+      <section class="sih-demo-banner" aria-labelledby="demo-title">
+        <p>DEMO PATH</p>
+        <h2 id="demo-title">Acquire → Trace → Correlate → Verify</h2>
+        <span>One investigation surface, one trusted SMTP integration, one cryptographic verification finish.</span>
+        <a class="btn btn-primary" href="/phishing">Open Email Investigation</a>
+      </section>
+    </div>
   </main>
-  <footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust Lab.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
+
+  <footer class="vt-site-footer">
+    <div class="vt-site-footer-bottom">
+      <span>&copy; 2026 VeriTrust Lab. All rights reserved.</span>
+      <span>Infrastructure location is approximate and does not identify a person.</span>
+    </div>
+  </footer>
 </body>
 </html>

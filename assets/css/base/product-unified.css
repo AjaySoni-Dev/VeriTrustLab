@@ -59,6 +59,25 @@ body :where(.tool-header-shell, .vt-page-header) {
   -webkit-backdrop-filter: none !important;
 }
 
+body.vt-home-sih .vt-site-header,
+body.vt-home-sih :where(.tool-header-shell, .vt-page-header) {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  z-index: 100 !important;
+  padding-top: 0.75rem !important;
+}
+
 body .vt-site-header .tool-header-inner,
 body .tool-header-shell .tool-header-inner {
   width: min(100%, 1240px) !important;
@@ -97,6 +116,20 @@ body .tool-header-shell .tool-header-links a.active {
   color: var(--accent-main) !important;
 }
 
+body.vt-home-sih .tool-header-shell .tool-header-links a {
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+}
+
+body.vt-home-sih .tool-header-shell .tool-header-links a:hover {
+  color: #ffffff !important;
+}
+
+body.vt-home-sih .tool-header-shell .tool-header-links a.active {
+  color: #ff5b5b !important;
+}
+
 body .vt-site-header .tool-header-links a.active::after { display: none !important; }
 
 body .vt-site-header .tool-header-actions,
@@ -122,6 +155,42 @@ body .vt-site-header :where(.tool-header-login, .tool-header-dashboard):hover,
 body .tool-header-shell :where(.tool-header-login, .tool-header-dashboard):hover {
   border-color: var(--border-hover) !important;
   background: var(--bg-surface-hover) !important;
+}
+
+body.vt-home-sih .tool-header-shell .tool-header-login {
+  border: none !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 0.8rem !important;
+}
+
+body.vt-home-sih .tool-header-shell .tool-header-login:hover {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+body.vt-home-sih .tool-header-shell .tool-header-dashboard {
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  border-radius: 9999px !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  font-size: 0.88rem !important;
+  padding: 0.5rem 1.4rem !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+body.vt-home-sih .tool-header-shell .tool-header-dashboard:hover {
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+
+body.vt-home-sih .tool-menu-toggle {
+  color: #ffffff !important;
 }
 
 body .tool-menu-toggle {
