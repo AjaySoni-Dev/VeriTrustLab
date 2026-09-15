@@ -1,17 +1,17 @@
-# VeriTrust SMTP Enforcement Gateway
+# VeriTrust Lab SMTP Enforcement Gateway
 
-This directory implements the transport-level path requested for VeriTrust:
+This directory implements the transport-level path requested for VeriTrust Lab:
 
 ```text
 Sender laptop / mail client
         |
         | SMTP
         v
-VeriTrust SMTP Enforcement Gateway (long-running Node process)
+VeriTrust Lab SMTP Enforcement Gateway (long-running Node process)
         |
         | exact RFC 822 message + trusted SMTP facts over HTTPS
         v
-VeriTrust MailGraph / MailGuard / Swift / Gateway correlation
+VeriTrust Lab MailGraph / MailGuard / Swift / Gateway correlation
         |
         +--> allow / warn -----------------> relay to downstream SMTP receiver
         |
@@ -26,17 +26,17 @@ The SMTP process is deliberately **not** hosted inside Vercel. Vercel serves the
 
 ## What the gateway preserves and adds
 
-The gateway receives the message before downstream delivery and prepends a standard `Received:` header containing the directly observed client IP, HELO name, receiver ID, event ID and timestamp. It submits that received message to the new server-to-server endpoint `POST /internal/v2/phishing/receiver-eml` together with the same trusted SMTP facts and the separate receiver secret. This activates VeriTrust's `trusted_receiver_event` capability instead of treating the email as merely a saved `.eml` file.
+The gateway receives the message before downstream delivery and prepends a standard `Received:` header containing the directly observed client IP, HELO name, receiver ID, event ID and timestamp. It submits that received message to the new server-to-server endpoint `POST /internal/v2/phishing/receiver-eml` together with the same trusted SMTP facts and the separate receiver secret. This activates VeriTrust Lab's `trusted_receiver_event` capability instead of treating the email as merely a saved `.eml` file.
 
 That means the decision can reuse the existing MailGraph stack: bounded MIME parsing; original-message hashing and temporary storage; MailGuard phishing evidence; deterministic forensic content observations; Swift child-URL analysis; SPF at the trusted receiver boundary; DKIM/DMARC/ARC; sender-identity relationships; Received-hop extraction and infrastructure geolocation; attachment metadata intelligence; evidence persistence; Gateway correlation v3; policy enforcement; reports, reviews and cases.
 
-The relay does not invent a second scoring system. The existing VeriTrust policy recommendation remains authoritative. The transport layer only converts that recommendation into SMTP behavior.
+The relay does not invent a second scoring system. The existing VeriTrust Lab policy recommendation remains authoritative. The transport layer only converts that recommendation into SMTP behavior.
 
 ## Enforcement behavior
 
 Default mapping:
 
-| VeriTrust recommendation | SMTP action |
+| VeriTrust Lab recommendation | SMTP action |
 | --- | --- |
 | `allow`, `warn` | Forward to the configured downstream SMTP server. |
 | `manual_review`, `hold` | Return `451 4.7.1` to the sender and do not forward. |
@@ -56,14 +56,14 @@ Inbound STARTTLS is intentionally not implemented in this self-contained gateway
 
 ## Required API-side configuration
 
-The existing VeriTrust deployment must already have its normal Gateway/Supabase/model configuration. For this transport path also set:
+The existing VeriTrust Lab deployment must already have its normal Gateway/Supabase/model configuration. For this transport path also set:
 
 ```text
 VERITRUST_EMAIL_RECEIVER_SECRET=<same 32+ byte value used by the SMTP gateway>
 VERITRUST_TRUSTED_AUTHSERV_IDS=veritrust-smtp-gateway
 ```
 
-Create/use a scoped API key with `gateway:scan` permission. The SMTP gateway sends that key only to the configured VeriTrust HTTPS origin.
+Create/use a scoped API key with `gateway:scan` permission. The SMTP gateway sends that key only to the configured VeriTrust Lab HTTPS origin.
 
 ## Windows / PowerShell deployment
 
@@ -119,10 +119,10 @@ Send-VeriTrustGatewayTestMail `
   -From 'sender@lab.local' `
   -To 'receiver@lab.local' `
   -Subject 'Gateway test' `
-  -Body 'This message should only reach Laptop B after VeriTrust passes it.'
+  -Body 'This message should only reach Laptop B after VeriTrust Lab passes it.'
 ```
 
-If VeriTrust returns `quarantine` or `block`, the send command receives an SMTP error and Laptop B receives nothing. If the message passes with `allow` or `warn`, the downstream receiver gets the message and the saved raw email contains the gateway's `Received:` boundary plus trusted `X-VeriTrust-*` decision headers.
+If VeriTrust Lab returns `quarantine` or `block`, the send command receives an SMTP error and Laptop B receives nothing. If the message passes with `allow` or `warn`, the downstream receiver gets the message and the saved raw email contains the gateway's `Received:` boundary plus trusted `X-VeriTrust-*` decision headers.
 
 ## Production downstream
 
@@ -167,4 +167,4 @@ Public deployment assets:
 
 The receiver performs local prerequisite bootstrapping (Tailscale, firewall rule, portable Node.js when required), starts this runtime plus the bundled downstream test receiver, and prints a session pairing code. The sender keeps a persistent command prompt so multiple `.eml` files can be submitted without repeating setup.
 
-For a two-laptop demo, the easiest configuration is the same Tailscale account/tailnet on both devices. A different-account setup must explicitly share/invite the receiver and allow the sender in tailnet policy. The VeriTrust API key and `VERITRUST_EMAIL_RECEIVER_SECRET` remain receiver-only credentials.
+For a two-laptop demo, the easiest configuration is the same Tailscale account/tailnet on both devices. A different-account setup must explicitly share/invite the receiver and allow the sender in tailnet policy. The VeriTrust Lab API key and `VERITRUST_EMAIL_RECEIVER_SECRET` remain receiver-only credentials.

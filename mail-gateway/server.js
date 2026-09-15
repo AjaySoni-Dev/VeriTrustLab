@@ -47,8 +47,8 @@ function createGateway(config, dependencies = {}) {
         response = await analyze(receivedRaw, receiverEnvelope, config.api);
       } catch (error) {
         log('error', 'mail.analysis.failed', { event_id: eventId, session_id: envelope.sessionId, error_code: error.code || error.name || 'ANALYSIS_FAILED' });
-        if (config.decisions.apiFailureMode === 'reject') return { code: 550, enhanced: '5.7.1', message: 'Message rejected because VeriTrust analysis was unavailable' };
-        return { code: 451, enhanced: '4.7.1', message: 'Message deferred because VeriTrust analysis was unavailable' };
+        if (config.decisions.apiFailureMode === 'reject') return { code: 550, enhanced: '5.7.1', message: 'Message rejected because VeriTrust Lab analysis was unavailable' };
+        return { code: 451, enhanced: '4.7.1', message: 'Message deferred because VeriTrust Lab analysis was unavailable' };
       }
 
       const disposition = dispositionForDecision(response, config.decisions);
@@ -62,21 +62,21 @@ function createGateway(config, dependencies = {}) {
         disposition,
       });
 
-      if (disposition === 'defer') return { code: 451, enhanced: '4.7.1', message: `Message deferred by VeriTrust policy; ${conciseDecision(response)}` };
-      if (disposition === 'reject') return { code: 550, enhanced: '5.7.1', message: `Message rejected by VeriTrust policy; ${conciseDecision(response)}` };
+      if (disposition === 'defer') return { code: 451, enhanced: '4.7.1', message: `Message deferred by VeriTrust Lab policy; ${conciseDecision(response)}` };
+      if (disposition === 'reject') return { code: 550, enhanced: '5.7.1', message: `Message rejected by VeriTrust Lab policy; ${conciseDecision(response)}` };
 
-      if (!config.upstream.host) return { code: 451, enhanced: '4.4.0', message: `Message passed VeriTrust but no upstream SMTP server is configured; ${conciseDecision(response)}` };
+      if (!config.upstream.host) return { code: 451, enhanced: '4.4.0', message: `Message passed VeriTrust Lab but no upstream SMTP server is configured; ${conciseDecision(response)}` };
       let relayRaw = stripSpoofableVeriTrustHeaders(receivedRaw);
       if (config.decisions.addHeaders) relayRaw = addDecisionHeaders(relayRaw, response);
       try {
         await relay(config.upstream, envelope, relayRaw);
         log('info', 'mail.relay.completed', { event_id: eventId, scan_id: response.scan_id, recipient_count: envelope.recipients.length });
-        return { code: 250, enhanced: '2.0.0', message: `Message accepted after VeriTrust inspection; ${conciseDecision(response)}` };
+        return { code: 250, enhanced: '2.0.0', message: `Message accepted after VeriTrust Lab inspection; ${conciseDecision(response)}` };
       } catch (error) {
         const upstreamCode = error instanceof SmtpResponseError ? error.smtpCode : 0;
         log('error', 'mail.relay.failed', { event_id: eventId, scan_id: response.scan_id, upstream_code: upstreamCode, error_code: error.code || error.name || 'UPSTREAM_RELAY_FAILED' });
-        if (upstreamCode >= 500) return { code: 550, enhanced: '5.4.0', message: `Upstream receiver rejected the message after VeriTrust passed it; ${conciseDecision(response)}` };
-        return { code: 451, enhanced: '4.4.0', message: `Temporary upstream delivery failure after VeriTrust passed the message; ${conciseDecision(response)}` };
+        if (upstreamCode >= 500) return { code: 550, enhanced: '5.4.0', message: `Upstream receiver rejected the message after VeriTrust Lab passed it; ${conciseDecision(response)}` };
+        return { code: 451, enhanced: '4.4.0', message: `Temporary upstream delivery failure after VeriTrust Lab passed the message; ${conciseDecision(response)}` };
       }
     },
   });

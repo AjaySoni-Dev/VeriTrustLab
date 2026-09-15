@@ -8,11 +8,11 @@ function headerSafe(value, name, max = 512) {
 
 function assertDecision(body) {
   if (!body || body.ok !== true || !body.scan_id || !body.gateway_decision || !body.evidence) {
-    throw new Error('VeriTrust returned an incomplete trusted-receiver decision.');
+    throw new Error('VeriTrust Lab returned an incomplete trusted-receiver decision.');
   }
   const action = String(body.gateway_decision.recommendation || '');
   if (!['allow', 'warn', 'manual_review', 'hold', 'quarantine', 'block'].includes(action)) {
-    throw new Error('VeriTrust returned an unsupported Gateway recommendation.');
+    throw new Error('VeriTrust Lab returned an unsupported Gateway recommendation.');
   }
   return body;
 }
@@ -50,7 +50,7 @@ async function analyzeTrustedReceiver(raw, envelope, config) {
     try { body = text ? JSON.parse(text) : null; } catch { body = null; }
     if (!response.ok) {
       const code = body?.error?.code || `HTTP_${response.status}`;
-      const message = body?.error?.message || 'VeriTrust trusted-receiver API rejected the message.';
+      const message = body?.error?.message || 'VeriTrust Lab trusted-receiver API rejected the message.';
       const error = new Error(`${code}: ${message}`);
       error.code = code;
       error.status = response.status;
@@ -59,7 +59,7 @@ async function analyzeTrustedReceiver(raw, envelope, config) {
     return assertDecision(body);
   } catch (error) {
     if (error.name === 'AbortError') {
-      const timeout = new Error('VeriTrust trusted-receiver analysis timed out.');
+      const timeout = new Error('VeriTrust Lab trusted-receiver analysis timed out.');
       timeout.code = 'VERITRUST_ANALYSIS_TIMEOUT';
       throw timeout;
     }

@@ -52,7 +52,7 @@ class SmtpSession {
         this.close(451, '4.3.0 Gateway processing failure');
       });
     });
-    this.reply(220, `${this.options.hostname} VeriTrust SMTP Gateway ready`);
+    this.reply(220, `${this.options.hostname} VeriTrust Lab SMTP Gateway ready`);
   }
 
   reply(code, text) {
@@ -107,7 +107,7 @@ class SmtpSession {
     if (lineWithoutEnd === '.') {
       this.inData = false;
       if (this.dataTooLarge) {
-        this.reply(552, '5.3.4 Message exceeds VeriTrust maximum size');
+        this.reply(552, '5.3.4 Message exceeds VeriTrust Lab maximum size');
         this.resetTransaction();
         return;
       }
@@ -127,7 +127,7 @@ class SmtpSession {
         this.reply(Number(result?.code || 451), `${result?.enhanced || '4.3.0'} ${result?.message || 'Gateway did not return a delivery result'}`);
       } catch (error) {
         this.options.onSessionError?.(error, this);
-        this.reply(451, '4.3.0 VeriTrust gateway could not process the message');
+        this.reply(451, '4.3.0 VeriTrust Lab gateway could not process the message');
       } finally {
         this.resetTransaction();
         this.processing = false;

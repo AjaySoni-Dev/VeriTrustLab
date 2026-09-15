@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: VeriTrust Unified Security Gateway API
+  title: VeriTrust Lab Unified Security Gateway API
   version: 1.1.0
   description: Policy-driven email, text, URL, and private-media security decisions with durable workers, human review, and signed webhooks.
 servers:
@@ -237,7 +237,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      description: Supabase access token or a scoped VeriTrust API key.
+      description: Supabase access token or a scoped VeriTrust Lab API key.
   parameters:
     IdempotencyKey:
       in: header

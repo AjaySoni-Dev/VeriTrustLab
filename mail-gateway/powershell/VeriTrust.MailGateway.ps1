@@ -13,7 +13,7 @@ function Get-VeriTrustMailGatewayServerPath {
     }
     $ServerPath = Join-Path $ProjectRoot 'mail-gateway\server.js'
     if (-not (Test-Path -LiteralPath $ServerPath -PathType Leaf)) {
-        throw "VeriTrust SMTP Gateway server.js was not found at $ServerPath"
+        throw "VeriTrust Lab SMTP Gateway server.js was not found at $ServerPath"
     }
     return (Resolve-Path -LiteralPath $ServerPath).Path
 }
@@ -52,7 +52,7 @@ function Start-VeriTrustNodeProcess {
     if (-not $Process.Start()) { throw 'Node process could not be started.' }
     if ($Wait) {
         $Process.WaitForExit()
-        if ($Process.ExitCode -ne 0) { throw "VeriTrust process exited with code $($Process.ExitCode)." }
+        if ($Process.ExitCode -ne 0) { throw "VeriTrust Lab process exited with code $($Process.ExitCode)." }
         return
     }
     [PSCustomObject] @{
@@ -68,7 +68,7 @@ function Start-VeriTrustMailGateway {
     Starts the Windows/Node SMTP enforcement gateway that sits between a sender and a downstream SMTP receiver.
 
     .DESCRIPTION
-    The listener accepts SMTP, submits each message to the VeriTrust trusted-receiver API, and only relays
+    The listener accepts SMTP, submits each message to the VeriTrust Lab trusted-receiver API, and only relays
     messages whose Gateway recommendation is configured for forwarding. It is intentionally separate from
     the Vercel web application because SMTP requires a long-running TCP listener.
     #>

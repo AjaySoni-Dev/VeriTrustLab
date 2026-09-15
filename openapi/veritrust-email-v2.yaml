@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: VeriTrust MailGraph Email Investigation API
+  title: VeriTrust Lab MailGraph Email Investigation API
   version: 2.2.0
   description: Tenant-scoped email threat and forensic evidence ingestion with progressive evidence acquisition,
     trust-boundary infrastructure semantics, threat intelligence, campaign correlation, signed Evidence Passports,
@@ -285,7 +285,7 @@ paths:
   /api/v2/phishing/verify-evidence:
     post:
       operationId: verifyEvidencePassport
-      summary: Verify an exported VeriTrust Evidence Passport
+      summary: Verify an exported VeriTrust Lab Evidence Passport
       description: Public cryptographic verification endpoint. A valid result requires Ed25519 signature validity,
         matching key fingerprint, a signing key recognized by this deployment, and matching evidence/manifest hashes
         when evidence is supplied.
@@ -318,7 +318,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      description: Supabase session or scoped VeriTrust API key with Gateway permission.
+      description: Supabase session or scoped VeriTrust Lab API key with Gateway permission.
   parameters:
     IdempotencyKey:
       in: header
