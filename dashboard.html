@@ -7,7 +7,7 @@
   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
   <title>Dashboard | VeriTrust</title>
-  <meta name="description" content="Open the VeriTrust workspace overview, resume email investigations, and move between cases, API access, usage, and account settings.">
+  <meta name="description" content="Open the VeriTrust workspace overview, resume email investigations, and manage API access, usage limits, and account settings.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#1A1A1A">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@
   <script src="/assets/js/core/supabase-client.js" defer></script>
   <script src="/assets/js/core/site.js" defer></script>
   <script src="/assets/js/pages/dashboard.js?v=20260915-sih" defer></script>
-  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui1">
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui2">
 </head>
 <body class="dashboard-is-loading vt-dashboard-page vt-graphite-theme">
   <header class="tool-header-shell vt-page-header vt-site-header">
@@ -30,7 +30,7 @@
     <nav class="tool-header-links" aria-label="Primary navigation">
       <a href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
     </nav>
-    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard active" aria-current="page">Investigations</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard active" aria-current="page">Dashboard</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
   </div>
 </header>
 
@@ -39,7 +39,7 @@
       <div>
         <p class="eyebrow">WORKSPACE</p>
         <h1 id="dashboard-title">Workspace overview</h1>
-        <p class="lead" data-dashboard-status-text>Resume email investigations and manage the review, API, usage, and account areas of your workspace.</p>
+        <p class="lead" data-dashboard-status-text>Resume email investigations and manage API access, usage limits, and account settings from one workspace.</p>
       </div>
       <div class="dashboard-sih-actions">
         <a class="btn btn-primary" href="/phishing">New Investigation</a>
@@ -49,7 +49,7 @@
 
     <nav class="workspace-nav" aria-label="Workspace">
       <a class="active" aria-current="page" href="/dashboard">Overview</a>
-      <a href="/cases">Cases</a>
+      
       <a href="/api-access">API Access</a>
       <a href="/billing">Usage &amp; Limits</a>
       <a href="/account">Account</a>
@@ -74,8 +74,6 @@
         <div class="empty-state-table"><strong>Loading investigations…</strong><p>Retrieving saved email-forensic activity.</p></div>
       </div>
     </section>
-
-    <p class="dashboard-sih-secondary">Need analyst workflow depth? <a href="/cases">Open Cases</a>. Operational administration stays outside the presentation flow.</p>
   </main>
   <footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
 </body>

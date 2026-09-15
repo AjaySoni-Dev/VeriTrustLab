@@ -26,11 +26,11 @@
 <script defer="" src="/assets/js/core/site.js"></script>
 <script defer="" src="/assets/js/core/reporting.js"></script>
 <script defer="" src="/assets/js/core/result-dialog.js"></script>
-<script defer="" src="/assets/js/core/email-report-pdf.js?v=20260911-viewer2"></script>
+<script defer="" src="/assets/js/core/email-report-pdf.js?v=20260915-final2"></script>
 <script defer="" src="/assets/js/core/analysis-result.js"></script>
 <script defer="" src="/assets/js/core/analysis-progress.js"></script>
-<script defer="" src="/assets/js/pages/email-investigation.js?v=20260914-tabs"></script>
-  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui1">
+<script defer="" src="/assets/js/pages/email-investigation.js?v=20260915-final2"></script>
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui2">
 </head>
 <body class="vt-tool-page vt-graphite-theme vt-email-investigation vt-email-result-page vt-email-has-result">
 <header class="tool-header-shell vt-page-header vt-site-header">
@@ -39,13 +39,12 @@
     <nav class="tool-header-links" aria-label="Primary navigation">
       <a href="/">Home</a><a href="/phishing" class="active" aria-current="page">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
     </nav>
-    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Investigations</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Dashboard</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
   </div>
 </header>
 <main class="tool-shell email-result-page-shell" data-email-result-page>
-<nav aria-label="Detection modules" class="analysis-module-nav"><a href="/phishing">Email investigation</a><span aria-hidden="true">/</span><span aria-current="page">Result</span></nav>
 <section class="email-result-page-heading">
-<div><p class="analysis-section-label">EMAIL THREAT INTELLIGENCE</p><h1>Investigation result</h1><p>Review the decision first, then inspect one forensic capability at a time.</p></div>
+<div><p class="analysis-section-label">EMAIL THREAT INTELLIGENCE</p><h1>Investigation result</h1><p>Decision summary first. Then review each forensic capability in the evidence workspace below.</p></div>
 <a class="btn btn-secondary" href="/phishing">New investigation</a>
 </section>
 <p class="analysis-secondary-status email-result-load-status" id="activityLog" role="status">Loading the saved forensic investigation...</p>

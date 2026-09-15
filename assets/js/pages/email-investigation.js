@@ -399,15 +399,15 @@
     const geoHops = publicHops.filter((hop) => Number.isFinite(Number(hop.latitude)) && Number.isFinite(Number(hop.longitude)))
       .sort((a, b) => Number(a.hop_index || 0) - Number(b.hop_index || 0));
     const width = 720;
-    const height = 250;
-    const padX = 22;
-    const padY = 18;
+    const height = 360;
+    // The background SVG is true equirectangular (-180..180, -90..90), so
+    // markers use the identical projection with no decorative inset/padding.
     const pointFor = (hop) => {
       const lon = Math.max(-180, Math.min(180, geoCoordinate(hop.longitude, 0)));
       const lat = Math.max(-90, Math.min(90, geoCoordinate(hop.latitude, 0)));
       return {
-        x: padX + (((lon + 180) / 360) * (width - (padX * 2))),
-        y: padY + (((90 - lat) / 180) * (height - (padY * 2))),
+        x: ((lon + 180) / 360) * width,
+        y: ((90 - lat) / 180) * height,
       };
     };
     const points = geoHops.map((hop) => ({ hop, ...pointFor(hop) }));
@@ -521,16 +521,16 @@
     return `<section class="email-usp-workspace" aria-label="Forensic capability views">
       <div class="email-usp-tabs" role="tablist" aria-label="VeriTrust forensic capabilities">
         <button class="email-usp-tab" id="uspTabProgressive" type="button" role="tab" aria-selected="true" aria-controls="uspPanelProgressive" data-usp-tab="progressive">
-          <span class="email-usp-tab-index">01</span><span><strong>Evidence strength</strong><small>Progressive Evidence Escalation™</small></span><em>${escapeHtml(evidenceStageName(evidence.input_mode))} · ${escapeHtml(titleCase(completeness.level || 'limited'))}</em>
+          <span class="email-usp-tab-index">01</span><span class="email-usp-tab-label"><strong>Acquisition</strong></span><em>${escapeHtml(evidenceStageName(evidence.input_mode))} · ${escapeHtml(titleCase(completeness.level || 'limited'))}</em>
         </button>
         <button class="email-usp-tab" id="uspTabGeotrace" type="button" role="tab" aria-selected="false" aria-controls="uspPanelGeotrace" data-usp-tab="geotrace" tabindex="-1">
-          <span class="email-usp-tab-index">02</span><span><strong>Infrastructure trust</strong><small>Trust-Boundary GeoTrace™</small></span><em>${escapeHtml(geoState)}</em>
+          <span class="email-usp-tab-index">02</span><span class="email-usp-tab-label"><strong>GeoTrace</strong></span><em>${escapeHtml(geoState)}</em>
         </button>
         <button class="email-usp-tab" id="uspTabCampaign" type="button" role="tab" aria-selected="false" aria-controls="uspPanelCampaign" data-usp-tab="campaign" tabindex="-1">
-          <span class="email-usp-tab-index">03</span><span><strong>Campaign links</strong><small>MailGraph Campaign Memory™</small></span><em>${escapeHtml(campaignState)}</em>
+          <span class="email-usp-tab-index">03</span><span class="email-usp-tab-label"><strong>Campaign</strong></span><em>${escapeHtml(campaignState)}</em>
         </button>
         <button class="email-usp-tab" id="uspTabPassport" type="button" role="tab" aria-selected="false" aria-controls="uspPanelPassport" data-usp-tab="passport" tabindex="-1">
-          <span class="email-usp-tab-index">04</span><span><strong>Evidence integrity</strong><small>Evidence Passport™</small></span><em>${escapeHtml(passportState)}</em>
+          <span class="email-usp-tab-index">04</span><span class="email-usp-tab-label"><strong>Passport</strong></span><em>${escapeHtml(passportState)}</em>
         </button>
       </div>
       <div class="email-usp-tabpanels">
@@ -649,7 +649,7 @@
     target.innerHTML = `
       <article class="email-result-hero email-result-hero--compact" data-state="${specialistState}">
         <div class="email-result-primary">
-          <p class="email-result-kicker">Investigation result</p>
+          <p class="email-result-kicker">Decision summary</p>
           <h2 id="emailResultTitle">${escapeHtml(STATE_LABELS[specialistState])}</h2>
           <p class="email-result-copy">${escapeHtml(stateCopy)}</p>
           <div class="email-signal-chips" aria-label="Key signals to review">
@@ -657,8 +657,8 @@
           </div>
           <div class="email-result-actions">
             <button class="btn btn-primary email-pdf-view" type="button" data-view-email-pdf>View Complete Report</button>
-            <button class="btn btn-secondary" type="button" data-new-investigation>New investigation</button>
-            ${['manual_review', 'hold', 'quarantine', 'block'].includes(decision.recommendation) ? '<a class="btn btn-secondary" href="cases.html">Open cases</a>' : ''}
+            ${isResultPage() ? '' : '<button class="btn btn-secondary" type="button" data-new-investigation>New investigation</button>'}
+            ${['manual_review', 'hold', 'quarantine', 'block'].includes(decision.recommendation) ? '<a class="btn btn-secondary" href="/cases">Open review queue</a>' : ''}
           </div>
         </div>
         <aside class="email-result-decision" aria-label="Gateway decision summary">

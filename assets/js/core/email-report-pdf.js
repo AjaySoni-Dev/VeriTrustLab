@@ -284,16 +284,16 @@
 
     keyValue(label, value) {
       const textValue = displayValue(value);
-      const stacked = ascii(label).length > 23;
-      const valueWidth = stacked ? CONTENT_WIDTH - 22 : CONTENT_WIDTH - 154;
+      const labelWidth = 118;
+      const valueWidth = CONTENT_WIDTH - 154;
+      const labelLines = wrapText(ascii(label), 8.3, labelWidth);
       const valueLines = wrapText(textValue, 9.4, valueWidth);
-      const height = stacked ? Math.max(45, 26 + (valueLines.length * 13)) : Math.max(29, 10 + (valueLines.length * 13));
+      const lineCount = Math.max(labelLines.length, valueLines.length);
+      const height = Math.max(29, 10 + (lineCount * 13));
       this.ensure(height + 5);
       this.rect(MARGIN, this.cursor, CONTENT_WIDTH, height, '0.960 0.969 0.975', '0.84 0.88 0.90');
-      this.text(label, MARGIN + 11, this.cursor + 9, 8.3, true, '0.25 0.33 0.40');
-      const valueX = stacked ? MARGIN + 11 : MARGIN + 144;
-      const valueTop = stacked ? this.cursor + 25 : this.cursor + 8;
-      valueLines.forEach((line, index) => this.text(line, valueX, valueTop + (index * 13), 9.4));
+      labelLines.forEach((line, index) => this.text(line, MARGIN + 11, this.cursor + 8 + (index * 12), 8.3, true, '0.25 0.33 0.40'));
+      valueLines.forEach((line, index) => this.text(line, MARGIN + 144, this.cursor + 8 + (index * 13), 9.4));
       this.cursor += height + 5;
     }
 
@@ -559,6 +559,31 @@
     document.finding('Human review remains required', 'This report supports investigation and triage. It is not a certificate that the email is safe or malicious.', 'Review boundary');
   }
 
+  function timestampValue(value) {
+    if (!value) return null;
+    const date = new Date(value);
+    return Number.isFinite(date.getTime()) ? date : null;
+  }
+
+  function formatTimestamp(value) {
+    const date = timestampValue(value);
+    if (!date) return 'Not recorded';
+    return date.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/u, ' UTC');
+  }
+
+  function formatElapsed(startValue, endValue) {
+    const start = timestampValue(startValue);
+    const end = timestampValue(endValue);
+    if (!start || !end || end.getTime() < start.getTime()) return 'Not recorded';
+    const milliseconds = end.getTime() - start.getTime();
+    if (milliseconds < 1000) return `${milliseconds} ms`;
+    const seconds = milliseconds / 1000;
+    if (seconds < 60) return `${seconds < 10 ? seconds.toFixed(2) : seconds.toFixed(1)} s`;
+    const minutes = Math.floor(seconds / 60);
+    const remainder = Math.round(seconds % 60);
+    return `${minutes} min ${remainder} s`;
+  }
+
   function buildEmailReportPdf(payload, options = {}) {
     const report = payload || {};
     const evidence = report.evidence || {};
@@ -590,8 +615,14 @@
     document.cursor += 91;
 
     document.sectionTitle('Investigation summary');
+    const manifest = evidence.evidence_manifest || {};
+    const startedAt = evidence.started_at || manifest.started_at || report.started_at;
+    const completedAt = evidence.completed_at || manifest.completed_at || report.completed_at;
     document.keyValue('Report ID', reportId);
     document.keyValue('Generated', generatedAt);
+    document.keyValue('Investigation started', formatTimestamp(startedAt));
+    document.keyValue('Investigation completed', formatTimestamp(completedAt));
+    document.keyValue('Total processing time', formatElapsed(startedAt, completedAt));
     document.keyValue('Input type', titleCase(evidence.input_mode || report.input_type || 'Not recorded'));
     document.keyValue('Processing status', titleCase(report.status || evidence.status || 'Completed'));
     document.keyValue('Evidence completeness', evidence.evidence_completeness?.level ? `${titleCase(evidence.evidence_completeness.level)} - ${evidence.evidence_completeness.checked_dimensions || 0}/${evidence.evidence_completeness.total_dimensions || 0} dimensions checked` : (decision.degraded ? 'Limited - some checks were unavailable.' : 'Not explicitly recorded.'));

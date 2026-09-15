@@ -184,7 +184,7 @@ const VeriTrustSiteChrome = (() => {
         </nav>
         <div class="tool-header-actions">
           <a href="/auth" class="tool-header-login" hidden aria-hidden="true">Log in</a>
-          <a href="/dashboard" class="tool-header-dashboard">Investigations</a>
+          <a href="/dashboard" class="tool-header-dashboard">Dashboard</a>
           <button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else if (!hasDashboardNavLink && !dashboardAction) {
         dashboardAction = document.createElement('a');
         dashboardAction.href = '/dashboard';
-        dashboardAction.textContent = 'Investigations';
+        dashboardAction.textContent = 'Dashboard';
         dashboardAction.dataset.mobileDashboardAction = 'true';
         dashboardAction.addEventListener('click', closeToolMenu);
         wrap.appendChild(dashboardAction);
@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       dashboardLinks.forEach((link) => {
         if (link.classList.contains('tool-header-dashboard')) {
-          link.textContent = 'Investigations';
+          link.textContent = 'Dashboard';
         }
       });
       ensureMobileMenuActions('authenticated');
