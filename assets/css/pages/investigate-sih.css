@@ -1,0 +1,664 @@
+/* --------------------------------------------------------------------------
+   VeriTrust Lab — Investigate Page (phishing.html) Harmonized Theme
+   Matches the landing page (index.html) visual system, atmospheric background,
+   fixed glass header, typography, and card aesthetics.
+   Spacious, robust email workbench card that fits completely above the fold,
+   with the evidence guide and footer positioned below the fold for scrolling.
+   -------------------------------------------------------------------------- */
+
+html:has(.vt-email-investigation) {
+  background-color: #1e1e1e !important;
+  scroll-behavior: smooth;
+}
+
+html body.vt-email-investigation {
+  --home-max-width: 1180px;
+  --accent-main: #68ded3;
+  --accent-hover: #a0f0e7;
+  --accent-soft: rgba(104, 222, 211, 0.08);
+  --accent-border: rgba(104, 222, 211, 0.28);
+  --text-primary: #f2f5f6;
+  --text-secondary: #c2c2c2;
+  --text-tertiary: #ababab;
+  --header-bg: rgba(28, 28, 28, 0.94);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --card-bg: linear-gradient(140deg, rgba(59, 59, 59, 0.44), rgba(44, 44, 44, 0.49));
+  --card-border: 1px solid rgba(204, 204, 204, 0.16);
+  --card-radius: 10px;
+
+  position: relative;
+  isolation: isolate;
+  background: #1e1e1e !important;
+  color: var(--text-primary);
+  font-family: var(--font-sans, 'Inter', ui-sans-serif, system-ui, sans-serif);
+  font-size: 14.5px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Atmospheric Spotlight Background (exact match to index.html) */
+.vt-email-investigation .vt-home-bg-effects {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.vt-email-investigation .vt-bg-spotlight-hero {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1050px;
+  background: radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.045), transparent 52%),
+              radial-gradient(ellipse at 10% 12%, rgba(255, 255, 255, 0.045), transparent 50%);
+}
+
+.vt-email-investigation .vt-bg-spotlight-mid {
+  position: absolute;
+  top: 30%;
+  left: -20%;
+  width: 90%;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.04), transparent 65%);
+}
+
+.vt-email-investigation .vt-bg-spotlight-acq {
+  position: absolute;
+  top: 60%;
+  right: -25%;
+  width: 95%;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.035), transparent 65%);
+}
+
+.vt-email-investigation .vt-bg-spotlight-bottom {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 650px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 255, 255, 0.05), transparent 65%);
+}
+
+.vt-email-investigation .vt-bg-beam {
+  position: absolute;
+  top: 72px;
+  inset-inline: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+}
+
+/* Fixed Glass Header — Exact Match to Index Header */
+html body.vt-email-investigation .vt-site-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+  height: 72px !important;
+  max-height: 72px !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(28, 28, 28, 0.94) !important;
+}
+
+html body.vt-email-investigation .vt-site-header .tool-header-inner,
+html body.vt-email-investigation .tool-header-shell .tool-header-inner {
+  width: min(100%, 1420px) !important;
+  max-width: 1420px !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(20px, 2.5vw, 36px) !important;
+  gap: clamp(18px, 3vw, 38px) !important;
+}
+
+html body.vt-email-investigation .tool-header-links a.active {
+  color: var(--accent-main) !important;
+}
+
+/* Main Container Sizing & Balanced Top Spacing */
+html body.vt-email-investigation .tool-shell.analysis-shell {
+  width: min(var(--home-max-width, 1180px), calc(100% - 64px)) !important;
+  max-width: var(--home-max-width, 1180px) !important;
+  margin-inline: auto !important;
+  padding-top: clamp(114px, 14vh, 126px) !important;
+  padding-bottom: 60px !important;
+}
+
+/* Heading & Eyebrow Typography (Grand, confident, matching index.html) */
+.vt-email-investigation .analysis-heading {
+  margin-top: 6px !important;
+  margin-bottom: 20px !important;
+}
+
+.vt-email-investigation .analysis-heading .analysis-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px 0 !important;
+  padding: 5px 12px !important;
+  border: 1px solid var(--accent-border);
+  border-radius: 5px;
+  background: var(--accent-soft);
+  color: var(--accent-main);
+  font: 500 11px/1.6 var(--font-mono, 'IBM Plex Mono', monospace);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.vt-email-investigation .home-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8deadd;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.26);
+}
+
+body.vt-tool-page.vt-email-investigation .analysis-heading h1 {
+  margin: 0 0 8px 0 !important;
+  color: var(--text-primary);
+  font-size: clamp(28px, 3vw, 38px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.04em !important;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+body.vt-tool-page.vt-email-investigation .analysis-heading h1 span {
+  color: var(--accent-main);
+}
+
+.vt-email-investigation .analysis-heading > p:last-child {
+  max-width: 740px;
+  margin: 0 !important;
+  color: var(--text-secondary);
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Workbench Grid Layout */
+.vt-email-investigation .analysis-layout {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.28fr) minmax(300px, 0.72fr) !important;
+  gap: 22px !important;
+  align-items: start !important;
+}
+
+/* Workbench Cards (Spacious, robust, high-end glass aesthetic) */
+body.vt-tool-page.vt-email-investigation .analysis-input.email-input-panel,
+.vt-email-investigation .analysis-activity {
+  background: var(--card-bg) !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.07) !important;
+  padding: 22px 26px !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Card Header & Title */
+.vt-email-investigation .email-input-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+.vt-email-investigation .panel-title h2 {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: #f2f5f6 !important;
+  margin: 0 !important;
+}
+
+.vt-email-investigation .panel-title p {
+  margin-top: 3px !important;
+  font-size: 12px !important;
+  color: var(--text-tertiary) !important;
+  line-height: 1.4 !important;
+}
+
+/* Mode Tabs */
+.vt-email-investigation .email-mode-tabs {
+  display: flex !important;
+  gap: 5px !important;
+  margin: 0 !important;
+  padding: 4px !important;
+  background: rgba(26, 26, 26, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+}
+
+.vt-email-investigation .email-mode-tab {
+  min-height: 34px !important;
+  padding: 6px 14px !important;
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  color: #ababab !important;
+  font-family: inherit !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.18s ease-out !important;
+  white-space: nowrap !important;
+}
+
+.vt-email-investigation .email-mode-tab:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.vt-email-investigation .email-mode-tab.is-active,
+.vt-email-investigation .email-mode-tab[aria-selected="true"] {
+  background: #333333 !important;
+  color: var(--accent-main) !important;
+  border-color: rgba(104, 222, 211, 0.35) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Form Fields */
+.vt-email-investigation .field {
+  margin-bottom: 12px !important;
+}
+
+.vt-email-investigation .email-subject-field {
+  margin-bottom: 10px !important;
+}
+
+.vt-email-investigation .field label {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  color: #e2e8ea !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  margin-bottom: 5px !important;
+}
+
+.vt-email-investigation .field label span {
+  color: var(--text-tertiary) !important;
+  font-size: 11px !important;
+  margin-left: 6px !important;
+}
+
+.vt-email-investigation .input {
+  min-height: 38px !important;
+  height: 38px !important;
+  padding: 8px 13px !important;
+  font-size: 13.5px !important;
+  background: rgba(26, 26, 26, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 6px !important;
+  color: #fafafa !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+.vt-email-investigation .tool-textarea,
+body.vt-tool-page.vt-email-investigation .textarea {
+  min-height: 115px !important;
+  height: 125px !important;
+  max-height: 180px !important;
+  padding: 10px 13px !important;
+  font-size: 13.5px !important;
+  line-height: 1.55 !important;
+  background: rgba(26, 26, 26, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 6px !important;
+  color: #fafafa !important;
+  resize: vertical !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+.vt-email-investigation .input:focus,
+.vt-email-investigation .tool-textarea:focus,
+body.vt-tool-page.vt-email-investigation .textarea:focus {
+  border-color: var(--accent-main) !important;
+  outline: 2px solid rgba(104, 222, 211, 0.25) !important;
+  outline-offset: 1px !important;
+}
+
+.vt-email-investigation .email-field-meta {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-top: 5px !important;
+  color: var(--text-tertiary) !important;
+  font-size: 11px !important;
+}
+
+/* EML Mode Intro Header */
+.vt-email-investigation .email-mode-intro {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-bottom: 12px !important;
+}
+
+.vt-email-investigation .email-mode-intro > span,
+.vt-email-investigation .email-mode-intro [data-email-term],
+.vt-email-investigation .email-mode-intro [data-email-help] {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: var(--text-secondary) !important;
+}
+
+.vt-email-investigation .email-mode-intro small {
+  display: inline-block !important;
+  text-align: right !important;
+  color: var(--text-tertiary) !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+  margin-top: 0 !important;
+}
+
+.vt-email-investigation .email-dropzone {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  min-height: 125px !important;
+  padding: 18px !important;
+  background: rgba(26, 26, 26, 0.5) !important;
+  border: 1.5px dashed rgba(255, 255, 255, 0.18) !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s !important;
+}
+
+.vt-email-investigation .email-dropzone:hover {
+  border-color: var(--accent-main) !important;
+  background: rgba(104, 222, 211, 0.04) !important;
+  transform: translateY(-1px);
+}
+
+.vt-email-investigation .email-dropzone svg {
+  width: 28px !important;
+  height: 28px !important;
+  color: var(--accent-main);
+  opacity: 0.9;
+}
+
+.vt-email-investigation .email-dropzone-action,
+.vt-email-investigation:not(.vt-email-result-page) .email-dropzone-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 36px !important;
+  height: 36px !important;
+  padding: 0 18px !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 5px !important;
+  background: rgba(48, 48, 48, 0.85) !important;
+  color: #f2f5f6 !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  transition: all 0.18s ease-out !important;
+}
+
+.vt-email-investigation .email-dropzone-action:hover,
+.vt-email-investigation:not(.vt-email-result-page) .email-dropzone-action:hover {
+  background: rgba(65, 65, 65, 0.95) !important;
+  border-color: var(--accent-main) !important;
+  color: #ffffff !important;
+}
+
+.vt-email-investigation .email-retention-note {
+  margin-top: 6px !important;
+  font-size: 10.5px !important;
+}
+
+/* Submit Row & Primary Button */
+.vt-email-investigation .email-submit-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-top: 14px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.vt-email-investigation .email-submit-row p {
+  margin: 0 !important;
+  font-size: 11.5px !important;
+  color: var(--text-tertiary) !important;
+  line-height: 1.4 !important;
+}
+
+html body.vt-email-investigation .btn-primary {
+  min-height: 40px !important;
+  height: 40px !important;
+  padding: 9px 20px !important;
+  background: #72e2d6 !important;
+  color: #102e2a !important;
+  border: 1px solid #72e2d6 !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.24) !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s !important;
+}
+
+html body.vt-email-investigation .btn-primary:hover {
+  background: #a0f0e7 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(104, 222, 211, 0.22) !important;
+}
+
+/* Right Column: Analysis Activity Card */
+.vt-email-investigation .analysis-activity {
+  padding: 22px 26px !important;
+}
+
+.vt-email-investigation .analysis-activity .analysis-section-label {
+  display: block;
+  font: 500 10px/1.4 var(--font-mono, 'IBM Plex Mono', monospace) !important;
+  letter-spacing: 0.12em;
+  color: var(--accent-main);
+  text-transform: uppercase;
+  margin-bottom: 8px !important;
+}
+
+.vt-email-investigation .analysis-idle h2,
+.vt-email-investigation .analysis-progress-heading h2 {
+  margin: 0 0 8px 0 !important;
+  color: #f2f5f6 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.vt-email-investigation .analysis-idle p {
+  color: var(--text-tertiary) !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
+
+/* Progress Indicators */
+.vt-email-investigation .analysis-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-main);
+  box-shadow: 0 0 10px rgba(104, 222, 211, 0.5);
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.vt-email-investigation .analysis-progress-current {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(26, 26, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+.vt-email-investigation .analysis-progress-current span {
+  font: 500 11px/1.4 var(--font-mono, 'IBM Plex Mono', monospace);
+  color: var(--accent-main);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.vt-email-investigation .analysis-progress-current p {
+  margin: 4px 0 0;
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+/* Bottom Evidence Guide — Placed well below the fold so user scrolls to see it */
+.vt-email-investigation .email-evidence-guide {
+  margin-top: clamp(140px, 20vh, 220px) !important;
+  background: linear-gradient(110deg, rgba(54, 54, 54, 0.55), rgba(44, 44, 44, 0.55)) !important;
+  border: 1px solid rgba(170, 170, 170, 0.25) !important;
+  border-radius: 10px !important;
+  padding: 16px 22px !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2) !important;
+}
+
+.vt-email-investigation .email-evidence-guide summary {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+  font-size: 13.5px !important;
+  cursor: pointer !important;
+}
+
+.vt-email-investigation .email-evidence-guide summary:hover {
+  color: var(--accent-main) !important;
+}
+
+.vt-email-investigation .email-evidence-guide-content {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.vt-email-investigation .email-acquisition-brand strong {
+  display: block;
+  font-size: 14.5px;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.vt-email-investigation .email-acquisition-brand span {
+  color: var(--text-secondary);
+  font-size: 12.5px;
+}
+
+.vt-email-investigation .email-acquisition-overview {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin: 18px 0 !important;
+  padding: 14px 18px !important;
+  background: rgba(26, 26, 26, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+.vt-email-investigation .email-acquisition-overview > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vt-email-investigation .email-acquisition-overview span {
+  display: grid;
+  place-items: center;
+  width: 26px !important;
+  height: 26px !important;
+  border: 1px solid var(--accent-border) !important;
+  border-radius: 5px !important;
+  background: var(--accent-soft) !important;
+  color: var(--accent-main) !important;
+  font: 500 11px/1 var(--font-mono, 'IBM Plex Mono', monospace) !important;
+}
+
+.vt-email-investigation .email-acquisition-overview strong {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.vt-email-investigation .email-acquisition-overview small {
+  display: block;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.vt-email-investigation .email-acquisition-overview i {
+  color: rgba(255, 255, 255, 0.25);
+  font-style: normal;
+}
+
+.vt-email-investigation .email-stage3-action {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--accent-main);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.vt-email-investigation .email-stage3-action:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* Footer Alignment (requires scroll) */
+html body.vt-email-investigation > .vt-site-footer {
+  position: relative !important;
+  margin-top: 48px !important;
+  background: rgba(28, 28, 28, 0.5) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 960px) {
+  .vt-email-investigation .analysis-layout {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  html body.vt-email-investigation .tool-shell.analysis-shell {
+    width: calc(100% - 32px) !important;
+    padding-top: 88px !important;
+  }
+  
+  .vt-email-investigation .email-acquisition-overview {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  .vt-email-investigation .email-acquisition-overview i {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  body.vt-tool-page.vt-email-investigation .analysis-heading h1 {
+    font-size: 24px !important;
+  }
+  
+  .vt-email-investigation .email-submit-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  
+  html body.vt-email-investigation .btn-primary {
+    width: 100% !important;
+  }
+}
