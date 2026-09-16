@@ -1,104 +1,47 @@
-document.documentElement.classList.add('js');
+/* Progressive enhancement: all content and destinations work without this file. */
+(() => {
+  'use strict';
+  document.addEventListener('DOMContentLoaded', () => {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const button = document.querySelector('.home-motion-toggle');
+    let userPaused = false;
+    const syncMotion = () => {
+      const paused = userPaused || motion.matches;
+      document.body.classList.toggle('home-fx-paused', paused);
+      if (!button) return;
+      button.hidden = motion.matches;
+      button.setAttribute('aria-pressed', String(paused));
+      button.textContent = paused ? 'Resume visual effects' : 'Pause visual effects';
+    };
+    button?.addEventListener('click', () => { userPaused = !userPaused; syncMotion(); });
+    motion.addEventListener('change', syncMotion);
+    syncMotion();
 
-const homeHeader = document.getElementById('header');
-const homeMenuToggle = document.querySelector('.menu-toggle');
-const homeNavLinks = document.querySelector('.nav-links');
-const reduceHomeMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-const updateHomeScrollState = () => {
-  homeHeader?.classList.toggle('is-scrolled', window.scrollY > 10);
-};
-
-updateHomeScrollState();
-window.addEventListener('scroll', updateHomeScrollState, { passive: true });
-
-const homeRevealElements = document.querySelectorAll('.reveal');
-if (reduceHomeMotion.matches || !('IntersectionObserver' in window)) {
-  homeRevealElements.forEach((element) => element.classList.add('active'));
-} else {
-  const revealOnScroll = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('active');
-      observer.unobserve(entry.target);
+    // site.js renders the shared header before this listener. Bind synchronously
+    // so navigation never depends on the asynchronous session request.
+    const header = document.querySelector('.vt-site-header');
+    const toggle = header?.querySelector('.tool-menu-toggle');
+    const nav = header?.querySelector('.tool-header-links');
+    if (!toggle || !nav) return;
+    toggle.dataset.menuManaged = 'inline';
+    nav.id = 'home-primary-navigation';
+    toggle.setAttribute('aria-controls', nav.id);
+    const setOpen = (open, returnFocus = false) => {
+      nav.classList.toggle('is-open', open);
+      header.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close page menu' : 'Open page menu');
+      if (returnFocus) toggle.focus();
+    };
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    nav.addEventListener('click', (event) => { if (event.target.closest('a')) setOpen(false); });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') setOpen(false, true);
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-  homeRevealElements.forEach((element) => revealOnScroll.observe(element));
-}
-
-const closeHomeMenu = () => {
-  homeNavLinks?.classList.remove('is-open');
-  homeMenuToggle?.setAttribute('aria-expanded', 'false');
-  homeMenuToggle?.setAttribute('aria-label', 'Open navigation menu');
-  document.body.classList.remove('menu-open');
-};
-
-homeMenuToggle?.addEventListener('click', () => {
-  const isOpen = homeNavLinks?.classList.toggle('is-open') ?? false;
-  homeMenuToggle.setAttribute('aria-expanded', String(isOpen));
-  homeMenuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
-  document.body.classList.toggle('menu-open', isOpen);
-});
-
-homeNavLinks?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeHomeMenu));
-document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape') return;
-  closeHomeMenu();
-  homeMenuToggle?.focus();
-});
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 1024) closeHomeMenu();
-});
-
-const COOKIE_CONSENT_KEY = 'vt-cookie-consent-v1';
-const cookieConsentPanel = document.getElementById('cookie-consent');
-
-const readCookieConsent = () => {
-  try {
-    const storedChoice = window.localStorage.getItem(COOKIE_CONSENT_KEY);
-    if (storedChoice === 'all' || storedChoice === 'essential') return storedChoice;
-  } catch (_) {
-    // Consent can still be read from the cookie when storage is unavailable.
-  }
-
-  const consentCookie = document.cookie
-    .split('; ')
-    .find((entry) => entry.startsWith(`${COOKIE_CONSENT_KEY}=`));
-  const cookieChoice = consentCookie?.split('=')[1];
-  return cookieChoice === 'all' || cookieChoice === 'essential' ? cookieChoice : '';
-};
-
-const saveCookieConsent = (choice) => {
-  document.documentElement.dataset.cookieConsent = choice;
-
-  try {
-    window.localStorage.setItem(COOKIE_CONSENT_KEY, choice);
-  } catch (_) {
-    // The first-party preference cookie remains the fallback.
-  }
-
-  const secureAttribute = window.location.protocol === 'https:' ? '; Secure' : '';
-  document.cookie = `${COOKIE_CONSENT_KEY}=${choice}; Max-Age=31536000; Path=/; SameSite=Lax${secureAttribute}`;
-  window.dispatchEvent(new CustomEvent('veritrust:cookie-consent', { detail: { choice } }));
-};
-
-const existingCookieConsent = readCookieConsent();
-if (existingCookieConsent) {
-  document.documentElement.dataset.cookieConsent = existingCookieConsent;
-} else if (cookieConsentPanel) {
-  cookieConsentPanel.hidden = false;
-  window.requestAnimationFrame(() => cookieConsentPanel.classList.add('is-visible'));
-
-  cookieConsentPanel.querySelectorAll('[data-cookie-choice]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const choice = button.dataset.cookieChoice;
-      if (choice !== 'all' && choice !== 'essential') return;
-
-      saveCookieConsent(choice);
-      cookieConsentPanel.classList.remove('is-visible');
-      window.setTimeout(() => {
-        cookieConsentPanel.hidden = true;
-      }, reduceHomeMotion.matches ? 0 : 320);
+    document.addEventListener('click', (event) => { if (!header.contains(event.target)) setOpen(false); });
+    header.addEventListener('focusout', (event) => {
+      if (event.relatedTarget && !header.contains(event.relatedTarget)) setOpen(false);
     });
+    window.matchMedia('(min-width: 1051px)').addEventListener('change', () => setOpen(false));
   });
-}
+})();
