@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="/favicon.ico" rel="icon" type="image/x-icon">
+<title>Verify Evidence Passport | VeriTrust Lab</title>
+<meta name="description" content="Verify the cryptographic integrity, evidence hash, manifest hash, Ed25519 signature, and trusted signing-key identity of a VeriTrust Lab Evidence Passport.">
+<link rel="canonical" href="https://www.veritrustlab.in/verify-evidence"><meta name="robots" content="index, follow, max-image-preview:large">
+<link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"><link href="/assets/css/base/tool-pages.css" rel="stylesheet"><link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"><link href="/assets/css/pages/verify-evidence.css?v=20260915-sih" rel="stylesheet">
+<script src="/assets/js/core/config.js"></script><script defer src="/assets/js/core/supabase-client.js"></script><script defer src="/assets/js/core/site.js"></script><script defer src="/assets/js/pages/verify-evidence.js?v=20260915-sih"></script>
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui2">
+</head>
+<body class="vt-tool-page vt-graphite-theme vt-evidence-verify-page">
+<header class="tool-header-shell vt-page-header vt-site-header">
+  <div class="tool-header-inner">
+    <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust Lab" class="tool-header-word"></a>
+    <nav class="tool-header-links" aria-label="Primary navigation">
+      <a href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence" class="active" aria-current="page">Verify Evidence</a>
+    </nav>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Dashboard</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+  </div>
+</header>
+<main class="verify-shell">
+<section class="verify-hero"><div class="verify-intro"><p class="analysis-section-label">EVIDENCE PASSPORT VERIFICATION</p><h1>Verify an Evidence Passport</h1><p>Check that the exported evidence, manifest, and recorded signing identity are unchanged from the package VeriTrust Lab signed.</p></div><div class="verify-boundary" aria-label="Verification boundary"><strong>Proves</strong><span>Cryptographic integrity and recorded provenance.</span><strong>Does not prove</strong><span>Legal admissibility, human identity, or that an email is safe.</span></div></section>
+<section class="verify-grid">
+<form class="verify-panel" id="verifyEvidenceForm"><div class="verify-panel-heading"><div><span>Evidence package</span><h2>Choose or paste evidence JSON</h2></div><span class="verify-format">≤ 1 MiB</span></div><label class="verify-file" for="verifyEvidenceFile"><strong>Choose exported Evidence JSON</strong><span id="verifyEvidenceFileLabel">.json file</span></label><input accept="application/json,.json" id="verifyEvidenceFile" type="file"><label for="verifyEvidenceJson">Evidence JSON</label><textarea id="verifyEvidenceJson" spellcheck="false" placeholder="Paste the exported VeriTrust Lab evidence package here..."></textarea><p class="verify-error" hidden id="verifyEvidenceError" role="alert"></p><div class="verify-actions"><button class="btn btn-primary" id="verifyEvidenceSubmit" type="submit">Verify integrity</button><button class="btn btn-secondary" id="verifyEvidenceClear" type="button">Clear</button></div></form>
+<section class="verify-result" hidden id="verifyEvidenceResult" aria-live="polite" tabindex="-1"><div class="verify-result-idle"><span>Verification result</span><h2>Waiting for evidence</h2><p>Verification checks the Ed25519 signature, evidence SHA-256, manifest SHA-256, signing-key identity, and whether the key is a recognized VeriTrust Lab signing issuer.</p></div></section>
+</section>
+<section class="verify-check-strip" aria-label="Verification checks"><span>Ed25519 signature</span><span>Evidence SHA-256</span><span>Manifest SHA-256</span><span>Signing-key identity</span><span>Trusted issuer</span></section>
+</main><footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust Lab.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
+</body></html>
