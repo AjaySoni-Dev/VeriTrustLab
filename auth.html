@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1e1e1e">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
+    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <title>Authentication | VeriTrust Lab</title>
+    <meta name="description" content="Sign in, create a VeriTrust Lab workspace account, confirm email access, or recover an account using the implemented email and password flow.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/base/veritrust.css">
+    <link rel="stylesheet" href="/assets/css/base/tool-pages.css">
+    <link rel="stylesheet" href="/assets/css/base/graphite-orange-theme.css">
+    <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui2">
+    <link rel="stylesheet" href="/assets/css/pages/auth-sih.css?v=20260916-1">
+    <script src="/assets/js/core/config.js"></script>
+    <script src="/assets/js/core/supabase-client.js" defer></script>
+    <script src="/assets/js/core/site.js" defer></script>
+    <script src="/assets/js/pages/auth.js" defer></script>
+</head>
+<body class="vt-graphite-theme vt-auth-page">
+  <a class="home-skip-link" href="#main-content">Skip to content</a>
+  <!-- Decorative atmospheric spotlight background matching index.html -->
+  <div class="vt-home-bg-effects" aria-hidden="true">
+    <div class="vt-bg-spotlight-hero"></div>
+    <div class="vt-bg-spotlight-mid"></div>
+    <div class="vt-bg-spotlight-acq"></div>
+    <div class="vt-bg-spotlight-bottom"></div>
+    <div class="vt-bg-beam"></div>
+  </div>
+<header class="tool-header-shell vt-page-header vt-site-header">
+  <div class="tool-header-inner">
+    <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust Lab" class="tool-header-word"></a>
+    <nav class="tool-header-links" aria-label="Primary navigation">
+      <a href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
+    </nav>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login active" aria-current="page">Log in</a><a href="/dashboard" class="tool-header-dashboard">Dashboard</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+  </div>
+</header>
+
+    <div class="auth-layout">
+        <main class="auth-main" id="main-content" tabindex="-1">
+            <div class="auth-shell">
+
+                <div class="auth-split-card reveal delay-1">
+                    
+                    <!-- Left Column: Guided Demo Access Showcase -->
+                    <section class="auth-demo-column" aria-labelledby="demoAccessTitle">
+                        <div class="auth-column-header">
+                            <p class="auth-section-label"><span class="home-status-dot" aria-hidden="true"></span> GUIDED DEMONSTRATION</p>
+                            <h2 id="demoAccessTitle">Instant Demo Access</h2>
+                            <p>Explore VeriTrust Lab's complete forensic investigation workspace, progressive evidence acquisition, and verification with pre-seeded samples.</p>
+                        </div>
+
+                        <div class="demo-access demo-access-panel" aria-labelledby="demoAccessTitle">
+                            <div class="demo-access-header">
+                                <span class="demo-kicker">DEMO CREDENTIALS</span>
+                                <span class="demo-ready"><span aria-hidden="true"></span>Ready</span>
+                            </div>
+                            <dl class="demo-credentials" aria-label="Demo credentials">
+                                <div><dt>Email</dt><dd><code>example@gmail.com</code></dd></div>
+                                <div><dt>Password</dt><dd><code>example@gmail.com</code></dd></div>
+                            </dl>
+                            <button id="demo-login-button" class="btn btn-demo demo-login-button" type="button">Autofill &amp; sign in</button>
+                            <p class="demo-hint">The button fills both fields and signs in automatically for an interactive product demonstration.</p>
+                        </div>
+
+                        <div class="auth-assurances">
+                            <span>Pre-loaded forensic evidence cases</span>
+                            <span>Live SMTP trust boundary simulation</span>
+                            <span>Cryptographic evidence passports</span>
+                        </div>
+                    </section>
+
+                    <!-- Right Column: Account Access Form -->
+                    <section class="auth-form-column" aria-label="Account access form">
+                        <div class="auth-header">
+                            <h1>Secure account access</h1>
+                            <p>AI-powered email threat &amp; forensic intelligence</p>
+                        </div>
+
+                        <div class="auth-tabs" role="tablist" aria-label="Authentication mode">
+                            <button class="tab-btn active" type="button" data-target="login-form" role="tab" aria-selected="true">Log in</button>
+                            <button class="tab-btn" type="button" data-target="signup-form" role="tab" aria-selected="false">Create account</button>
+                        </div>
+
+                        <div class="auth-forms-wrapper">
+                            
+                            <form id="login-form" class="auth-form active" data-auth-mode="login">
+                                <div class="form-group">
+                                    <label for="login-email">Email address</label>
+                                    <input type="email" id="login-email" class="form-input" autocomplete="email" placeholder="name@company.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password">Password</label>
+                                    <input type="password" id="login-password" class="form-input" autocomplete="current-password" placeholder="Password" required>
+                                </div>
+                                
+                                <div class="form-options">
+                                    <span class="checkbox-group">Protected by a secure browser session.</span>
+                                    <button type="button" class="forgot-link" data-auth-action="reset">Forgot password?</button>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Sign in</button>
+                            </form>
+
+                            <form id="signup-form" class="auth-form" data-auth-mode="signup">
+                                <div class="form-group">
+                                    <label for="signup-name">Full name</label>
+                                    <input type="text" id="signup-name" class="form-input" maxlength="120" autocomplete="name" placeholder="John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signup-email">Email address</label>
+                                    <input type="email" id="signup-email" class="form-input" autocomplete="email" placeholder="name@company.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signup-workspace">Workspace name</label>
+                                    <input type="text" id="signup-workspace" class="form-input" maxlength="120" autocomplete="organization" placeholder="Acme Security Team">
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="signup-password">Password</label>
+                                        <input type="password" id="signup-password" class="form-input" minlength="12" maxlength="128" autocomplete="new-password" placeholder="At least 12 characters" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="signup-confirm">Confirm</label>
+                                        <input type="password" id="signup-confirm" class="form-input" minlength="12" maxlength="128" autocomplete="new-password" placeholder="Repeat password" required>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Create account</button>
+                            </form>
+
+                            <form id="recovery-form" class="auth-form" data-auth-mode="password-update">
+                                <div class="form-group">
+                                    <label for="recovery-password">New password</label>
+                                    <input type="password" id="recovery-password" class="form-input" minlength="12" maxlength="128" autocomplete="new-password" placeholder="At least 12 characters" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recovery-confirm">Confirm new password</label>
+                                    <input type="password" id="recovery-confirm" class="form-input" minlength="12" maxlength="128" autocomplete="new-password" placeholder="Repeat new password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update password</button>
+                            </form>
+                        </div>
+
+                        <div id="authMessage" class="auth-message" aria-live="polite"></div>
+
+                        <p class="provider-note">By continuing, you agree to the <a href="terms.html">Terms</a> and acknowledge the <a href="privacy.html">Privacy notice</a>.</p>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+
+    </div>
+<footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust Lab.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
+</body>
+</html>
