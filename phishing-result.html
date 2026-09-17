@@ -31,8 +31,17 @@
 <script defer="" src="/assets/js/core/analysis-progress.js"></script>
 <script defer="" src="/assets/js/pages/email-investigation.js?v=20260915-final3"></script>
   <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui3">
+  <link rel="stylesheet" href="/assets/css/pages/phishing-result-sih.css?v=20260916-1">
 </head>
 <body class="vt-tool-page vt-graphite-theme vt-email-investigation vt-email-result-page vt-email-has-result">
+  <!-- Decorative layers matching index.html visual atmosphere -->
+  <div class="vt-home-bg-effects" aria-hidden="true">
+    <div class="vt-bg-spotlight-hero"></div>
+    <div class="vt-bg-spotlight-mid"></div>
+    <div class="vt-bg-spotlight-acq"></div>
+    <div class="vt-bg-spotlight-bottom"></div>
+    <div class="vt-bg-beam"></div>
+  </div>
 <header class="tool-header-shell vt-page-header vt-site-header">
   <div class="tool-header-inner">
     <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust Lab" class="tool-header-word"></a>
@@ -44,8 +53,8 @@
 </header>
 <main class="tool-shell email-result-page-shell" data-email-result-page>
 <section class="email-result-page-heading">
-<div><p class="analysis-section-label">FORENSIC EVIDENCE WORKSPACE</p><h1>Forensic evidence</h1><p>Inspect the evidence acquisition, infrastructure provenance, campaign correlation, and signed evidence package for this investigation.</p></div>
-<div class="email-result-page-actions"><a class="btn btn-secondary" href="/phishing">New investigation</a><a class="btn btn-secondary" href="/dashboard">Dashboard</a></div>
+<div><p class="analysis-section-label"><span class="home-status-dot" aria-hidden="true"></span> FORENSIC EVIDENCE WORKSPACE</p><h1>Forensic evidence</h1><p>Inspect the evidence acquisition, infrastructure provenance, campaign correlation, and signed evidence package for this investigation.</p></div>
+<div class="email-result-page-actions"><a class="btn btn-primary" href="/phishing">New investigation</a><a class="btn btn-secondary" href="/dashboard">Dashboard</a></div>
 </section>
 <p class="analysis-secondary-status email-result-load-status" id="activityLog" role="status">Loading the saved forensic investigation...</p>
 <section aria-labelledby="emailResultTitle" aria-live="polite" class="email-result-shell analysis-report" id="emailInvestigationResult" tabindex="-1">
