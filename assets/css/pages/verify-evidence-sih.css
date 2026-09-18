@@ -1,0 +1,662 @@
+/* --------------------------------------------------------------------------
+   VeriTrust Lab — Verify Evidence Page Harmonized Theme
+   Matches the landing page (index.html) visual system, atmospheric background,
+   fixed glass header, typography, spacing, and card aesthetics.
+   -------------------------------------------------------------------------- */
+
+html:has(.vt-evidence-verify-page) {
+  background-color: #111111 !important;
+  scroll-behavior: smooth;
+}
+
+html body.vt-evidence-verify-page {
+  --home-max-width: 1180px;
+  --accent-main: #68ded3;
+  --accent-hover: #a0f0e7;
+  --accent-soft: rgba(104, 222, 211, 0.08);
+  --accent-border: rgba(104, 222, 211, 0.28);
+  --text-primary: #f2f5f6;
+  --text-secondary: #c2c2c2;
+  --text-tertiary: #ababab;
+  --header-bg: rgba(17, 17, 17, 0.94);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --card-bg: linear-gradient(140deg, rgba(59, 59, 59, 0.44), rgba(44, 44, 44, 0.49));
+  --card-border: 1px solid rgba(204, 204, 204, 0.16);
+  --card-radius: 10px;
+
+  position: relative;
+  isolation: isolate;
+  background: #111111 !important;
+  color: var(--text-primary);
+  font-family: var(--font-sans, 'Inter', ui-sans-serif, system-ui, sans-serif);
+  font-size: 14.5px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Atmospheric Spotlight Background (aligned visual treatment to index.html) */
+.vt-evidence-verify-page .vt-home-bg-effects {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.vt-evidence-verify-page .vt-bg-spotlight-hero {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1050px;
+  background: radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.045), transparent 52%),
+              radial-gradient(ellipse at 10% 12%, rgba(255, 255, 255, 0.045), transparent 50%);
+}
+
+.vt-evidence-verify-page .vt-bg-spotlight-mid {
+  position: absolute;
+  top: 30%;
+  left: -20%;
+  width: 90%;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.04), transparent 65%);
+}
+
+.vt-evidence-verify-page .vt-bg-spotlight-acq {
+  position: absolute;
+  top: 60%;
+  right: -25%;
+  width: 95%;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.035), transparent 65%);
+}
+
+.vt-evidence-verify-page .vt-bg-spotlight-bottom {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 650px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 255, 255, 0.05), transparent 65%);
+}
+
+.vt-evidence-verify-page .vt-bg-beam {
+  position: absolute;
+  top: 72px;
+  inset-inline: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+}
+
+/* Fixed Glass Header — Aligned visual treatment to Index Header */
+html body.vt-evidence-verify-page .vt-site-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+  height: 72px !important;
+  max-height: 72px !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(28, 28, 28, 0.94) !important;
+}
+
+html body.vt-evidence-verify-page .vt-site-header .tool-header-inner,
+html body.vt-evidence-verify-page .tool-header-shell .tool-header-inner {
+  width: min(100%, 1420px) !important;
+  max-width: 1420px !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(20px, 2.5vw, 36px) !important;
+  gap: clamp(18px, 3vw, 38px) !important;
+}
+
+html body.vt-evidence-verify-page .tool-header-links a.active {
+  color: var(--accent-main) !important;
+}
+
+/* Main Shell Sizing & Centered Vertical Spacing */
+html body.vt-evidence-verify-page .verify-shell {
+  width: min(var(--home-max-width, 1180px), calc(100% - 64px)) !important;
+  max-width: var(--home-max-width, 1180px) !important;
+  margin-inline: auto !important;
+  padding-top: clamp(114px, 14vh, 126px) !important;
+  padding-bottom: 72px !important;
+}
+
+/* Hero Section Layout & Typography */
+html body.vt-evidence-verify-page .verify-hero {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr) !important;
+  gap: 28px 40px !important;
+  align-items: center !important;
+  max-width: 100% !important;
+  margin-top: 6px !important;
+  margin-bottom: 24px !important;
+}
+
+html body.vt-evidence-verify-page .analysis-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px 0 !important;
+  padding: 5px 12px !important;
+  border: 1px solid var(--accent-border);
+  border-radius: 5px;
+  background: var(--accent-soft);
+  color: var(--accent-main);
+  font: 500 11px/1.6 var(--font-mono, 'IBM Plex Mono', monospace);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+html body.vt-evidence-verify-page .home-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8deadd;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.26);
+}
+
+html body.vt-evidence-verify-page .verify-hero h1 {
+  margin: 0 0 8px 0 !important;
+  color: var(--text-primary) !important;
+  font-size: clamp(28px, 3vw, 38px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.04em !important;
+  font-weight: 600 !important;
+  text-wrap: balance !important;
+}
+
+html body.vt-evidence-verify-page .verify-hero h1 span {
+  color: var(--accent-main) !important;
+}
+
+html body.vt-evidence-verify-page .verify-intro > p:last-child {
+  max-width: 680px;
+  margin: 0 !important;
+  color: var(--text-secondary);
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Boundary Box ("Proves" / "Does not prove") — Perfectly centered with hero */
+html body.vt-evidence-verify-page .verify-boundary {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  align-self: center !important;
+  margin: 0 !important;
+  padding: 16px 20px !important;
+  background: var(--card-bg) !important;
+  border: var(--card-border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.07) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+html body.vt-evidence-verify-page .verify-boundary-row {
+  display: grid !important;
+  grid-template-columns: 125px 1fr !important;
+  gap: 12px !important;
+  align-items: baseline !important;
+}
+
+html body.vt-evidence-verify-page .verify-boundary-row + .verify-boundary-row {
+  padding-top: 10px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+html body.vt-evidence-verify-page .verify-boundary strong {
+  font: 600 11px/1.4 var(--font-mono, 'IBM Plex Mono', monospace) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: var(--accent-main) !important;
+  white-space: nowrap !important;
+}
+
+html body.vt-evidence-verify-page .verify-boundary-row:last-child strong,
+html body.vt-evidence-verify-page .verify-boundary strong:last-of-type {
+  color: #ff9883 !important;
+}
+
+html body.vt-evidence-verify-page .verify-boundary span {
+  color: var(--text-secondary) !important;
+  font-size: 12.5px !important;
+  line-height: 1.5 !important;
+}
+
+/* Verify Grid Layout & Cards */
+.vt-evidence-verify-page .verify-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.22fr) minmax(320px, 0.78fr) !important;
+  gap: 24px !important;
+  align-items: start !important;
+}
+
+.vt-evidence-verify-page .verify-grid:has(.verify-result[hidden]) {
+  grid-template-columns: 1fr !important;
+}
+
+.vt-evidence-verify-page .verify-panel,
+.vt-evidence-verify-page .verify-result {
+  background: var(--card-bg) !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.07) !important;
+  padding: 24px 26px !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.vt-evidence-verify-page .verify-panel-heading {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+.vt-evidence-verify-page .verify-panel-heading span:first-child {
+  display: block;
+  font: 500 11px/1.4 var(--font-mono, 'IBM Plex Mono', monospace) !important;
+  letter-spacing: 0.12em;
+  color: var(--accent-main);
+  text-transform: uppercase;
+}
+
+.vt-evidence-verify-page .verify-panel-heading h2 {
+  margin: 4px 0 0 0 !important;
+  color: #f2f5f6 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.vt-evidence-verify-page .verify-format {
+  padding: 4px 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 5px !important;
+  background: rgba(26, 26, 26, 0.85) !important;
+  color: var(--text-tertiary) !important;
+  font: 500 11px var(--font-mono, 'IBM Plex Mono', monospace) !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* File Upload Picker */
+.vt-evidence-verify-page .verify-file {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 16px 20px !important;
+  background: rgba(26, 26, 26, 0.5) !important;
+  border: 1.5px dashed rgba(255, 255, 255, 0.18) !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  margin-bottom: 16px !important;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s !important;
+}
+
+.vt-evidence-verify-page .verify-file:hover {
+  border-color: var(--accent-main) !important;
+  background: rgba(104, 222, 211, 0.04) !important;
+  transform: translateY(-1px);
+}
+
+.vt-evidence-verify-page .verify-file strong {
+  display: block;
+  font-size: 13.5px !important;
+  color: #f2f5f6 !important;
+  font-weight: 500 !important;
+}
+
+.vt-evidence-verify-page .verify-file span:nth-of-type(1),
+.vt-evidence-verify-page #verifyEvidenceFileLabel {
+  display: block;
+  font-size: 11.5px !important;
+  color: var(--text-tertiary) !important;
+  margin-top: 3px;
+}
+
+.vt-evidence-verify-page .verify-file span:last-child {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 34px !important;
+  padding: 0 16px !important;
+  background: rgba(48, 48, 48, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 5px !important;
+  color: #f2f5f6 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  transition: all 0.18s ease-out !important;
+}
+
+.vt-evidence-verify-page .verify-file:hover span:last-child {
+  background: rgba(65, 65, 65, 0.95) !important;
+  border-color: var(--accent-main) !important;
+  color: #ffffff !important;
+}
+
+.vt-evidence-verify-page .verify-panel input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.vt-evidence-verify-page .verify-panel > label[for="verifyEvidenceJson"] {
+  display: block !important;
+  color: #e2e8ea !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  margin-bottom: 6px !important;
+}
+
+.vt-evidence-verify-page .verify-panel textarea {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-height: 175px !important;
+  max-height: 340px !important;
+  padding: 12px 14px !important;
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+  background: rgba(26, 26, 26, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 6px !important;
+  color: #fafafa !important;
+  font-family: var(--font-mono, 'IBM Plex Mono', monospace) !important;
+  resize: vertical !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+.vt-evidence-verify-page .verify-panel textarea:focus {
+  border-color: var(--accent-main) !important;
+  outline: 2px solid rgba(104, 222, 211, 0.25) !important;
+  outline-offset: 1px !important;
+}
+
+/* Action Buttons */
+.vt-evidence-verify-page .verify-actions {
+  display: flex !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.vt-evidence-verify-page .btn-primary {
+  min-height: 40px !important;
+  height: 40px !important;
+  padding: 9px 22px !important;
+  background: #72e2d6 !important;
+  color: #102e2a !important;
+  border: 1px solid #72e2d6 !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.24) !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s !important;
+}
+
+.vt-evidence-verify-page .btn-primary:hover {
+  background: #a0f0e7 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(104, 222, 211, 0.22) !important;
+}
+
+.vt-evidence-verify-page .btn-secondary {
+  min-height: 40px !important;
+  height: 40px !important;
+  padding: 9px 18px !important;
+  background: rgba(38, 38, 38, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 6px !important;
+  color: #e0e8eb !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s !important;
+}
+
+.vt-evidence-verify-page .btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  background: rgba(55, 55, 55, 0.95) !important;
+  transform: translateY(-2px) !important;
+}
+
+.vt-evidence-verify-page .verify-error {
+  padding: 10px 14px !important;
+  border-radius: 6px !important;
+  background: rgba(248, 113, 113, 0.12) !important;
+  border: 1px solid rgba(248, 113, 113, 0.3) !important;
+  color: #fca5a5 !important;
+  font-size: 13px !important;
+  margin-top: 12px !important;
+}
+
+/* Results Panel & Verification States */
+.vt-evidence-verify-page .verify-result {
+  min-height: 380px;
+}
+
+.vt-evidence-verify-page .verify-result-idle > span,
+.vt-evidence-verify-page .verify-result-header > span {
+  display: block;
+  font: 500 11px/1.4 var(--font-mono, 'IBM Plex Mono', monospace) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: var(--accent-main) !important;
+}
+
+.vt-evidence-verify-page .verify-result h2 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  margin: 6px 0 10px 0 !important;
+  color: #f2f5f6 !important;
+}
+
+.vt-evidence-verify-page .verify-result p {
+  color: var(--text-secondary) !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+}
+
+.vt-evidence-verify-page .verify-result[data-state="valid"] {
+  border-color: rgba(104, 222, 211, 0.35) !important;
+}
+
+.vt-evidence-verify-page .verify-result[data-state="valid"] .verify-result-header h2 {
+  color: var(--accent-main) !important;
+}
+
+.vt-evidence-verify-page .verify-result[data-state="invalid"] {
+  border-color: rgba(248, 113, 113, 0.35) !important;
+}
+
+.vt-evidence-verify-page .verify-result[data-state="invalid"] .verify-result-header h2 {
+  color: #f87171 !important;
+}
+
+.vt-evidence-verify-page .verify-checks {
+  display: grid !important;
+  gap: 10px !important;
+  margin: 18px 0 !important;
+}
+
+.vt-evidence-verify-page .verify-check {
+  display: grid !important;
+  grid-template-columns: 24px 1fr !important;
+  gap: 10px !important;
+  align-items: start !important;
+  padding: 10px 14px !important;
+  background: rgba(26, 26, 26, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+.vt-evidence-verify-page .verify-check > span {
+  width: 22px !important;
+  height: 22px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 50% !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.vt-evidence-verify-page .verify-check[data-pass="true"] > span {
+  background: rgba(104, 222, 211, 0.15) !important;
+  color: var(--accent-main) !important;
+  border: 1px solid var(--accent-border) !important;
+}
+
+.vt-evidence-verify-page .verify-check[data-pass="false"] > span {
+  background: rgba(248, 113, 113, 0.15) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(248, 113, 113, 0.3) !important;
+}
+
+.vt-evidence-verify-page .verify-check strong {
+  display: block;
+  font-size: 13px !important;
+  color: #f2f5f6 !important;
+  font-weight: 600 !important;
+}
+
+.vt-evidence-verify-page .verify-check small {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-tertiary) !important;
+  font-size: 11.5px !important;
+  line-height: 1.4 !important;
+}
+
+.vt-evidence-verify-page .verify-meta {
+  display: grid !important;
+  gap: 8px !important;
+  margin-top: 16px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.vt-evidence-verify-page .verify-meta div {
+  display: grid !important;
+  grid-template-columns: 120px 1fr !important;
+  gap: 10px !important;
+}
+
+.vt-evidence-verify-page .verify-meta dt {
+  font-size: 12px !important;
+  color: var(--text-tertiary) !important;
+}
+
+.vt-evidence-verify-page .verify-meta dd {
+  margin: 0 !important;
+  font: 500 12px/1.45 var(--font-mono, 'IBM Plex Mono', monospace) !important;
+  overflow-wrap: anywhere !important;
+  color: var(--accent-main) !important;
+}
+
+.vt-evidence-verify-page .verify-return {
+  margin-top: 16px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.vt-evidence-verify-page .verify-return a {
+  color: var(--accent-main) !important;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.vt-evidence-verify-page .verify-return a:hover {
+  color: var(--accent-hover) !important;
+  text-decoration: underline;
+}
+
+/* Check Strip — Placed well below the fold so user scrolls to see it without cutting */
+html body.vt-evidence-verify-page .verify-check-strip {
+  display: flex !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  margin-top: clamp(85px, 12vh, 125px) !important;
+  padding-top: 22px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html body.vt-evidence-verify-page .verify-check-strip span {
+  padding: 6px 13px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 5px !important;
+  background: rgba(30, 30, 30, 0.65) !important;
+  color: var(--text-secondary) !important;
+  font: 500 11px var(--font-mono, 'IBM Plex Mono', monospace) !important;
+  letter-spacing: 0.05em !important;
+  transition: all 0.2s ease !important;
+}
+
+html body.vt-evidence-verify-page .verify-check-strip span:hover {
+  border-color: var(--accent-border) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Footer (aligned visual treatment to index.html) */
+html body.vt-evidence-verify-page > .vt-site-footer {
+  position: relative !important;
+  margin-top: 56px !important;
+  background: #11111185 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 960px) {
+  .vt-evidence-verify-page .verify-hero {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .vt-evidence-verify-page .verify-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  html body.vt-evidence-verify-page .verify-shell {
+    width: calc(100% - 32px) !important;
+    padding-top: 88px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .vt-evidence-verify-page .verify-boundary {
+    grid-template-columns: 1fr !important;
+    gap: 6px 0 !important;
+  }
+  
+  .vt-evidence-verify-page .verify-file {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  
+  .vt-evidence-verify-page .verify-actions {
+    flex-direction: column !important;
+  }
+  
+  .vt-evidence-verify-page .btn-primary,
+  .vt-evidence-verify-page .btn-secondary {
+    width: 100% !important;
+  }
+}

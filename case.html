@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta name="theme-color" content="#111111"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<title>Case review | VeriTrust Lab</title>
+<meta content="Inspect VeriTrust Lab case evidence and record an analyst decision." name="description"/>
+<meta content="noindex, nofollow" name="robots"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<link href="/assets/css/pages/case-workflow.css" rel="stylesheet"/>
+<link href="/assets/css/pages/workspace-sih.css?v=20260915-2" rel="stylesheet"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<script defer="" src="/assets/js/pages/cases.js"></script>
+  <link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui2">
+</head>
+<body class="dashboard-is-loading vt-dashboard-page vt-graphite-theme">
+<header class="tool-header-shell vt-page-header vt-site-header">
+  <div class="tool-header-inner">
+    <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust Lab" class="tool-header-word"></a>
+    <nav class="tool-header-links" aria-label="Primary navigation">
+      <a href="/">Home</a><a href="/phishing">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
+    </nav>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard active" aria-current="page">Dashboard</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+  </div>
+</header>
+<main class="dashboard-shell workspace-page" data-case-detail="">
+<p class="case-back"><a href="cases.html">← Back to case queue</a></p>
+<section class="dashboard-head case-detail-head"><div><p class="eyebrow" data-case-display="">Contextual case review</p><h1 data-case-title="">Loading case.</h1><p class="lead" data-case-status="">Loading evidence and decision history.</p></div><div class="case-head-badges" data-case-badges=""></div></section>
+<nav aria-label="Workspace" class="workspace-nav"><a href="/dashboard">Overview</a><a href="/api-access">API Access</a><a href="/billing">Usage &amp; Limits</a><a href="/account">Account</a></nav>
+<section class="case-detail-grid">
+<div class="case-main-column">
+<article class="dashboard-panel"><div class="panel-title"><div><h2>Evidence</h2><p>Normalized signals with source and model provenance. Select the evidence used in your decision.</p></div></div><div aria-live="polite" data-case-evidence=""></div></article>
+<article class="dashboard-panel"><div class="panel-title"><div><h2>Decision history</h2><p>Machine assessments and recorded analyst decisions are presented separately.</p></div></div><div class="case-timeline" data-case-decisions=""></div></article>
+<article class="dashboard-panel"><div class="panel-title"><div><h2>Audit timeline</h2><p>Workflow changes and decisions for this case.</p></div></div><div class="case-audit" data-case-events=""></div></article>
+</div>
+<aside class="case-side-column">
+<article class="dashboard-panel case-workflow-panel"><div class="panel-title"><div><h2>Workflow</h2><p data-case-access="">Checking analyst access.</p></div></div><div data-case-workflow=""></div></article>
+<article class="dashboard-panel" data-analyst-panel=""><div class="panel-title"><div><h2>Analyst decision</h2><p>Use the evidence selection, state uncertainty explicitly, and explain the rationale.</p></div></div>
+<form class="case-decision-form" data-case-decision-form="">
+<label>Outcome<select name="outcome" required=""><option value="">Select outcome</option><option value="safe">No confirmed threat</option><option value="suspicious">Suspicious</option><option value="malicious">Malicious</option><option value="manipulated">Manipulated</option><option value="inconclusive">Inconclusive</option></select></label>
+<label>Risk level<select name="risk_level" required=""><option value="unknown">Unknown</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option><option value="critical">Critical</option></select></label>
+<label>Rationale<textarea maxlength="8000" minlength="4" name="rationale" placeholder="Explain what the evidence supports, important uncertainty, and the action you recommend." required="" rows="6"></textarea></label>
+<p class="case-form-note" data-evidence-selection="">0 evidence items selected.</p>
+<button class="btn btn-primary" type="submit">Record analyst decision</button>
+</form>
+</article>
+</aside>
+</section>
+</main>
+<footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust Lab.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
+</body>
+</html>

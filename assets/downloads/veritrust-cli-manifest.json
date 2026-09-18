@@ -1,0 +1,31 @@
+{
+  "product": "VeriTrust Lab Trusted SMTP Demo",
+  "version": "2.1.0",
+  "release_model": "single version-matched package",
+  "api_origin": {
+    "default": "https://www.veritrustlab.in",
+    "override_env": "VERITRUST_API_BASE_URL"
+  },
+  "receiver_script": {
+    "path": "/assets/powershell/VeriTrust-Receiver-CLI.ps1",
+    "sha256": "b803309c5a2b9e2f64044ce94d7457d1b2dc961231d1898537ed56d552f71157"
+  },
+  "sender_script": {
+    "path": "/assets/powershell/VeriTrust-Sender-CLI.ps1",
+    "sha256": "d9be41b6b7b5f304267db2c1094d90e8bb8c24901d6d53e432e39f4ab6f1ebb6"
+  },
+  "package": {
+    "path": "/assets/downloads/VeriTrust-Lab-Persistent-CLI.zip",
+    "sha256": "cc0bdf14785e527c2bfed4f24b444bc84fdd9a4deeca6a2f6e31f05300f5a46b",
+    "contains_matching_mail_gateway_runtime": true
+  },
+  "smtp_runtime": {
+    "path": "/assets/downloads/VeriTrust-SMTP-Gateway-Runtime.zip",
+    "sha256": "466df4882c4003da57e058ded59a4c54eb5fe43e974679d1eac1a7b7e95afffd",
+    "packaged_inside_complete_demo_zip": true
+  },
+  "logo": {
+    "path": "/assets/images/veritrust-live-cli-logo.png",
+    "sha256": "dc9b54e2421fb162fba830ff3908ede33cbe546c673d6f9ac9145eebd5108e08"
+  }
+}

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta name="theme-color" content="#111111"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/favicon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Forensic Evidence Details | VeriTrust Lab</title>
+<meta content="Review a completed VeriTrust Lab email investigation through focused evidence-acquisition, infrastructure, campaign-correlation, and cryptographic-integrity tabs." name="description"/>
+<meta content="noindex, nofollow" name="robots"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/assets/css/base/veritrust.css" rel="stylesheet"/>
+<link href="/assets/css/base/tool-pages.css" rel="stylesheet"/>
+<link href="/assets/css/base/graphite-orange-theme.css" rel="stylesheet"/>
+<link href="/assets/css/pages/email-investigation.css?v=20260914-tabs" rel="stylesheet"/>
+<link href="/assets/css/pages/analysis-workspace.css" rel="stylesheet"/>
+<link href="/assets/css/pages/email-investigation-final.css?v=20260914-tabs" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/base/product-unified.css?v=20260915-ui3"/>
+<link rel="stylesheet" href="/assets/css/pages/phishing-result-sih.css?v=20260918-geotrace1"/>
+<script src="/assets/js/core/config.js"></script>
+<script defer="" src="/assets/js/core/supabase-client.js"></script>
+<script defer="" src="/assets/js/core/site.js"></script>
+<script defer="" src="/assets/js/core/reporting.js"></script>
+<script defer="" src="/assets/js/core/result-dialog.js"></script>
+<script defer="" src="/assets/js/core/email-report-pdf.js?v=20260915-final2"></script>
+<script defer="" src="/assets/js/core/analysis-result.js"></script>
+<script defer="" src="/assets/js/core/analysis-progress.js"></script>
+<script defer="" src="/assets/js/pages/email-investigation.js?v=20260915-final3"></script>
+
+<style id="vt-phishing-result-inline-sih">
+  html, html:has(.vt-email-result-page) {
+    background-color: #111111 !important;
+    background: #111111 !important;
+  }
+  html body.vt-email-result-page,
+  body.vt-email-result-page {
+    background-color: #111111 !important;
+    background: #111111 !important;
+    color: #f2f5f6 !important;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    position: relative !important;
+    isolation: isolate !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Fixed Glass Header — Aligned visual treatment to index.html */
+  .vt-email-result-page .vt-site-header,
+  body.vt-email-result-page .vt-site-header,
+  body.vt-email-result-page .tool-header-shell {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 100 !important;
+    height: 72px !important;
+    max-height: 72px !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(28, 28, 28, 0.94) !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .vt-email-result-page .vt-site-header .tool-header-inner,
+  body.vt-email-result-page .tool-header-shell .tool-header-inner {
+    width: min(100%, 1420px) !important;
+    max-width: 1420px !important;
+    height: 100% !important;
+    margin-inline: auto !important;
+    padding-inline: clamp(20px, 2.5vw, 36px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: clamp(18px, 3vw, 38px) !important;
+  }
+  .vt-email-result-page .tool-header-brand {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.3rem !important;
+    text-decoration: none !important;
+    flex: 0 1 auto !important;
+    width: auto !important;
+    max-width: 198px !important;
+  }
+  .vt-email-result-page .tool-header-mark {
+    width: auto !important;
+    max-width: 36px !important;
+    height: 32px !important;
+    object-fit: contain !important;
+  }
+  .vt-email-result-page .tool-header-word {
+    width: auto !important;
+    max-width: 160px !important;
+    height: 19.5px !important;
+    margin-top: 2px !important;
+    object-fit: contain !important;
+  }
+  .vt-email-result-page .tool-header-links {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    gap: clamp(18px, 2.4vw, 30px) !important;
+  }
+  .vt-email-result-page .tool-header-links a {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 0 !important;
+    color: #ababab !important;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 0.82rem !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    transition: color 0.15s ease !important;
+  }
+  .vt-email-result-page .tool-header-links a:hover {
+    color: #68ded3 !important;
+  }
+  .vt-email-result-page .tool-header-links a[href="/phishing"],
+  .vt-email-result-page .tool-header-links a.active {
+    color: #68ded3 !important;
+    font-weight: 600 !important;
+  }
+  .vt-email-result-page .tool-header-links a.active::after {
+    display: none !important;
+  }
+  .vt-email-result-page .tool-header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex: 0 0 auto !important;
+    margin-left: 0 !important;
+  }
+  .vt-email-result-page :where(.tool-header-login, .tool-header-dashboard),
+  .vt-email-result-page .tool-header-actions :where(.tool-header-login, .tool-header-dashboard) {
+    min-height: 40px !important;
+    padding: 0.5rem 0.9rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 4px !important;
+    background: rgba(44, 44, 44, 0.6) !important;
+    color: #f2f5f6 !important;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: 0.82rem !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.15s ease !important;
+  }
+  .vt-email-result-page :where(.tool-header-login, .tool-header-dashboard):hover,
+  .vt-email-result-page .tool-header-actions :where(.tool-header-login, .tool-header-dashboard):hover {
+    border-color: rgba(255, 255, 255, 0.24) !important;
+    background: rgba(60, 60, 60, 0.75) !important;
+    color: #ffffff !important;
+  }
+  .vt-email-result-page .tool-menu-toggle {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 10px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #f2f5f6 !important;
+  }
+
+  /* Page Shell & Zero Unwanted Spacing */
+  .vt-email-result-page .email-result-page-shell,
+  body.vt-email-result-page .email-result-page-shell {
+    flex: 1 0 auto !important;
+    width: min(1180px, calc(100% - 64px)) !important;
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    padding-top: clamp(114px, 14vh, 126px) !important;
+    padding-bottom: 56px !important;
+    overflow: visible !important;
+  }
+
+  /* Heading Section — Aligned visual treatment to Investigate / Index */
+  .vt-email-result-page .email-result-page-heading,
+  body.vt-email-result-page .email-result-page-heading {
+    margin-top: 6px !important;
+    margin-bottom: 18px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 24px !important;
+    padding-bottom: 0 !important;
+  }
+  .vt-email-result-page .analysis-section-label,
+  body.vt-email-result-page .analysis-section-label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin: 0 0 10px 0 !important;
+    padding: 5px 12px !important;
+    border: 1px solid rgba(104, 222, 211, 0.28) !important;
+    border-radius: 5px !important;
+    background: rgba(104, 222, 211, 0.08) !important;
+    color: #68ded3 !important;
+    font: 500 11px/1.6 'IBM Plex Mono', monospace !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+  }
+  .vt-email-result-page .home-status-dot,
+  body.vt-email-result-page .home-status-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #8deadd !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.26) !important;
+    flex-shrink: 0 !important;
+    display: inline-block !important;
+  }
+  .vt-email-result-page .email-result-page-heading h1,
+  body.vt-email-result-page .email-result-page-heading h1 {
+    margin: 0 0 8px 0 !important;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: clamp(28px, 3vw, 38px) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.04em !important;
+    font-weight: 600 !important;
+    color: #f2f5f6 !important;
+    text-wrap: balance !important;
+  }
+  .vt-email-result-page .email-result-page-heading p:last-child,
+  body.vt-email-result-page .email-result-page-heading p:last-child {
+    margin: 0 !important;
+    color: #c2c2c2 !important;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    max-width: 680px !important;
+  }
+
+  /* Actions in Heading */
+  .vt-email-result-page .email-result-page-actions,
+  body.vt-email-result-page .email-result-page-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-shrink: 0 !important;
+  }
+  .vt-email-result-page .email-result-page-actions a,
+  body.vt-email-result-page .email-result-page-actions a,
+  .vt-email-result-page .btn,
+  body.vt-email-result-page .btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 40px !important;
+    padding: 0.55rem 1.15rem !important;
+    border-radius: 6px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+  .vt-email-result-page .btn-primary,
+  body.vt-email-result-page a.btn-primary,
+  .vt-email-result-page .email-result-page-actions a:first-child,
+  body.vt-email-result-page .email-result-page-actions a:first-child {
+    background: #72e2d6 !important;
+    color: #102e2a !important;
+    border: 1px solid #72e2d6 !important;
+    box-shadow: 0 4px 20px rgba(114, 226, 214, 0.25) !important;
+  }
+  .vt-email-result-page .btn-primary:hover,
+  body.vt-email-result-page a.btn-primary:hover,
+  .vt-email-result-page .email-result-page-actions a:first-child:hover,
+  body.vt-email-result-page .email-result-page-actions a:first-child:hover {
+    background: #a0f0e7 !important;
+    border-color: #a0f0e7 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 26px rgba(114, 226, 214, 0.35) !important;
+  }
+  .vt-email-result-page .btn-secondary,
+  body.vt-email-result-page a.btn-secondary,
+  .vt-email-result-page .email-result-page-actions a:last-child,
+  body.vt-email-result-page .email-result-page-actions a:last-child {
+    color: #e0e8eb !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    background: rgba(38, 38, 38, 0.8) !important;
+  }
+  .vt-email-result-page .btn-secondary:hover,
+  body.vt-email-result-page a.btn-secondary:hover,
+  .vt-email-result-page .email-result-page-actions a:last-child:hover,
+  body.vt-email-result-page .email-result-page-actions a:last-child:hover {
+    border-color: #9cdad3 !important;
+    transform: translateY(-2px) !important;
+    background: rgba(50, 50, 50, 0.9) !important;
+  }
+
+  /* Activity Log & Spacing Collapse */
+  .vt-email-result-page #activityLog,
+  body.vt-email-result-page #activityLog,
+  body.vt-email-result-page .email-result-load-status {
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 11px !important;
+    color: #8deadd !important;
+    margin: 4px 0 12px !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+  .vt-email-result-page #activityLog:empty,
+  body.vt-email-result-page #activityLog:empty,
+  body.vt-email-result-page .email-result-load-status:empty {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    border: 0 !important;
+  }
+
+  .vt-email-result-page .email-result-shell,
+  body.vt-email-result-page .email-result-shell,
+  .vt-email-result-page .analysis-report,
+  body.vt-email-result-page .analysis-report {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Decision Snapshot Badges */
+  .vt-email-result-page .email-detail-snapshot,
+  body.vt-email-result-page .email-detail-snapshot {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 0 14px 0 !important;
+    margin: 0 0 16px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  .vt-email-result-page .email-detail-snapshot > :where(strong, span),
+  body.vt-email-result-page .email-detail-snapshot > :where(strong, span) {
+    min-height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 5px 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 6px !important;
+    background: rgba(32, 32, 36, 0.75) !important;
+    color: #c2c2c2 !important;
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.03em !important;
+    backdrop-filter: blur(8px) !important;
+  }
+
+  /* Capability Tabs */
+  .vt-email-result-page .email-usp-tabs,
+  body.vt-email-result-page .email-usp-tabs {
+    position: sticky !important;
+    top: 80px !important;
+    z-index: 20 !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    margin: 0 0 20px !important;
+    padding: 6px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 8px !important;
+    background: rgba(28, 28, 28, 0.94) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  }
+  .vt-email-result-page .email-usp-tab,
+  body.vt-email-result-page .email-usp-tab {
+    min-height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 6px 14px !important;
+    border: 0 !important;
+    border-radius: 6px !important;
+    background: transparent !important;
+    color: #c2c2c2 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.16s ease !important;
+  }
+  .vt-email-result-page .email-usp-tab:hover,
+  body.vt-email-result-page .email-usp-tab:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #f2f5f6 !important;
+  }
+  .vt-email-result-page .email-usp-tab[aria-selected="true"],
+  .vt-email-result-page .email-usp-tab.is-active,
+  body.vt-email-result-page .email-usp-tab[aria-selected="true"],
+  body.vt-email-result-page .email-usp-tab.is-active {
+    background: rgba(104, 222, 211, 0.14) !important;
+    color: #68ded3 !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(104, 222, 211, 0.28) !important;
+  }
+
+  /* Fallback / Error Hero Card */
+  .vt-email-result-page .email-result-hero,
+  body.vt-email-result-page .email-result-hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr) !important;
+    gap: 24px !important;
+    align-items: center !important;
+    padding: 24px 28px !important;
+    border: 1px solid rgba(204, 204, 204, 0.16) !important;
+    border-radius: 10px !important;
+    background: linear-gradient(140deg, rgba(59, 59, 59, 0.44), rgba(44, 44, 44, 0.49)) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.07) !important;
+    margin: 0 0 24px !important;
+  }
+  .vt-email-result-page .email-result-kicker,
+  body.vt-email-result-page .email-result-kicker {
+    color: #68ded3 !important;
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    margin: 0 0 8px !important;
+  }
+  .vt-email-result-page .email-result-hero h2,
+  body.vt-email-result-page .email-result-hero h2 {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: clamp(20px, 2.2vw, 26px) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.03em !important;
+    color: #f2f5f6 !important;
+    margin: 0 0 10px !important;
+    line-height: 1.25 !important;
+  }
+  .vt-email-result-page .email-result-hero p,
+  body.vt-email-result-page .email-result-hero p {
+    color: #c2c2c2 !important;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+    font-size: 13.5px !important;
+    line-height: 1.65 !important;
+    margin: 0 0 16px !important;
+  }
+  .vt-email-result-page .email-result-actions,
+  body.vt-email-result-page .email-result-actions {
+    display: flex !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+  }
+  .vt-email-result-page .email-result-decision,
+  body.vt-email-result-page .email-result-decision {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .vt-email-result-page .email-result-decision > div,
+  body.vt-email-result-page .email-result-decision > div {
+    padding: 14px 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    background: rgba(32, 32, 36, 0.65) !important;
+    backdrop-filter: blur(8px) !important;
+  }
+  .vt-email-result-page .email-result-decision span,
+  body.vt-email-result-page .email-result-decision span {
+    display: block !important;
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 10px !important;
+    color: #ababab !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 4px !important;
+  }
+  .vt-email-result-page .email-result-decision strong,
+  body.vt-email-result-page .email-result-decision strong {
+    display: block !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #f2f5f6 !important;
+    margin-bottom: 2px !important;
+  }
+  .vt-email-result-page .email-result-decision small,
+  body.vt-email-result-page .email-result-decision small {
+    display: block !important;
+    font-size: 11px !important;
+    color: #c2c2c2 !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Footer — Aligned visual treatment to index.html */
+  .vt-email-result-page .vt-site-footer,
+  body.vt-email-result-page .vt-site-footer {
+    position: relative !important;
+    margin-top: auto !important;
+    width: 100% !important;
+    background: #11111185 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 20px clamp(16px, 3vw, 28px) 22px !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+  .vt-email-result-page .vt-site-footer-bottom,
+  body.vt-email-result-page .vt-site-footer-bottom {
+    width: min(100%, 1240px) !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 20px !important;
+    border-top: 0 !important;
+    padding: 0 !important;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 0.75rem !important;
+    color: #ababab !important;
+    line-height: 1.5 !important;
+  }
+  .vt-email-result-page .vt-site-footer-bottom span,
+  body.vt-email-result-page .vt-site-footer-bottom span {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 0.75rem !important;
+    color: #ababab !important;
+    line-height: 1.5 !important;
+  }
+</style>
+</head>
+<body class="vt-tool-page vt-graphite-theme vt-email-investigation vt-email-result-page vt-email-has-result">
+  <!-- Decorative layers matching index.html visual atmosphere -->
+  <div class="vt-home-bg-effects" aria-hidden="true">
+    <div class="vt-bg-spotlight-hero"></div>
+    <div class="vt-bg-spotlight-mid"></div>
+    <div class="vt-bg-spotlight-acq"></div>
+    <div class="vt-bg-spotlight-bottom"></div>
+    <div class="vt-bg-beam"></div>
+  </div>
+<header class="tool-header-shell vt-page-header vt-site-header">
+  <div class="tool-header-inner">
+    <a href="/" class="tool-header-brand" aria-label="VeriTrust Lab home"><img src="/assets/images/logo.png" alt="" class="tool-header-mark"><img src="/assets/images/brand.png" alt="VeriTrust Lab" class="tool-header-word"></a>
+    <nav class="tool-header-links" aria-label="Primary navigation">
+      <a href="/">Home</a><a href="/phishing" class="active" aria-current="page">Investigate</a><a href="/gateway-powershell#live-smtp">Live SMTP</a><a href="/verify-evidence">Verify Evidence</a>
+    </nav>
+    <div class="tool-header-actions"><a href="/auth" class="tool-header-login">Log in</a><a href="/dashboard" class="tool-header-dashboard">Dashboard</a><button class="tool-menu-toggle" aria-label="Open page menu" aria-expanded="false" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg></button></div>
+  </div>
+</header>
+<main class="tool-shell email-result-page-shell" data-email-result-page>
+<section class="email-result-page-heading">
+<div><p class="analysis-section-label"><span class="home-status-dot" aria-hidden="true"></span> FORENSIC EVIDENCE WORKSPACE</p><h1>Forensic evidence</h1><p>Inspect the evidence acquisition, infrastructure provenance, campaign correlation, and signed evidence package for this investigation.</p></div>
+<div class="email-result-page-actions"><a class="btn btn-primary" href="/phishing">New investigation</a><a class="btn btn-secondary" href="/dashboard">Dashboard</a></div>
+</section>
+<p class="analysis-secondary-status email-result-load-status" id="activityLog" role="status">Loading the saved investigation...</p>
+<section aria-labelledby="emailResultTitle" aria-live="polite" class="email-result-shell analysis-report" id="emailInvestigationResult" tabindex="-1">
+<div class="email-result-content" id="phishingResult">
+<div class="email-result-loading" role="status" aria-live="polite"><span aria-hidden="true"></span><div><strong>Loading investigation</strong><small>Retrieving investigation evidence and decision data.</small></div></div>
+</div>
+</section>
+</main>
+<div class="email-help-tooltip" hidden="" id="emailHelpTooltip" role="tooltip"></div>
+<footer class="vt-site-footer"><div class="vt-site-footer-bottom"><span>&copy; 2026 VeriTrust Lab.</span><span>Infrastructure location is approximate and does not identify a person.</span></div></footer>
+</body>
+</html>

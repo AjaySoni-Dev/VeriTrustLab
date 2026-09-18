@@ -1,0 +1,1164 @@
+/* --------------------------------------------------------------------------
+   VeriTrust Lab — Phishing Result (Forensic Evidence) Harmonized Theme
+   Aligned visual treatment to landing page (index.html) visual system:
+   - Fixed glass header (exact logo sizing, gap, text size, font family, link positions, action buttons)
+   - Atmospheric spotlight background (hero, mid, acq, bottom, beam)
+   - Zero unwanted spacing: collapsed empty activityLog, balanced top/bottom padding
+   - Heading, eyebrow typography & status dot aligned visual treatment to index & investigate
+   - Fixed bottom site footer with exact text size, font family, and colors
+   - Dark glass morphism card aesthetic for all tabs, ladders, maps, and heroes
+   -------------------------------------------------------------------------- */
+
+html:has(.vt-email-result-page),
+html.vt-email-result-html,
+html {
+  background-color: #111111 !important;
+  background: #111111 !important;
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+html body.vt-email-result-page,
+body.vt-email-result-page,
+body.vt-email-investigation.vt-email-result-page {
+  --home-max-width: 1180px;
+  --accent-main: #68ded3;
+  --accent-hover: #a0f0e7;
+  --accent-soft: rgba(104, 222, 211, 0.08);
+  --accent-border: rgba(104, 222, 211, 0.28);
+  --text-primary: #f2f5f6;
+  --text-secondary: #c2c2c2;
+  --text-tertiary: #ababab;
+  --header-bg: rgba(17, 17, 17, 0.94);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --card-bg: linear-gradient(140deg, rgba(59, 59, 59, 0.44), rgba(44, 44, 44, 0.49));
+  --card-border: 1px solid rgba(204, 204, 204, 0.16);
+  --card-radius: 10px;
+
+  position: relative;
+  isolation: isolate;
+  background-color: #111111 !important;
+  background: #111111 !important;
+  background-image: none !important;
+  color: #f2f5f6 !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.65 !important;
+  min-height: 100vh !important;
+  overflow-x: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Atmospheric Spotlight Background (aligned visual treatment to index.html) */
+.vt-email-result-page .vt-home-bg-effects {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.vt-email-result-page .vt-bg-spotlight-hero {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1050px;
+  background: radial-gradient(ellipse at 80% 28%, rgba(255, 255, 255, 0.045), transparent 52%),
+              radial-gradient(ellipse at 0 12%, rgba(255, 255, 255, 0.045), transparent 50%);
+}
+
+.vt-email-result-page .vt-bg-spotlight-mid {
+  position: absolute;
+  top: 32%;
+  left: -25%;
+  width: 90%;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.045), transparent 65%);
+}
+
+.vt-email-result-page .vt-bg-spotlight-acq {
+  position: absolute;
+  top: 62%;
+  right: -30%;
+  width: 95%;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.035), transparent 65%);
+}
+
+.vt-email-result-page .vt-bg-spotlight-bottom {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 650px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 255, 255, 0.05), transparent 65%);
+}
+
+.vt-email-result-page .vt-bg-beam {
+  position: absolute;
+  top: 72px;
+  inset-inline: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+}
+
+/* ==========================================================================
+   Fixed Header — Aligned visual treatment to index.html
+   ========================================================================== */
+html body.vt-email-result-page .vt-site-header,
+body.vt-email-result-page .vt-site-header,
+body.vt-email-result-page .tool-header-shell {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+  height: 72px !important;
+  max-height: 72px !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(28, 28, 28, 0.94) !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+html body.vt-email-result-page .vt-site-header .tool-header-inner,
+html body.vt-email-result-page .tool-header-shell .tool-header-inner {
+  width: min(100%, 1420px) !important;
+  max-width: 1420px !important;
+  height: 100% !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(20px, 2.5vw, 36px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: clamp(18px, 3vw, 38px) !important;
+}
+
+html body.vt-email-result-page .tool-header-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  text-decoration: none !important;
+  flex: 0 1 auto !important;
+  width: auto !important;
+  max-width: 198px !important;
+}
+
+html body.vt-email-result-page .tool-header-mark {
+  width: auto !important;
+  max-width: 36px !important;
+  height: 32px !important;
+  object-fit: contain !important;
+}
+
+html body.vt-email-result-page .tool-header-word {
+  width: auto !important;
+  max-width: 160px !important;
+  height: 19.5px !important;
+  margin-top: 2px !important;
+  object-fit: contain !important;
+}
+
+html body.vt-email-result-page .tool-header-links {
+  display: flex !important;
+  align-items: center !important;
+  margin-left: auto !important;
+  gap: clamp(18px, 2.4vw, 30px) !important;
+}
+
+html body.vt-email-result-page .tool-header-links a {
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 0 !important;
+  color: var(--text-tertiary, #ababab) !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 0.82rem !important;
+  line-height: 1.2 !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease !important;
+}
+
+html body.vt-email-result-page .tool-header-links a:hover {
+  color: var(--accent-main, #68ded3) !important;
+}
+
+html body.vt-email-result-page .tool-header-links a[href="/phishing"],
+html body.vt-email-result-page .tool-header-links a.active {
+  color: #68ded3 !important;
+  font-weight: 600 !important;
+}
+
+html body.vt-email-result-page .tool-header-links a.active::after {
+  display: none !important;
+}
+
+html body.vt-email-result-page .tool-header-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex: 0 0 auto !important;
+  margin-left: 0 !important;
+}
+
+html body.vt-email-result-page :where(.tool-header-login, .tool-header-dashboard),
+html body.vt-email-result-page .tool-header-actions :where(.tool-header-login, .tool-header-dashboard) {
+  min-height: 40px !important;
+  padding: 0.5rem 0.9rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 4px !important;
+  background: rgba(44, 44, 44, 0.6) !important;
+  color: var(--text-primary, #f2f5f6) !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 0.82rem !important;
+  line-height: 1.2 !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.15s ease !important;
+}
+
+html body.vt-email-result-page :where(.tool-header-login, .tool-header-dashboard):hover,
+html body.vt-email-result-page .tool-header-actions :where(.tool-header-login, .tool-header-dashboard):hover {
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  background: rgba(60, 60, 60, 0.75) !important;
+  color: #ffffff !important;
+}
+
+html body.vt-email-result-page .tool-menu-toggle {
+  min-width: 44px !important;
+  min-height: 44px !important;
+  padding: 10px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f2f5f6 !important;
+}
+
+/* ==========================================================================
+   Page Shell & Structure — Clean, Balanced, No Unwanted Spacing
+   ========================================================================== */
+html body.vt-email-result-page .email-result-page-shell,
+body.vt-email-result-page .email-result-page-shell {
+  flex: 1 0 auto !important;
+  width: min(var(--home-max-width, 1180px), calc(100% - 64px)) !important;
+  max-width: var(--home-max-width, 1180px) !important;
+  margin: 0 auto !important;
+  padding-top: clamp(114px, 14vh, 126px) !important;
+  padding-bottom: 56px !important;
+  overflow: visible !important;
+}
+
+/* Heading Section — Aligned visual treatment to Investigate / Index */
+html body.vt-email-result-page .email-result-page-heading,
+body.vt-email-result-page .email-result-page-heading {
+  margin-top: 6px !important;
+  margin-bottom: 18px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  padding-bottom: 0 !important;
+}
+
+html body.vt-email-result-page .analysis-section-label,
+body.vt-email-result-page .analysis-section-label,
+body.vt-email-result-page p.analysis-section-label {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 0 10px 0 !important;
+  padding: 5px 12px !important;
+  border: 1px solid rgba(104, 222, 211, 0.28) !important;
+  border-radius: 5px !important;
+  background: rgba(104, 222, 211, 0.08) !important;
+  color: #68ded3 !important;
+  font: 500 11px/1.6 'IBM Plex Mono', monospace !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+html body.vt-email-result-page .home-status-dot,
+body.vt-email-result-page .home-status-dot {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: #8deadd !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.26) !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+}
+
+html body.vt-email-result-page .email-result-page-heading h1,
+body.vt-email-result-page .email-result-page-heading h1 {
+  margin: 0 0 8px 0 !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+  font-size: clamp(28px, 3vw, 38px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.04em !important;
+  font-weight: 600 !important;
+  color: #f2f5f6 !important;
+  text-wrap: balance !important;
+}
+
+html body.vt-email-result-page .email-result-page-heading p:last-child,
+body.vt-email-result-page .email-result-page-heading p:last-child {
+  margin: 0 !important;
+  color: #c2c2c2 !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  max-width: 680px !important;
+}
+
+/* Actions in Heading */
+html body.vt-email-result-page .email-result-page-actions,
+body.vt-email-result-page .email-result-page-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-shrink: 0 !important;
+}
+
+html body.vt-email-result-page .email-result-page-actions a,
+body.vt-email-result-page .email-result-page-actions a,
+html body.vt-email-result-page .btn,
+body.vt-email-result-page .btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 40px !important;
+  padding: 0.55rem 1.15rem !important;
+  border-radius: 6px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+html body.vt-email-result-page .btn-primary,
+html body.vt-email-result-page a.btn-primary,
+html body.vt-email-result-page .email-result-page-actions a:first-child,
+body.vt-email-result-page .email-result-page-actions a:first-child {
+  background: #72e2d6 !important;
+  color: #102e2a !important;
+  border: 1px solid #72e2d6 !important;
+  box-shadow: 0 4px 20px rgba(114, 226, 214, 0.25) !important;
+}
+
+html body.vt-email-result-page .btn-primary:hover,
+html body.vt-email-result-page a.btn-primary:hover,
+html body.vt-email-result-page .email-result-page-actions a:first-child:hover,
+body.vt-email-result-page .email-result-page-actions a:first-child:hover {
+  background: #a0f0e7 !important;
+  border-color: #a0f0e7 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 26px rgba(114, 226, 214, 0.35) !important;
+}
+
+html body.vt-email-result-page .btn-secondary,
+html body.vt-email-result-page a.btn-secondary,
+html body.vt-email-result-page .email-result-page-actions a:last-child,
+body.vt-email-result-page .email-result-page-actions a:last-child {
+  color: #e0e8eb !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(38, 38, 38, 0.8) !important;
+}
+
+html body.vt-email-result-page .btn-secondary:hover,
+html body.vt-email-result-page a.btn-secondary:hover,
+html body.vt-email-result-page .email-result-page-actions a:last-child:hover,
+body.vt-email-result-page .email-result-page-actions a:last-child:hover {
+  border-color: #9cdad3 !important;
+  transform: translateY(-2px) !important;
+  background: rgba(50, 50, 50, 0.9) !important;
+}
+
+/* Status text & Unwanted Gap Elimination */
+html body.vt-email-result-page #activityLog,
+body.vt-email-result-page #activityLog,
+body.vt-email-result-page .email-result-load-status {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: 11px !important;
+  color: #8deadd !important;
+  margin: 4px 0 12px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+
+html body.vt-email-result-page #activityLog:empty,
+body.vt-email-result-page #activityLog:empty,
+body.vt-email-result-page .email-result-load-status:empty {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+}
+
+/* Result Section Reset */
+html body.vt-email-result-page .email-result-shell,
+body.vt-email-result-page .email-result-shell,
+html body.vt-email-result-page .analysis-report,
+body.vt-email-result-page .analysis-report {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Decision Snapshot Badges */
+html body.vt-email-result-page .email-detail-snapshot,
+body.vt-email-result-page .email-detail-snapshot {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 0 0 14px 0 !important;
+  margin: 0 0 16px 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html body.vt-email-result-page .email-detail-snapshot > :where(strong, span),
+body.vt-email-result-page .email-detail-snapshot > :where(strong, span) {
+  min-height: 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 5px 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 6px !important;
+  background: rgba(32, 32, 36, 0.75) !important;
+  color: var(--text-secondary, #c2c2c2) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+html body.vt-email-result-page .email-detail-verdict[data-state="LIKELY_PHISHING"] {
+  border-color: rgba(239, 68, 68, 0.45) !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  color: #fca5a5 !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.15) !important;
+}
+
+html body.vt-email-result-page .email-detail-verdict[data-state="LIKELY_BENIGN"] {
+  border-color: rgba(34, 197, 94, 0.45) !important;
+  background: rgba(34, 197, 94, 0.12) !important;
+  color: #86efac !important;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.15) !important;
+}
+
+html body.vt-email-result-page .email-detail-verdict[data-state="UNCERTAIN"],
+html body.vt-email-result-page .email-detail-verdict[data-state="UNSUPPORTED"] {
+  border-color: rgba(245, 158, 11, 0.45) !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #fde68a !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15) !important;
+}
+
+/* Capability Navigation Tabs */
+html body.vt-email-result-page .email-usp-tabs,
+body.vt-email-result-page .email-usp-tabs {
+  position: sticky !important;
+  top: 80px !important;
+  z-index: 20 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  margin: 0 0 20px !important;
+  padding: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 8px !important;
+  background: rgba(28, 28, 28, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+html body.vt-email-result-page .email-usp-tab,
+body.vt-email-result-page .email-usp-tab {
+  min-height: 38px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 14px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: var(--text-secondary, #c2c2c2) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  transition: all 0.16s ease !important;
+}
+
+html body.vt-email-result-page .email-usp-tab:hover,
+body.vt-email-result-page .email-usp-tab:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: var(--text-primary, #f2f5f6) !important;
+}
+
+html body.vt-email-result-page .email-usp-tab[aria-selected="true"],
+html body.vt-email-result-page .email-usp-tab.is-active,
+body.vt-email-result-page .email-usp-tab[aria-selected="true"],
+body.vt-email-result-page .email-usp-tab.is-active {
+  background: rgba(104, 222, 211, 0.14) !important;
+  color: var(--accent-main, #68ded3) !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(104, 222, 211, 0.28) !important;
+}
+
+/* Tab Panels & Capability Headers */
+html body.vt-email-result-page .email-usp-panel-header,
+body.vt-email-result-page .email-usp-panel-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 20px !important;
+  margin-bottom: 20px !important;
+}
+
+html body.vt-email-result-page .email-capability-heading h3,
+body.vt-email-result-page .email-capability-heading h3 {
+  margin: 0 0 6px !important;
+  font-size: clamp(20px, 2.3vw, 26px) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.03em !important;
+  color: #f2f5f6 !important;
+}
+
+html body.vt-email-result-page .email-capability-subtitle,
+body.vt-email-result-page .email-capability-subtitle {
+  margin: 0 !important;
+  color: var(--text-secondary, #c2c2c2) !important;
+  font-size: 13.5px !important;
+}
+
+html body.vt-email-result-page .email-usp-panel-state,
+body.vt-email-result-page .email-usp-panel-state {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 6px 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 6px !important;
+  background: rgba(30, 30, 34, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+html body.vt-email-result-page .email-usp-panel-state span,
+body.vt-email-result-page .email-usp-panel-state span {
+  color: var(--text-tertiary, #ababab) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 10px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+}
+
+html body.vt-email-result-page .email-usp-panel-state strong,
+body.vt-email-result-page .email-usp-panel-state strong {
+  color: var(--accent-main, #68ded3) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* Ladder Track (Acquisition Stages) */
+html body.vt-email-result-page .email-ladder-track,
+body.vt-email-result-page .email-ladder-track {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+  margin-bottom: 24px !important;
+}
+
+html body.vt-email-result-page .email-ladder-track article,
+body.vt-email-result-page .email-ladder-track article {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+  min-height: 84px !important;
+  padding: 18px !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  transition: all 0.2s ease !important;
+}
+
+html body.vt-email-result-page .email-ladder-track article > span,
+body.vt-email-result-page .email-ladder-track article > span {
+  display: grid !important;
+  place-items: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: var(--text-tertiary, #ababab) !important;
+  flex-shrink: 0 !important;
+}
+
+html body.vt-email-result-page .email-ladder-track article strong,
+body.vt-email-result-page .email-ladder-track article strong {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #f2f5f6 !important;
+}
+
+html body.vt-email-result-page .email-ladder-track article small,
+body.vt-email-result-page .email-ladder-track article small {
+  color: var(--text-secondary, #c2c2c2) !important;
+  font-size: 12px !important;
+  line-height: 1.55 !important;
+  display: block !important;
+  margin-top: 4px !important;
+}
+
+/* Current active ladder stage */
+html body.vt-email-result-page .email-ladder-track article[data-stage-state="current"],
+body.vt-email-result-page .email-ladder-track article[data-stage-state="current"] {
+  border-color: rgba(104, 222, 211, 0.5) !important;
+  background: linear-gradient(140deg, rgba(65, 78, 78, 0.55), rgba(40, 50, 50, 0.6)) !important;
+  box-shadow: 0 8px 30px rgba(104, 222, 211, 0.15) !important;
+}
+
+html body.vt-email-result-page .email-ladder-track article[data-stage-state="current"] > span,
+body.vt-email-result-page .email-ladder-track article[data-stage-state="current"] > span {
+  background: #72e2d6 !important;
+  border-color: #72e2d6 !important;
+  color: #102e2a !important;
+  box-shadow: 0 0 12px rgba(114, 226, 214, 0.45) !important;
+}
+
+/* Completed stage */
+html body.vt-email-result-page .email-ladder-track article[data-stage-state="complete"] > span,
+body.vt-email-result-page .email-ladder-track article[data-stage-state="complete"] > span {
+  border-color: rgba(74, 222, 128, 0.5) !important;
+  color: #4ade80 !important;
+  background: rgba(74, 222, 128, 0.12) !important;
+}
+
+/* Future stage */
+html body.vt-email-result-page .email-ladder-track article[data-stage-state="future"],
+body.vt-email-result-page .email-ladder-track article[data-stage-state="future"] {
+  opacity: 0.65 !important;
+}
+
+/* Section Headings inside Tab Panels */
+html body.vt-email-result-page .email-section-heading,
+body.vt-email-result-page .email-section-heading {
+  margin: 22px 0 14px !important;
+}
+
+html body.vt-email-result-page .email-section-heading h4,
+body.vt-email-result-page .email-section-heading h4 {
+  margin: 0 0 4px !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  color: #f2f5f6 !important;
+}
+
+html body.vt-email-result-page .email-section-heading p,
+body.vt-email-result-page .email-section-heading p {
+  margin: 0 !important;
+  color: var(--text-secondary, #c2c2c2) !important;
+  font-size: 12.5px !important;
+}
+
+/* Evidence Coverage Grid */
+html body.vt-email-result-page .email-evidence-grid,
+body.vt-email-result-page .email-evidence-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+html body.vt-email-result-page .email-evidence-grid article,
+html body.vt-email-result-page .email-evidence-grid > div,
+body.vt-email-result-page .email-evidence-grid article,
+body.vt-email-result-page .email-evidence-grid > div {
+  padding: 14px 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  background: rgba(30, 30, 34, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+html body.vt-email-result-page .email-evidence-grid span,
+body.vt-email-result-page .email-evidence-grid span {
+  display: block !important;
+  font-size: 10.5px !important;
+  color: #ababab !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  margin-bottom: 5px !important;
+}
+
+html body.vt-email-result-page .email-evidence-grid strong,
+body.vt-email-result-page .email-evidence-grid strong {
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #f2f5f6 !important;
+}
+
+html body.vt-email-result-page .email-evidence-grid strong[data-coverage="checked"],
+body.vt-email-result-page .email-evidence-grid strong[data-coverage="checked"] {
+  color: #4ade80 !important;
+}
+
+html body.vt-email-result-page .email-evidence-grid strong[data-coverage="limited"],
+html body.vt-email-result-page .email-evidence-grid strong[data-coverage="partial"],
+body.vt-email-result-page .email-evidence-grid strong[data-coverage="limited"],
+body.vt-email-result-page .email-evidence-grid strong[data-coverage="partial"] {
+  color: #fbbf24 !important;
+}
+
+/* Escalation & Next Action Banner */
+html body.vt-email-result-page .email-next-action-card,
+html body.vt-email-result-page .email-escalation-banner,
+html body.vt-email-result-page .email-evidence-upgrade,
+body.vt-email-result-page .email-next-action-card,
+body.vt-email-result-page .email-escalation-banner,
+body.vt-email-result-page .email-evidence-upgrade {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 20px !important;
+  margin-top: 24px !important;
+  padding: 20px 22px !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+html body.vt-email-result-page .email-next-action-card strong,
+html body.vt-email-result-page .email-escalation-banner strong,
+html body.vt-email-result-page .email-evidence-upgrade strong,
+body.vt-email-result-page .email-next-action-card strong,
+body.vt-email-result-page .email-escalation-banner strong,
+body.vt-email-result-page .email-evidence-upgrade strong {
+  display: block !important;
+  color: #f2f5f6 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  margin-bottom: 6px !important;
+}
+
+html body.vt-email-result-page .transport-pills span,
+html body.vt-email-result-page .email-unlock-list span,
+body.vt-email-result-page .transport-pills span,
+body.vt-email-result-page .email-unlock-list span {
+  display: inline-block !important;
+  margin-right: 6px !important;
+  padding: 3px 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 4px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 11px !important;
+  color: var(--text-secondary, #c2c2c2) !important;
+}
+
+/* GeoTrace Tab Styling */
+html body.vt-email-result-page .email-geotrace-map,
+body.vt-email-result-page .email-geotrace-map {
+  overflow: hidden !important;
+  min-height: 0 !important;
+  aspect-ratio: 2 / 1 !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background-color: rgba(16, 18, 22, 0.9) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35) !important;
+}
+
+html body.vt-email-result-page .email-hop-list,
+body.vt-email-result-page .email-hop-list {
+  display: grid !important;
+  gap: 10px !important;
+}
+
+html body.vt-email-result-page .email-hop-row,
+body.vt-email-result-page .email-hop-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 12px 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  background: rgba(30, 30, 34, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+html body.vt-email-result-page .email-hop-row span,
+body.vt-email-result-page .email-hop-row span {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  display: grid !important;
+  place-items: center !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: var(--text-primary, #f2f5f6) !important;
+}
+
+html body.vt-email-result-page .email-hop-row strong,
+body.vt-email-result-page .email-hop-row strong {
+  color: #f2f5f6 !important;
+  font-size: 13px !important;
+}
+
+html body.vt-email-result-page .email-hop-row small,
+body.vt-email-result-page .email-hop-row small {
+  color: var(--text-secondary, #c2c2c2) !important;
+  font-size: 12px !important;
+}
+
+/* Campaign Memory Tab Styling */
+html body.vt-email-result-page .email-campaign-summary,
+body.vt-email-result-page .email-campaign-summary {
+  padding: 18px 20px !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(10px) !important;
+  margin-bottom: 20px !important;
+}
+
+html body.vt-email-result-page .email-campaign-summary strong,
+body.vt-email-result-page .email-campaign-summary strong {
+  font-size: 14.5px !important;
+  color: #f2f5f6 !important;
+}
+
+html body.vt-email-result-page .email-campaign-summary span,
+body.vt-email-result-page .email-campaign-summary span {
+  color: var(--text-secondary, #c2c2c2) !important;
+  font-size: 12.5px !important;
+}
+
+html body.vt-email-result-page .email-campaign-entities article,
+body.vt-email-result-page .email-campaign-entities article {
+  padding: 14px 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  background: rgba(30, 30, 34, 0.65) !important;
+}
+
+/* Passport Tab Styling */
+html body.vt-email-result-page .email-passport-card,
+body.vt-email-result-page .email-passport-card {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  padding: 22px !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+html body.vt-email-result-page .email-passport-card > div,
+body.vt-email-result-page .email-passport-card > div {
+  padding: 14px 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  background: rgba(24, 26, 30, 0.65) !important;
+}
+
+html body.vt-email-result-page .email-passport-card span,
+body.vt-email-result-page .email-passport-card span {
+  display: block !important;
+  color: var(--text-tertiary, #ababab) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 10.5px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 6px !important;
+}
+
+html body.vt-email-result-page .email-passport-card code,
+body.vt-email-result-page .email-passport-card code {
+  color: var(--accent-main, #68ded3) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 12px !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Fallback / Error Hero Card (when no scan_id or scan failed) */
+html body.vt-email-result-page .email-result-hero,
+body.vt-email-result-page .email-result-hero {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr) !important;
+  gap: 24px !important;
+  align-items: center !important;
+  padding: 24px 28px !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.07) !important;
+  margin: 0 0 24px !important;
+}
+
+html body.vt-email-result-page .email-result-kicker,
+body.vt-email-result-page .email-result-kicker {
+  color: #68ded3 !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  margin: 0 0 8px !important;
+}
+
+html body.vt-email-result-page .email-result-hero h2,
+body.vt-email-result-page .email-result-hero h2 {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+  font-size: clamp(20px, 2.2vw, 26px) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.03em !important;
+  color: #f2f5f6 !important;
+  margin: 0 0 10px !important;
+  line-height: 1.25 !important;
+}
+
+html body.vt-email-result-page .email-result-hero p,
+body.vt-email-result-page .email-result-hero p {
+  color: #c2c2c2 !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+  font-size: 13.5px !important;
+  line-height: 1.65 !important;
+  margin: 0 0 16px !important;
+}
+
+html body.vt-email-result-page .email-result-actions,
+body.vt-email-result-page .email-result-actions {
+  display: flex !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+html body.vt-email-result-page .email-result-decision,
+body.vt-email-result-page .email-result-decision {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+html body.vt-email-result-page .email-result-decision > div,
+body.vt-email-result-page .email-result-decision > div {
+  padding: 14px 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  background: rgba(32, 32, 36, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+html body.vt-email-result-page .email-result-decision span,
+body.vt-email-result-page .email-result-decision span {
+  display: block !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: 10px !important;
+  color: #ababab !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 4px !important;
+}
+
+html body.vt-email-result-page .email-result-decision strong,
+body.vt-email-result-page .email-result-decision strong {
+  display: block !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #f2f5f6 !important;
+  margin-bottom: 2px !important;
+}
+
+html body.vt-email-result-page .email-result-decision small,
+body.vt-email-result-page .email-result-decision small {
+  display: block !important;
+  font-size: 11px !important;
+  color: #c2c2c2 !important;
+  line-height: 1.4 !important;
+}
+
+/* Loading State for Results */
+html body.vt-email-result-page .email-result-loading,
+body.vt-email-result-page .email-result-loading {
+  min-height: 280px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(12px) !important;
+  text-align: center !important;
+  padding: 32px !important;
+}
+
+html body.vt-email-result-page .email-result-loading > span,
+body.vt-email-result-page .email-result-loading > span {
+  width: 32px !important;
+  height: 32px !important;
+  border: 2.5px solid rgba(255, 255, 255, 0.12) !important;
+  border-top-color: var(--accent-main, #68ded3) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  animation: vt-result-spin 0.75s linear infinite !important;
+}
+
+@keyframes vt-result-spin {
+  to { transform: rotate(360deg); }
+}
+
+html body.vt-email-result-page .email-result-loading strong,
+body.vt-email-result-page .email-result-loading strong {
+  color: #f2f5f6 !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+html body.vt-email-result-page .email-result-loading small,
+body.vt-email-result-page .email-result-loading small {
+  color: var(--text-secondary, #c2c2c2) !important;
+  font-size: 13px !important;
+}
+
+/* ==========================================================================
+   Footer — Aligned visual treatment to index.html
+   ========================================================================== */
+html body.vt-email-result-page .vt-site-footer,
+body.vt-email-result-page .vt-site-footer {
+  position: relative !important;
+  margin-top: auto !important;
+  width: 100% !important;
+  background: #11111185 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding: 20px clamp(16px, 3vw, 28px) 22px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+html body.vt-email-result-page .vt-site-footer-bottom,
+body.vt-email-result-page .vt-site-footer-bottom {
+  width: min(100%, 1240px) !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 20px !important;
+  border-top: 0 !important;
+  padding: 0 0 4px !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 0.75rem !important;
+  color: var(--text-tertiary, #ababab) !important;
+  line-height: 1.5 !important;
+}
+
+html body.vt-email-result-page .vt-site-footer-bottom span,
+body.vt-email-result-page .vt-site-footer-bottom span {
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 0.75rem !important;
+  color: var(--text-tertiary, #ababab) !important;
+  line-height: 1.5 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1050px) {
+  html body.vt-email-result-page .tool-header-links {
+    display: none !important;
+  }
+  html body.vt-email-result-page .tool-header-actions :where(.tool-header-login, .tool-header-dashboard) {
+    display: none !important;
+  }
+  html body.vt-email-result-page .tool-menu-toggle {
+    display: block !important;
+  }
+  html body.vt-email-result-page .tool-header-links.is-open {
+    display: flex !important;
+    position: absolute !important;
+    inset: 100% 0 auto !important;
+    flex-direction: column !important;
+    background: #282828 !important;
+    padding: 16px 24px !important;
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  html body.vt-email-result-page .email-result-page-heading {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  html body.vt-email-result-page .email-result-hero {
+    grid-template-columns: 1fr !important;
+  }
+  html body.vt-email-result-page .email-ladder-track {
+    grid-template-columns: 1fr !important;
+  }
+  html body.vt-email-result-page .email-evidence-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  html body.vt-email-result-page .email-passport-card {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  html body.vt-email-result-page .email-result-page-shell {
+    width: calc(100% - 32px) !important;
+    padding-top: calc(var(--header-height, 72px) + 20px) !important;
+  }
+  html body.vt-email-result-page .email-result-page-actions {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+  html body.vt-email-result-page .email-evidence-grid {
+    grid-template-columns: 1fr !important;
+  }
+  html body.vt-email-result-page .email-next-action-card,
+  html body.vt-email-result-page .email-evidence-upgrade {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  html body.vt-email-result-page .vt-site-footer-bottom {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+}

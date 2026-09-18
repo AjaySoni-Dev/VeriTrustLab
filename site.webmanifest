@@ -1,0 +1,17 @@
+{
+  "name": "VeriTrust Lab",
+  "short_name": "VeriTrust Lab",
+  "description": "AI-assisted email threat investigation, approximate mail-infrastructure geolocation, and evidence analysis.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060910",
+  "theme_color": "#080D16",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

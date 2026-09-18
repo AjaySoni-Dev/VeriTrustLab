@@ -1,0 +1,732 @@
+/* --------------------------------------------------------------------------
+   VeriTrust Lab — Live SMTP PowerShell Demo Harmonized Theme
+   Matches the landing page (index.html) visual system, atmospheric background,
+   fixed glass header, typography, spacing, and card aesthetics.
+   -------------------------------------------------------------------------- */
+
+html:has(.vt-guide-page) {
+  background-color: #111111 !important;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+html body.vt-guide-page {
+  --home-max-width: 1180px;
+  --accent-main: #68ded3;
+  --accent-hover: #a0f0e7;
+  --accent-soft: rgba(104, 222, 211, 0.08);
+  --accent-border: rgba(104, 222, 211, 0.28);
+  --text-primary: #f2f5f6;
+  --text-secondary: #c2c2c2;
+  --text-tertiary: #ababab;
+  --header-bg: rgba(17, 17, 17, 0.94);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --card-bg: linear-gradient(140deg, rgba(59, 59, 59, 0.44), rgba(44, 44, 44, 0.49));
+  --card-border: 1px solid rgba(204, 204, 204, 0.16);
+  --card-radius: 12px;
+
+  position: relative;
+  isolation: isolate;
+  background: #111111 !important;
+  color: var(--text-primary);
+  font-family: var(--font-sans, 'Inter', ui-sans-serif, system-ui, sans-serif);
+  font-size: 14.5px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* Atmospheric Spotlight Background (aligned visual treatment to index.html) */
+.vt-guide-page .vt-home-bg-effects {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.vt-guide-page .vt-bg-spotlight-hero {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1050px;
+  background: radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.045), transparent 52%),
+              radial-gradient(ellipse at 10% 12%, rgba(255, 255, 255, 0.045), transparent 50%);
+}
+
+.vt-guide-page .vt-bg-spotlight-mid {
+  position: absolute;
+  top: 30%;
+  left: -20%;
+  width: 90%;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.04), transparent 65%);
+}
+
+.vt-guide-page .vt-bg-spotlight-acq {
+  position: absolute;
+  top: 60%;
+  right: -25%;
+  width: 95%;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.035), transparent 65%);
+}
+
+.vt-guide-page .vt-bg-spotlight-bottom {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 650px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 255, 255, 0.05), transparent 65%);
+}
+
+.vt-guide-page .vt-bg-beam {
+  position: absolute;
+  top: 72px;
+  inset-inline: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+}
+
+/* Fixed Glass Header — Aligned visual treatment to Index Header */
+html body.vt-guide-page .vt-site-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+  height: 72px !important;
+  max-height: 72px !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(28, 28, 28, 0.94) !important;
+}
+
+html body.vt-guide-page .vt-site-header .tool-header-inner,
+html body.vt-guide-page .tool-header-shell .tool-header-inner {
+  width: min(100%, 1420px) !important;
+  max-width: 1420px !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(20px, 2.5vw, 36px) !important;
+  gap: clamp(18px, 3vw, 38px) !important;
+}
+
+html body.vt-guide-page .tool-header-links a.active {
+  color: var(--accent-main) !important;
+}
+
+/* Main Shell Sizing & Centered Vertical Spacing */
+html body.vt-guide-page .ps-guide-shell {
+  width: min(var(--home-max-width, 1180px), calc(100% - 64px)) !important;
+  max-width: var(--home-max-width, 1180px) !important;
+  margin: 0 auto !important;
+  padding-top: clamp(100px, 13vh, 120px) !important;
+  padding-bottom: 72px !important;
+}
+
+/* Hero Section Card */
+html body.vt-guide-page .ps-hero {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.18fr) minmax(330px, 0.82fr) !important;
+  gap: clamp(28px, 3.5vw, 44px) !important;
+  align-items: stretch !important;
+  min-height: 380px !important;
+  padding: clamp(30px, 3.8vw, 44px) !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background: var(--card-bg) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.ps-live-cli-logo {
+  max-width: 130px !important;
+  height: auto !important;
+  margin: 0 0 16px !important;
+  opacity: 0.95 !important;
+  display: block !important;
+}
+
+/* Status Eyebrow & Glowing Dot */
+html body.vt-guide-page .ps-kicker {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  padding: 5px 12px !important;
+  border: 1px solid var(--accent-border) !important;
+  border-radius: 5px !important;
+  background: var(--accent-soft) !important;
+  color: var(--accent-main) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 16px !important;
+}
+
+html body.vt-guide-page .ps-kicker span,
+html body.vt-guide-page .home-status-dot {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: #8deadd !important;
+  box-shadow: 0 0 10px rgba(104, 222, 211, 0.65) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hero Typography */
+html body.vt-guide-page .ps-hero h1 {
+  max-width: 680px !important;
+  margin: 0 0 14px !important;
+  font-size: clamp(28px, 3.2vw, 40px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.04em !important;
+  font-weight: 600 !important;
+  color: #f2f5f6 !important;
+  text-wrap: balance !important;
+}
+
+html body.vt-guide-page .ps-hero-copy > p:not(.ps-kicker) {
+  max-width: 620px !important;
+  margin: 0 0 22px !important;
+  color: var(--text-secondary) !important;
+  font-size: 14.5px !important;
+  line-height: 1.7 !important;
+}
+
+html body.vt-guide-page .ps-hero-copy code {
+  color: var(--accent-main) !important;
+  background: rgba(104, 222, 211, 0.08) !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(104, 222, 211, 0.22) !important;
+  font-size: 12.5px !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+}
+
+/* Action Buttons */
+html body.vt-guide-page .ps-hero-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  margin-top: 24px !important;
+}
+
+html body.vt-guide-page .btn {
+  min-height: 44px !important;
+  padding: 10px 20px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+html body.vt-guide-page .btn-primary {
+  background: #72e2d6 !important;
+  color: #102e2a !important;
+  border: 1px solid #72e2d6 !important;
+  box-shadow: 0 4px 20px rgba(114, 226, 214, 0.25) !important;
+}
+
+html body.vt-guide-page .btn-primary:hover {
+  background: #a0f0e7 !important;
+  border-color: #a0f0e7 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 26px rgba(114, 226, 214, 0.35) !important;
+}
+
+html body.vt-guide-page .btn-secondary {
+  color: #e0e8eb !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(38, 38, 38, 0.8) !important;
+}
+
+html body.vt-guide-page .btn-secondary:hover {
+  border-color: #9cdad3 !important;
+  transform: translateY(-2px) !important;
+  background: rgba(50, 50, 50, 0.9) !important;
+}
+
+/* Key Points */
+html body.vt-guide-page .ps-hero-points {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0 !important;
+  margin: 28px 0 0 !important;
+  padding: 18px 0 0 !important;
+  list-style: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html body.vt-guide-page .ps-hero-points li {
+  display: grid !important;
+  gap: 2px !important;
+  padding: 0 20px !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html body.vt-guide-page .ps-hero-points li:first-child {
+  padding-left: 0 !important;
+  border-left: 0 !important;
+}
+
+html body.vt-guide-page .ps-hero-points strong {
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+html body.vt-guide-page .ps-hero-points span {
+  color: var(--text-tertiary) !important;
+  font-size: 11px !important;
+}
+
+/* Terminal Card */
+html body.vt-guide-page .ps-terminal-card {
+  overflow: hidden !important;
+  transform: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 10px !important;
+  background: rgba(16, 18, 22, 0.88) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+html body.vt-guide-page .ps-terminal-top {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 12px 16px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(24, 27, 34, 0.92) !important;
+}
+
+html body.vt-guide-page .ps-terminal-top span {
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+}
+
+html body.vt-guide-page .ps-terminal-top span:nth-child(1) { background: #ef4444 !important; }
+html body.vt-guide-page .ps-terminal-top span:nth-child(2) { background: #eab308 !important; }
+html body.vt-guide-page .ps-terminal-top span:nth-child(3) { background: #22c55e !important; }
+
+html body.vt-guide-page .ps-terminal-top b {
+  margin-left: auto !important;
+  color: #94a3b8 !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+}
+
+html body.vt-guide-page .ps-terminal-body {
+  padding: 22px !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 12px !important;
+  line-height: 1.85 !important;
+  color: #dbe5f0 !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+html body.vt-guide-page .ps-terminal-body p {
+  margin: 0 0 8px !important;
+  color: #dbe5f0 !important;
+}
+
+html body.vt-guide-page .ps-terminal-body em {
+  display: inline-block !important;
+  width: 94px !important;
+  color: var(--accent-main) !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+}
+
+html body.vt-guide-page .ps-terminal-body .ps-terminal-muted {
+  margin: 14px 0 !important;
+  color: #64748b !important;
+  font-size: 11px !important;
+}
+
+html body.vt-guide-page .ps-terminal-body .ps-terminal-success {
+  margin-top: 18px !important;
+  color: #4ade80 !important;
+  font-weight: 600 !important;
+  padding-top: 12px !important;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Guide Navigation Tabs */
+html body.vt-guide-page .ps-guide-nav {
+  position: sticky !important;
+  top: 82px !important;
+  z-index: 20 !important;
+  display: flex !important;
+  gap: 6px !important;
+  margin: 28px 0 24px !important;
+  padding: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  background: rgba(28, 28, 28, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+html body.vt-guide-page .ps-guide-nav a {
+  flex: 1 0 92px !important;
+  min-height: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 14px !important;
+  border-radius: 6px !important;
+  color: var(--text-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  transition: all 0.16s ease !important;
+}
+
+html body.vt-guide-page .ps-guide-nav a:hover,
+html body.vt-guide-page .ps-guide-nav a.is-current {
+  color: var(--accent-main) !important;
+  background: rgba(104, 222, 211, 0.1) !important;
+}
+
+html body.vt-guide-page .ps-guide-nav a:focus-visible {
+  outline: 2px solid var(--accent-main) !important;
+  outline-offset: -2px !important;
+}
+
+/* Integration Flow Strip */
+html body.vt-guide-page .ps-flow {
+  display: grid !important;
+  grid-template-columns: repeat(7, auto) !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: clamp(10px, 2vw, 20px) !important;
+  margin: 0 0 32px !important;
+  padding: 18px 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(110deg, rgba(50, 50, 50, 0.42), rgba(38, 38, 38, 0.5)) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+html body.vt-guide-page .ps-flow span {
+  color: #f2f5f6 !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  padding: 6px 14px !important;
+  background: rgba(255, 255, 255, 0.045) !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+html body.vt-guide-page .ps-flow b {
+  color: var(--accent-main) !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+/* Guide Sections */
+html body.vt-guide-page .ps-guide-section {
+  scroll-margin-top: calc(var(--header-height, 72px) + 36px) !important;
+  margin-bottom: 28px !important;
+  padding: clamp(28px, 3.5vw, 36px) !important;
+  border: var(--card-border) !important;
+  border-radius: var(--card-radius) !important;
+  background: var(--card-bg) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+html body.vt-guide-page .ps-guide-section-head {
+  margin-bottom: 22px !important;
+}
+
+html body.vt-guide-page .ps-guide-section-head .eyebrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 0 8px !important;
+  color: var(--accent-main) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+html body.vt-guide-page .ps-guide-section-head h2 {
+  margin: 0 !important;
+  font-size: clamp(22px, 2.5vw, 28px) !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.03em !important;
+  font-weight: 600 !important;
+  color: #f2f5f6 !important;
+}
+
+/* Cards Grid */
+html body.vt-guide-page .ps-card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
+
+html body.vt-guide-page .ps-card-grid article {
+  padding: 22px 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  background: rgba(30, 30, 34, 0.65) !important;
+  transition: border-color 0.2s ease, transform 0.2s ease !important;
+}
+
+html body.vt-guide-page .ps-card-grid article:hover {
+  border-color: rgba(104, 222, 211, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+html body.vt-guide-page .ps-card-grid h3 {
+  margin: 0 0 8px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #f2f5f6 !important;
+}
+
+html body.vt-guide-page .ps-card-grid p {
+  margin: 0 !important;
+  color: var(--text-secondary) !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+}
+
+html body.vt-guide-page .ps-card-grid code {
+  color: var(--accent-main) !important;
+  background: rgba(104, 222, 211, 0.08) !important;
+  padding: 1px 5px !important;
+  border-radius: 3px !important;
+  border: 1px solid rgba(104, 222, 211, 0.18) !important;
+  font-size: 11.5px !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+}
+
+/* Callouts */
+html body.vt-guide-page .ps-callout {
+  display: grid !important;
+  grid-template-columns: 180px minmax(0, 1fr) !important;
+  gap: 20px !important;
+  margin: 20px 0 0 !important;
+  padding: 16px 20px !important;
+  border: 1px solid rgba(104, 222, 211, 0.22) !important;
+  border-radius: 8px !important;
+  color: var(--text-secondary) !important;
+  background: rgba(104, 222, 211, 0.06) !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+}
+
+html body.vt-guide-page .ps-callout strong {
+  color: var(--accent-main) !important;
+  font-weight: 600 !important;
+}
+
+html body.vt-guide-page .ps-callout code {
+  color: var(--accent-main) !important;
+  background: rgba(104, 222, 211, 0.12) !important;
+  padding: 1px 5px !important;
+  border-radius: 3px !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+}
+
+html body.vt-guide-page .ps-callout-warn {
+  border-color: rgba(245, 158, 11, 0.24) !important;
+  background: rgba(245, 158, 11, 0.07) !important;
+  color: #fde68a !important;
+}
+
+html body.vt-guide-page .ps-callout-warn strong {
+  color: #fbbf24 !important;
+}
+
+html body.vt-guide-page .ps-callout-success {
+  border-color: rgba(34, 197, 94, 0.24) !important;
+  background: rgba(34, 197, 94, 0.07) !important;
+  color: #bbf7d0 !important;
+}
+
+html body.vt-guide-page .ps-callout-success strong {
+  color: #4ade80 !important;
+}
+
+/* Code Cards */
+html body.vt-guide-page .ps-code-card {
+  overflow: hidden !important;
+  margin-top: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 8px !important;
+  background: rgba(14, 16, 20, 0.9) !important;
+}
+
+html body.vt-guide-page .ps-code-head {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 18px !important;
+  align-items: center !important;
+  padding: 12px 18px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(22, 25, 32, 0.95) !important;
+}
+
+html body.vt-guide-page .ps-code-head > div {
+  display: grid !important;
+  gap: 2px !important;
+}
+
+html body.vt-guide-page .ps-code-head span {
+  color: var(--accent-main) !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+html body.vt-guide-page .ps-code-head strong {
+  color: #f2f5f6 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+html body.vt-guide-page .ps-code-head button {
+  min-width: 92px !important;
+  min-height: 32px !important;
+  padding: 0 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 5px !important;
+  color: #e2e8f0 !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  cursor: pointer !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  transition: all 0.15s ease !important;
+}
+
+html body.vt-guide-page .ps-code-head button:hover {
+  border-color: var(--accent-main) !important;
+  color: var(--accent-main) !important;
+  background: rgba(104, 222, 211, 0.08) !important;
+}
+
+html body.vt-guide-page .ps-code-head button.is-copied {
+  border-color: rgba(34, 197, 94, 0.45) !important;
+  color: #86efac !important;
+}
+
+html body.vt-guide-page .ps-code-card pre {
+  max-height: 620px !important;
+  margin: 0 !important;
+  overflow: auto !important;
+  padding: 20px 22px !important;
+  color: #d5e4f5 !important;
+  background: transparent !important;
+  font-family: var(--mono, 'IBM Plex Mono', monospace) !important;
+  font-size: 12px !important;
+  line-height: 1.72 !important;
+  tab-size: 4 !important;
+  white-space: pre !important;
+}
+
+html body.vt-guide-page .ps-lead {
+  max-width: 780px !important;
+  margin: 18px 0 0 !important;
+  color: var(--text-secondary) !important;
+  font-size: 13.5px !important;
+  line-height: 1.7 !important;
+}
+
+/* Footer Harmonization */
+html body.vt-guide-page .vt-site-footer {
+  position: relative !important;
+  margin-top: 0 !important;
+  background: #11111185 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: var(--text-tertiary) !important;
+  padding: 24px 0 !important;
+}
+
+html body.vt-guide-page .vt-site-footer-bottom {
+  width: min(var(--home-max-width, 1180px), calc(100% - 64px)) !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 12px !important;
+  color: var(--text-tertiary) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 980px) {
+  html body.vt-guide-page .ps-hero {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  html body.vt-guide-page .ps-terminal-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  html body.vt-guide-page .ps-flow {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+  html body.vt-guide-page .ps-flow > b {
+    display: none !important;
+  }
+  html body.vt-guide-page .ps-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+  html body.vt-guide-page .ps-callout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 6px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  html body.vt-guide-page .ps-guide-shell {
+    width: calc(100% - 32px) !important;
+    padding-top: calc(var(--header-height, 72px) + 20px) !important;
+  }
+  html body.vt-guide-page .ps-hero {
+    padding: 24px 18px !important;
+  }
+  html body.vt-guide-page .ps-hero h1 {
+    font-size: 26px !important;
+  }
+  html body.vt-guide-page .ps-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    padding: 14px !important;
+  }
+  html body.vt-guide-page .ps-guide-section {
+    padding: 22px 18px !important;
+  }
+}
